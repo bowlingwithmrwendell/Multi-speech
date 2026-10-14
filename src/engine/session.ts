@@ -41,10 +41,10 @@ export class ConversationSession {
   private abort: AbortController | null = null;
   private discardListen = false;
 
-  constructor(profile: ChildProfile, module: ContentModule, deps: SessionDeps) {
+  constructor(profile: ChildProfile, module: ContentModule, deps: SessionDeps, itemIds?: string[]) {
     this.profile = profile;
     this.deps = deps;
-    this.dialog = new DialogStateManager(module, profile.adaptive_tier);
+    this.dialog = new DialogStateManager(module, profile.adaptive_tier, itemIds);
   }
 
   get locale(): string {

@@ -29,11 +29,30 @@ export class DialogStateManager {
   readonly visited: string[] = [];
   readonly phrases: Phrases;
 
-  constructor(module: ContentModule, tier: AdaptiveTier) {
+  /** When a round uses a picked subset of items, this maps each item to the next one. */
+  private nextMap: Map<string, string | null> | null = null;
+  readonly itemIds: string[];
+
+  /**
+   * @param itemIds optional list of item (open-ended) node ids to play, in order. Without it the
+   *   module's own next_node chain is followed.
+   */
+  constructor(module: ContentModule, tier: AdaptiveTier, itemIds?: string[]) {
     this.module = module;
     this.tier = tier;
     this.phrases = phrasesFor(module.language);
-    this.currentId = this.entryNode(module.prompt_tree.root_id);
+    const ids = (itemIds ?? []).filter((id) => module.prompt_tree.nodes[id]);
+    if (ids.length) {
+      this.nextMap = new Map(ids.map((id, i) => [id, ids[i + 1] ?? null]));
+      this.itemIds = ids;
+    } else this.itemIds = listItems(module);
+    this.currentId = this.entryNode(ids.length ? ids[0] : module.prompt_tree.root_id);
+  }
+
+  private nextOf(id: string | null, node: PromptNode): string | null {
+    if (this.nextMap && id && this.nextMap.has(id)) return this.nextMap.get(id) ?? null;
+    if (this.nextMap) return null; // scaffolds have no next of their own; resume handles them
+    return node.next_node ?? null;
   }
 
   get node(): PromptNode | null {
@@ -54,14 +73,14 @@ export class DialogStateManager {
     const n = this.module.prompt_tree.nodes[id];
     if (!n) return null;
     if (tierNumber(this.tier) <= 1 && n.prompt_type === 'open_ended_conversational' && n.fallback_node) {
-      this.resumeAfterScaffold = n.next_node ?? null;
+      this.resumeAfterScaffold = this.nextOf(id, n);
       return n.fallback_node;
     }
     return id;
   }
 
   private advanceFrom(node: PromptNode): string | null {
-    const next = node.next_node ?? this.resumeAfterScaffold;
+    const next = this.nextOf(this.currentId, node) ?? this.resumeAfterScaffold;
     this.resumeAfterScaffold = null;
     this.retries = 0;
     return this.entryNode(next);
@@ -89,7 +108,7 @@ export class DialogStateManager {
 
     // Open-ended miss → drop to scaffold node.
     if (node.fallback_node && this.module.prompt_tree.nodes[node.fallback_node]) {
-      this.resumeAfterScaffold = node.next_node ?? this.resumeAfterScaffold;
+      this.resumeAfterScaffold = this.nextOf(this.currentId, node) ?? this.resumeAfterScaffold;
       this.currentId = node.fallback_node;
       this.retries = 0;
       return {
@@ -124,4 +143,20 @@ export class DialogStateManager {
       nodeId: this.currentId,
     };
   }
+}
+
+/** The playable items of a module: open-ended nodes (scaffolds are reached through them). */
+export function listItems(module: ContentModule): string[] {
+  const nodes = module.prompt_tree.nodes;
+  const scaffolds = new Set(Object.values(nodes).map((n) => n.fallback_node).filter(Boolean) as string[]);
+  const order: string[] = [];
+  const seen = new Set<string>();
+  let id: string | undefined = module.prompt_tree.root_id;
+  while (id && nodes[id] && !seen.has(id)) {
+    seen.add(id);
+    if (!scaffolds.has(id)) order.push(id);
+    id = nodes[id].next_node;
+  }
+  for (const k of Object.keys(nodes)) if (!seen.has(k) && !scaffolds.has(k)) order.push(k);
+  return order;
 }
