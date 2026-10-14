@@ -6,6 +6,7 @@ import { fill, phrasesFor } from '../engine/phrases';
 import { contentLanguageFor } from '../speech/languages';
 import { h, fmtTier } from './dom';
 import { renderScene } from './scene';
+import { pickRound } from '../engine/rounds';
 import type { App } from './app';
 
 type Mode = 'voice' | 'tap';
@@ -46,8 +47,8 @@ export class PlayScreen {
       cdi: app.cdi,
       onProfile: (p) => app.saveProfile(p),
       onAttempt: (r) => app.logAttempt(r),
-    });
-    this.totalStars = Object.values(module.prompt_tree.nodes).filter((n) => n.prompt_type === 'open_ended_conversational').length;
+    }, pickRound(module, app.loadAttempts(profile.profile_id)));
+    this.totalStars = this.session.dialog.itemIds.length;
     this.render();
   }
 
@@ -226,7 +227,16 @@ export class PlayScreen {
   }
 
   private showChoices(node: PromptNode): void {
-    const opts = node.prompt_type === 'forced_choice_scaffold' ? node.expected_semantic_intents : node.expected_semantic_intents.slice(0, 4);
+    // Show the right answer(s) mixed with recognised wrong ones, in a random order.
+    const right = node.correct_intents ?? node.expected_semantic_intents;
+    const wrong = node.expected_semantic_intents.filter((x) => !right.includes(x));
+    const opts = node.prompt_type === 'forced_choice_scaffold'
+      ? [...node.expected_semantic_intents]
+      : [...right.slice(0, wrong.length ? 1 : 4), ...wrong.slice(0, 3)].slice(0, 4);
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
     this.choices.replaceChildren(...opts.map((o) => h('button', { class: 'choice', onclick: () => this.submitTyped(o) }, o)));
   }
 

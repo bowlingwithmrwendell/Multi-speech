@@ -185,13 +185,14 @@ export class App {
       img.src = m.cover_image;
     }
     const prompts = Object.values(m.prompt_tree.nodes).filter((n) => n.prompt_type === 'open_ended_conversational').length;
+    const perRound = Math.min(prompts, 5);
     return h(
       'div',
       { class: 'card tap domain-card', role: 'button', tabindex: 0, onclick: () => this.go({ name: 'play', profileId: p.profile_id, moduleId: m.module_id }) },
       cover,
       h('h3', {}, m.title),
       h('div', { class: 'meta' }, info.label),
-      h('div', { style: 'margin-top:8px' }, h('span', { class: 'badge mint' }, `Ages ${m.target_age_group}`), ' ', h('span', { class: 'badge sun' }, `${prompts} chats`)),
+      h('div', { style: 'margin-top:8px' }, h('span', { class: 'badge mint' }, `Ages ${m.target_age_group}`), ' ', h('span', { class: 'badge sun' }, `${prompts} pictures · ${perRound} per game`)),
     );
   }
 
