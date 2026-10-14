@@ -58,6 +58,28 @@ export interface PromptNode {
   praise_template?: string;
   /** MVP extension: synonyms per intent, e.g. { drinking: ["drink", "sip"] }. */
   intent_synonyms?: Record<string, string[]>;
+  /**
+   * Which of `expected_semantic_intents` are right answers. Any other expected intent is a
+   * recognised wrong answer (e.g. "fish" in "Is it a zebra, or a fish?"). Omit = all are right.
+   */
+  correct_intents?: string[];
+  /** Habitat / setting drawn behind the picture (see src/ui/scene.ts). */
+  scene?: string;
+  /** How the picture moves in the scene (see src/ui/scene.ts). */
+  motion?: string;
+  /** Extra pictures the prompt talks about, e.g. the little car next to the bus. */
+  companions?: Companion[];
+}
+
+export interface Companion {
+  emoji: string;
+  image?: string;
+  alt?: string;
+  motion?: string;
+  scale?: number; // size relative to the main picture
+  delay?: number; // seconds ahead in the motion loop
+  x?: number; // fixed position (% from left) for non-travelling motions
+  y?: number; // raise/lower (% of scene height)
 }
 
 export type Domain = 'Animals' | 'Tools' | 'Everyday' | 'Vehicles';
