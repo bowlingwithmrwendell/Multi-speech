@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_granja_es_001",
+  "title": "Animales de la Granja",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "es",
+  "cover_image": "images/animals/farm_cover.png",
+  "cover_emoji": "🐄",
+  "lexical_targets": [
+    {
+      "lemma": "vaca",
+      "ipa": "/ˈba.ka/",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "perro",
+      "ipa": "/ˈpe.ro/",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "node_001",
+    "nodes": {
+      "node_001": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "¡Mira esta vaca! ¿Qué sonido hace la vaca?",
+        "expected_semantic_intents": [
+          "mu",
+          "muu",
+          "vaca"
+        ],
+        "fallback_node": "node_001_scaffold",
+        "image": "images/animals/cow.png",
+        "emoji": "🐄",
+        "praise_template": "¡Sí! ¡Muuu! ¡Muy bien!",
+        "next_node": "node_002"
+      },
+      "node_001_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿La vaca dice mu, o dice guau?",
+        "expected_semantic_intents": [
+          "mu",
+          "guau"
+        ],
+        "image": "images/animals/cow.png",
+        "emoji": "🐄",
+        "praise_template": "¡Dijiste {intent}! ¡Muy bien!",
+        "intent_synonyms": {
+          "mu": [
+            "muu",
+            "muuu"
+          ]
+        }
+      },
+      "node_002": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Este es un perro. ¿Qué está haciendo el perro?",
+        "expected_semantic_intents": [
+          "corriendo",
+          "jugando",
+          "comiendo",
+          "ladrando",
+          "durmiendo"
+        ],
+        "fallback_node": "node_002_scaffold",
+        "image": "images/animals/dog.png",
+        "emoji": "🐶",
+        "praise_template": "¡Sí! ¡{intent}! ¡Excelente!",
+        "intent_synonyms": {
+          "corriendo": [
+            "corre"
+          ],
+          "jugando": [
+            "juega"
+          ],
+          "comiendo": [
+            "come"
+          ],
+          "ladrando": [
+            "ladra",
+            "guau"
+          ],
+          "durmiendo": [
+            "duerme"
+          ]
+        }
+      },
+      "node_002_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿El perro está corriendo, o está volando?",
+        "expected_semantic_intents": [
+          "corriendo",
+          "volando"
+        ],
+        "image": "images/animals/dog.png",
+        "emoji": "🐶",
+        "praise_template": "¡Dijiste {intent}! ¡Muy bien!",
+        "intent_synonyms": {
+          "corriendo": [
+            "corre"
+          ],
+          "volando": [
+            "vuela"
+          ]
+        }
+      }
+    }
+  }
+}

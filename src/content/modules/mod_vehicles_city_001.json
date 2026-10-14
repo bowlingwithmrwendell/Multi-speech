@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_vehicles_city_001",
+  "title": "City Vehicles",
+  "domain": "Vehicles",
+  "target_age_group": "3-6",
+  "language": "en",
+  "cover_image": "images/vehicles/cover.png",
+  "cover_emoji": "🚒",
+  "lexical_targets": [
+    {
+      "lemma": "truck",
+      "ipa": "/trʌk/",
+      "difficulty_tier": 1,
+      "cdi_category": "Vehicles",
+      "synonyms": [
+        "firetruck"
+      ]
+    },
+    {
+      "lemma": "airplane",
+      "ipa": "/ˈɛər.pleɪn/",
+      "difficulty_tier": 2,
+      "cdi_category": "Vehicles",
+      "synonyms": [
+        "plane"
+      ]
+    },
+    {
+      "lemma": "bus",
+      "ipa": "/bʌs/",
+      "difficulty_tier": 1,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "car",
+      "ipa": "/kɑːr/",
+      "difficulty_tier": 1,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "fast",
+      "ipa": "/fæst/",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "up",
+      "ipa": "/ʌp/",
+      "difficulty_tier": 1,
+      "cdi_category": "Locations"
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "node_001",
+    "nodes": {
+      "node_001": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Wee-oo wee-oo! Here comes a big red truck. What kind of truck is it?",
+        "expected_semantic_intents": [
+          "fire truck",
+          "fire engine",
+          "firetruck",
+          "fire"
+        ],
+        "fallback_node": "node_001_scaffold",
+        "image": "images/vehicles/fire_truck.png",
+        "emoji": "🚒",
+        "praise_template": "Yes! A fire truck! Wee-oo!",
+        "next_node": "node_002"
+      },
+      "node_001_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a fire truck, or an ice cream truck?",
+        "expected_semantic_intents": [
+          "fire truck",
+          "ice cream"
+        ],
+        "image": "images/vehicles/fire_truck.png",
+        "emoji": "🚒",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "fire truck": [
+            "fire",
+            "firetruck"
+          ]
+        }
+      },
+      "node_002": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look up in the sky! Where is the airplane going?",
+        "expected_semantic_intents": [
+          "up",
+          "sky",
+          "fly",
+          "high",
+          "clouds",
+          "away"
+        ],
+        "fallback_node": "node_002_scaffold",
+        "image": "images/vehicles/airplane.png",
+        "emoji": "✈️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "fly": [
+            "flying",
+            "flies"
+          ],
+          "clouds": [
+            "cloud"
+          ]
+        },
+        "next_node": "node_003"
+      },
+      "node_002_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the airplane going up, or down?",
+        "expected_semantic_intents": [
+          "up",
+          "down"
+        ],
+        "image": "images/vehicles/airplane.png",
+        "emoji": "✈️",
+        "praise_template": "You said {intent}! Nice!"
+      },
+      "node_003": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Here is a bus and a little car. Which one is bigger?",
+        "expected_semantic_intents": [
+          "bus",
+          "the bus"
+        ],
+        "fallback_node": "node_003_scaffold",
+        "image": "images/vehicles/bus_car.png",
+        "emoji": "🚌",
+        "praise_template": "Right! The bus is bigger!",
+        "next_node": "node_004"
+      },
+      "node_003_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the bus bigger, or is the car bigger?",
+        "expected_semantic_intents": [
+          "bus",
+          "car"
+        ],
+        "image": "images/vehicles/bus_car.png",
+        "emoji": "🚌",
+        "praise_template": "You said {intent}! Nice!"
+      },
+      "node_004": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Vroom! The race car is so... is it fast or slow?",
+        "expected_semantic_intents": [
+          "fast",
+          "quick",
+          "speedy",
+          "zoom"
+        ],
+        "fallback_node": "node_004_scaffold",
+        "image": "images/vehicles/race_car.png",
+        "emoji": "🏎️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "fast": [
+            "faster",
+            "super fast"
+          ],
+          "zoom": [
+            "vroom"
+          ]
+        }
+      },
+      "node_004_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the race car fast, or slow?",
+        "expected_semantic_intents": [
+          "fast",
+          "slow"
+        ],
+        "image": "images/vehicles/race_car.png",
+        "emoji": "🏎️",
+        "praise_template": "You said {intent}! Nice!"
+      }
+    }
+  }
+}

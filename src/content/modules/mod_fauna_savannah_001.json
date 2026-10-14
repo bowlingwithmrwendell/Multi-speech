@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_savannah_001",
+  "title": "Savannah Animals",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/animals/savannah_cover.png",
+  "cover_emoji": "🦁",
+  "lexical_targets": [
+    {
+      "lemma": "elephant",
+      "ipa": "/ˈɛl.ɪ.fən.t/",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "lion",
+      "ipa": "/ˈlaɪ.ən/",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "roar",
+      "ipa": "/rɔːr/",
+      "difficulty_tier": 2,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "giraffe",
+      "ipa": "/dʒɪˈræf/",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "leaves",
+      "ipa": "/liːvz/",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "leaf"
+      ]
+    },
+    {
+      "lemma": "zebra",
+      "ipa": "/ˈziː.brə/",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "drinking",
+      "ipa": "/ˈdrɪŋk.ɪŋ/",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "drink"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "node_001",
+    "nodes": {
+      "node_001": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look at the big grey animal with the long trunk! What do you think it is doing?",
+        "expected_semantic_intents": [
+          "eating",
+          "walking",
+          "drinking",
+          "playing",
+          "spraying"
+        ],
+        "fallback_node": "node_001_scaffold",
+        "image": "images/animals/elephant.png",
+        "emoji": "🐘",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "drinking": [
+            "drink",
+            "water",
+            "sip"
+          ],
+          "spraying": [
+            "spray",
+            "splash",
+            "squirt"
+          ],
+          "eating": [
+            "eat",
+            "food",
+            "munch"
+          ],
+          "walking": [
+            "walk",
+            "stomp"
+          ],
+          "playing": [
+            "play"
+          ]
+        },
+        "next_node": "node_002"
+      },
+      "node_001_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the elephant drinking water, or is it sleeping?",
+        "expected_semantic_intents": [
+          "drinking",
+          "sleeping"
+        ],
+        "image": "images/animals/elephant.png",
+        "emoji": "🐘",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "drinking": [
+            "drink",
+            "water"
+          ],
+          "sleeping": [
+            "sleep",
+            "nap"
+          ]
+        }
+      },
+      "node_002": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has a big fluffy mane. What sound does it make?",
+        "expected_semantic_intents": [
+          "roar",
+          "lion"
+        ],
+        "fallback_node": "node_002_scaffold",
+        "image": "images/animals/lion.png",
+        "emoji": "🦁",
+        "praise_template": "Roar! You got it! The lion roars!",
+        "intent_synonyms": {
+          "roar": [
+            "rawr",
+            "grr",
+            "growl",
+            "roaring"
+          ]
+        },
+        "next_node": "node_003"
+      },
+      "node_002_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the lion roar, or does it moo?",
+        "expected_semantic_intents": [
+          "roar",
+          "moo"
+        ],
+        "image": "images/animals/lion.png",
+        "emoji": "🦁",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "roar": [
+            "rawr",
+            "roars"
+          ],
+          "moo": [
+            "moos"
+          ]
+        }
+      },
+      "node_003": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Wow, look how tall she is! What is the giraffe eating?",
+        "expected_semantic_intents": [
+          "leaves",
+          "tree",
+          "food",
+          "grass"
+        ],
+        "fallback_node": "node_003_scaffold",
+        "image": "images/animals/giraffe.png",
+        "emoji": "🦒",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "leaves": [
+            "leaf",
+            "leafs"
+          ],
+          "tree": [
+            "trees",
+            "branch"
+          ]
+        },
+        "next_node": "node_004"
+      },
+      "node_003_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the giraffe eating leaves, or ice cream?",
+        "expected_semantic_intents": [
+          "leaves",
+          "ice cream"
+        ],
+        "image": "images/animals/giraffe.png",
+        "emoji": "🦒",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "leaves": [
+            "leaf"
+          ]
+        }
+      },
+      "node_004": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has black and white stripes. What is it?",
+        "expected_semantic_intents": [
+          "zebra",
+          "horse",
+          "stripes"
+        ],
+        "fallback_node": "node_004_scaffold",
+        "image": "images/animals/zebra.png",
+        "emoji": "🦓",
+        "praise_template": "Yes! A zebra with stripes!"
+      },
+      "node_004_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a zebra, or a fish?",
+        "expected_semantic_intents": [
+          "zebra",
+          "fish"
+        ],
+        "image": "images/animals/zebra.png",
+        "emoji": "🦓",
+        "praise_template": "You said {intent}! Nice!"
+      }
+    }
+  }
+}

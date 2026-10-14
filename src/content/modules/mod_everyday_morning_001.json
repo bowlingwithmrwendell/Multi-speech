@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_everyday_morning_001",
+  "title": "Morning Routine",
+  "domain": "Everyday",
+  "target_age_group": "2-5",
+  "language": "en",
+  "cover_image": "images/everyday/cover.png",
+  "cover_emoji": "🌅",
+  "lexical_targets": [
+    {
+      "lemma": "cereal",
+      "ipa": "/ˈsɪə.ri.əl/",
+      "difficulty_tier": 3,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "teeth",
+      "ipa": "/tiːθ/",
+      "difficulty_tier": 2,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "tooth"
+      ]
+    },
+    {
+      "lemma": "shoes",
+      "ipa": "/ʃuːz/",
+      "difficulty_tier": 1,
+      "cdi_category": "Clothing",
+      "synonyms": [
+        "shoe"
+      ]
+    },
+    {
+      "lemma": "socks",
+      "ipa": "/sɑːks/",
+      "difficulty_tier": 1,
+      "cdi_category": "Clothing",
+      "synonyms": [
+        "sock"
+      ]
+    },
+    {
+      "lemma": "happy",
+      "ipa": "/ˈhæp.i/",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "node_001",
+    "nodes": {
+      "node_001": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Good morning! What do you like to eat for breakfast?",
+        "expected_semantic_intents": [
+          "cereal",
+          "pancakes",
+          "eggs",
+          "toast",
+          "milk",
+          "banana",
+          "oatmeal",
+          "waffles",
+          "fruit"
+        ],
+        "fallback_node": "node_001_scaffold",
+        "image": "images/everyday/breakfast.png",
+        "emoji": "🥣",
+        "praise_template": "Yum! {intent}! That sounds delicious!",
+        "intent_synonyms": {
+          "pancakes": [
+            "pancake"
+          ],
+          "eggs": [
+            "egg"
+          ],
+          "waffles": [
+            "waffle"
+          ]
+        },
+        "next_node": "node_002"
+      },
+      "node_001_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do you want cereal, or pancakes?",
+        "expected_semantic_intents": [
+          "cereal",
+          "pancakes"
+        ],
+        "image": "images/everyday/breakfast.png",
+        "emoji": "🥣",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "pancakes": [
+            "pancake"
+          ]
+        }
+      },
+      "node_002": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "After breakfast we brush our... what do we brush?",
+        "expected_semantic_intents": [
+          "teeth",
+          "tooth"
+        ],
+        "fallback_node": "node_002_scaffold",
+        "image": "images/everyday/toothbrush.png",
+        "emoji": "🪥",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "teeth": [
+            "teef",
+            "teethes"
+          ]
+        },
+        "next_node": "node_003"
+      },
+      "node_002_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we brush our teeth, or our shoes?",
+        "expected_semantic_intents": [
+          "teeth",
+          "shoes"
+        ],
+        "image": "images/everyday/toothbrush.png",
+        "emoji": "🪥",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "teeth": [
+            "tooth"
+          ],
+          "shoes": [
+            "shoe"
+          ]
+        }
+      },
+      "node_003": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Time to get dressed! What do you put on your feet?",
+        "expected_semantic_intents": [
+          "shoes",
+          "socks",
+          "boots",
+          "sandals",
+          "slippers"
+        ],
+        "fallback_node": "node_003_scaffold",
+        "image": "images/everyday/clothes.png",
+        "emoji": "👕",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "shoes": [
+            "shoe"
+          ],
+          "socks": [
+            "sock"
+          ],
+          "boots": [
+            "boot"
+          ]
+        },
+        "next_node": "node_004"
+      },
+      "node_003_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do socks go on your feet, or on your head?",
+        "expected_semantic_intents": [
+          "feet",
+          "head"
+        ],
+        "image": "images/everyday/clothes.png",
+        "emoji": "👕",
+        "praise_template": "You said {intent}! Nice!",
+        "intent_synonyms": {
+          "feet": [
+            "foot",
+            "socks"
+          ]
+        }
+      },
+      "node_004": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look at this face! How is this child feeling?",
+        "expected_semantic_intents": [
+          "happy",
+          "glad",
+          "smiling",
+          "excited"
+        ],
+        "fallback_node": "node_004_scaffold",
+        "image": "images/everyday/happy_face.png",
+        "emoji": "😊",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "intent_synonyms": {
+          "happy": [
+            "good",
+            "great"
+          ],
+          "smiling": [
+            "smile"
+          ]
+        }
+      },
+      "node_004_scaffold": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the child happy, or sad?",
+        "expected_semantic_intents": [
+          "happy",
+          "sad"
+        ],
+        "image": "images/everyday/happy_face.png",
+        "emoji": "😊",
+        "praise_template": "You said {intent}! Nice!"
+      }
+    }
+  }
+}
