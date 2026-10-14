@@ -4,7 +4,8 @@ import { ConversationSession, type TurnOutcome } from '../engine/session';
 import { E2E_LATENCY_TARGET_MS } from '../engine/vad';
 import { fill, phrasesFor } from '../engine/phrases';
 import { contentLanguageFor } from '../speech/languages';
-import { h, art, fmtTier } from './dom';
+import { h, fmtTier } from './dom';
+import { renderScene } from './scene';
 import type { App } from './app';
 
 type Mode = 'voice' | 'tap';
@@ -180,7 +181,7 @@ export class PlayScreen {
     else if (o.dialog.outcome === 'success') this.stars += 0.5;
     this.renderStars();
     this.renderStats();
-    this.setStatus(o.dialog.outcome === 'success' ? '⭐ Great job!' : '💛 Nice try!');
+    this.setStatus(o.dialog.outcome === 'success' ? '⭐ Great job!' : o.dialog.wrongIntent ? '👀 Look again!' : '💛 Nice try!');
     for (const line of o.dialog.speech) await this.session.say(line);
   }
 
@@ -213,9 +214,12 @@ export class PlayScreen {
     await this.session.prompt();
   }
 
+  private shownNode: PromptNode | null = null;
   private showNode(node: PromptNode | null): void {
     if (!node) return;
-    this.artBox.replaceChildren(art(node.image, node.emoji, node.expected_semantic_intents[0] ?? 'picture'));
+    // Keep the same scene running on a retry; rebuild only for a new picture.
+    if (node !== this.shownNode) this.artBox.replaceChildren(renderScene(node, (node.correct_intents ?? node.expected_semantic_intents)[0] ?? 'picture'));
+    this.shownNode = node;
     const who = this.promptBubble.querySelector('.who');
     this.promptBubble.replaceChildren(...(who ? [who] : []), node.tts_template);
     this.choices.replaceChildren();
