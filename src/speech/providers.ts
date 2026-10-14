@@ -1,3 +1,4 @@
+import { END_OF_TURN_PAUSE_MS } from '../engine/vad';
 // Speech & Language Services (spec §1.1, §4). Provider interfaces let the MVP's
 // browser speech be swapped for production services (Conformer/XLSR ASR, neural TTS)
 // without touching the engines or UI.
@@ -48,7 +49,7 @@ export class BrowserASR implements ASRProvider {
       const rec = new Ctor();
       rec.lang = locale;
       rec.interimResults = true;
-      rec.continuous = false;
+      rec.continuous = true; // don't stop at the first short pause — we decide when the turn ends
       rec.maxAlternatives = 3;
       const t0 = performance.now();
       let speechStart: number | null = null;
@@ -63,6 +64,7 @@ export class BrowserASR implements ASRProvider {
         settled = true;
         clearTimeout(noSpeechTimer);
         clearTimeout(maxTimer);
+        clearTimeout(pauseTimer);
         try {
           rec.abort();
         } catch {
@@ -81,6 +83,12 @@ export class BrowserASR implements ASRProvider {
         if (speechStart == null && !interim) finish();
       }, noSpeechTimeoutMs);
       const maxTimer = setTimeout(finish, maxUtteranceMs);
+      // After the child starts talking, end the turn only after a real pause.
+      let pauseTimer: ReturnType<typeof setTimeout> | undefined;
+      const armPause = () => {
+        clearTimeout(pauseTimer);
+        pauseTimer = setTimeout(finish, END_OF_TURN_PAUSE_MS);
+      };
       signal?.addEventListener('abort', finish);
 
       rec.onspeechstart = () => {
@@ -99,9 +107,26 @@ export class BrowserASR implements ASRProvider {
             confidence = typeof r[0].confidence === 'number' ? r[0].confidence : null;
           } else interim += r[0].transcript;
         }
+        armPause();
       };
-      rec.onerror = () => finish();
-      rec.onend = () => finish();
+      rec.onerror = (e: any) => {
+        // "no-speech"/"aborted" are normal on phones; onend decides. Anything else ends the turn.
+        if (e?.error && e.error !== 'no-speech' && e.error !== 'aborted') finish();
+      };
+      rec.onend = () => {
+        if (settled) return;
+        // Android Chrome can stop listening early. If the child hasn't spoken yet and their
+        // wait time isn't over, start listening again instead of giving up.
+        if (speechStart == null && !interim && !finalText && performance.now() - t0 < noSpeechTimeoutMs - 250) {
+          try {
+            rec.start();
+            return;
+          } catch {
+            /* fall through */
+          }
+        }
+        finish();
+      };
       try {
         rec.start();
       } catch {
