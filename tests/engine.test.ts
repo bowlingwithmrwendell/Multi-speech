@@ -3,7 +3,9 @@ import { attemptScore, ewma, EWMA_ALPHA, tierForScore } from '../src/engine/adap
 import { countFalseStarts, countRepetitions, evaluateFluency, tokenize } from '../src/engine/fluency';
 import { vadWaitTimeMs, VAD_MAX_MS, VAD_MIN_MS } from '../src/engine/vad';
 import { findLexicalHits, fuzzyEquals, matchIntent, stem } from '../src/engine/intent';
-import { DialogStateManager } from '../src/engine/dialog';
+import { DialogStateManager, listItems } from '../src/engine/dialog';
+import { pickRound, itemStats } from '../src/engine/rounds';
+import { SCENE_NAMES, MOTIONS } from '../src/ui/scene';
 import { ContentRegistry, validateModule } from '../src/content/registry';
 import { analyzeFrames } from '../src/audio/meter';
 import { applyAttempt, createProfile } from '../src/profile/profiles';
@@ -96,29 +98,29 @@ describe('intent matching', () => {
 describe('dialog state manager', () => {
   it('advances on success, falls back to scaffold on miss, resumes after scaffold', () => {
     const d = new DialogStateManager(mod, 'Level_3');
-    expect(d.currentId).toBe('node_001');
+    expect(d.currentId).toBe('elephant');
     const miss = d.respond('banana');
     expect(miss.outcome).toBe('fallback');
-    expect(d.currentId).toBe('node_001_scaffold');
+    expect(d.currentId).toBe('elephant_choice');
     const ok = d.respond('drinking');
     expect(ok.outcome).toBe('success');
-    expect(d.currentId).toBe('node_002');
+    expect(d.currentId).toBe('lion');
     expect(d.respond('roar').outcome).toBe('success');
-    expect(d.currentId).toBe('node_003');
+    expect(d.currentId).toBe('giraffe');
   });
   it('Level_1 starts on scaffolds', () => {
     const d = new DialogStateManager(mod, 'Level_1');
-    expect(d.currentId).toBe('node_001_scaffold');
+    expect(d.currentId).toBe('elephant_choice');
     d.respond('drinking');
-    expect(d.currentId).toBe('node_002_scaffold');
+    expect(d.currentId).toBe('lion_choice');
   });
   it('does not praise the wrong choice (zebra vs fish)', () => {
     const d = new DialogStateManager(mod, 'Level_3');
     for (const a of ['drinking', 'roar', 'leaves']) d.respond(a);
-    expect(d.currentId).toBe('node_004');
+    expect(d.currentId).toBe('zebra');
     const cow = d.respond('a cow');
     expect(cow.outcome).toBe('fallback');
-    expect(d.currentId).toBe('node_004_scaffold');
+    expect(d.currentId).toBe('zebra_choice');
     const fish = d.respond('fish');
     expect(fish.outcome).toBe('retry');
     expect(fish.matchedIntent).toBeNull();
@@ -127,7 +129,7 @@ describe('dialog state manager', () => {
     const again = d.respond('fish');
     expect(again.outcome).toBe('modeled');
     expect(again.speech[0]).toContain('zebra');
-    expect(d.phase).toBe('done');
+    expect(d.currentId).toBe('hippo');
   });
   it('treats "horse" as a close guess for the zebra, not a right answer', () => {
     const d = new DialogStateManager(mod, 'Level_3');
@@ -145,15 +147,15 @@ describe('dialog state manager', () => {
   it('retries once then models the answer on a scaffold miss', () => {
     const d = new DialogStateManager(mod, 'Level_1');
     expect(d.respond('').outcome).toBe('silence');
-    expect(d.currentId).toBe('node_001_scaffold');
+    expect(d.currentId).toBe('elephant_choice');
     const m = d.respond('pizza');
     expect(m.outcome).toBe('modeled');
     expect(m.speech[0]).toContain('drinking');
-    expect(d.currentId).toBe('node_002_scaffold');
+    expect(d.currentId).toBe('lion_choice');
   });
   it('finishes the module', () => {
     const d = new DialogStateManager(mod, 'Level_3');
-    for (const a of ['drinking', 'roar', 'leaves', 'zebra']) d.respond(a);
+    for (const a of ['drinking', 'roar', 'leaves', 'zebra', 'hippo', 'monkey', 'rhino', 'leopard', 'pink', 'crocodile']) d.respond(a);
     expect(d.phase).toBe('done');
   });
 });
@@ -165,7 +167,7 @@ describe('content registry', () => {
     for (const f of readdirSync(dir)) reg.register(JSON.parse(readFileSync(`${dir}/${f}`, 'utf8')));
     expect(reg.errors).toEqual([]);
     expect(reg.all().length).toBeGreaterThanOrEqual(5);
-    expect(new Set(reg.all().map((m) => m.domain))).toEqual(new Set(['Animals', 'Tools', 'Everyday', 'Vehicles']));
+    expect(new Set(reg.all().map((m) => m.domain))).toEqual(new Set(['Animals', 'Tools', 'Everyday', 'Vehicles', 'Food', 'Learning', 'Body', 'Nature']));
   });
   it('rejects broken modules', () => {
     const errs = validateModule({ module_id: 'x', domain: 'Space', prompt_tree: { root_id: 'a', nodes: { a: { tts_template: 'hi', expected_semantic_intents: ['x'], fallback_node: 'missing' } } } });
@@ -200,5 +202,88 @@ describe('profiles (spec 2.1)', () => {
     expect(q.adaptive_score).toBeCloseTo(0.15 + 0.85 * p.adaptive_score);
     expect(q.vocabulary_acquired.elephant.cdi_category).toBe('Animals');
     expect(q.baseline_mora_rate).toBe(3);
+  });
+});
+
+const allModules = (): ContentModule[] =>
+  readdirSync('src/content/modules').map((f) => JSON.parse(readFileSync(`src/content/modules/${f}`, 'utf8')) as ContentModule);
+
+describe('content packs', () => {
+  it('has bigger packs (8+ pictures each) and 100+ pictures in all', () => {
+    const counts = allModules().map((m) => listItems(m).length);
+    expect(Math.min(...counts)).toBeGreaterThanOrEqual(8);
+    expect(counts.reduce((a, b) => a + b, 0)).toBeGreaterThanOrEqual(100);
+  });
+  for (const m of allModules()) {
+    describe(m.title, () => {
+      const nodes = m.prompt_tree.nodes;
+      it('every picture has a known scene, motion and emoji', () => {
+        for (const [id, n] of Object.entries(nodes)) {
+          expect(SCENE_NAMES, `${id} scene`).toContain(n.scene);
+          expect(MOTIONS, `${id} motion`).toContain(n.motion);
+          expect(n.emoji, `${id} emoji`).toBeTruthy();
+        }
+      });
+      it('either/or questions accept only the right answer', () => {
+        for (const [id, n] of Object.entries(nodes)) {
+          if (n.prompt_type !== 'forced_choice_scaffold') continue;
+          expect(n.correct_intents, id).toHaveLength(1);
+          const [right] = n.correct_intents!;
+          const wrong = n.expected_semantic_intents.find((x) => x !== right)!;
+          expect(matchIntent(right, n.expected_semantic_intents, n.intent_synonyms), `${id} right`).toBe(right);
+          expect(matchIntent(wrong, n.expected_semantic_intents, n.intent_synonyms), `${id} wrong`).toBe(wrong);
+        }
+      });
+      it('open questions never mistake a wrong answer for a right one', () => {
+        for (const [id, n] of Object.entries(nodes)) {
+          if (n.prompt_type !== 'open_ended_conversational') continue;
+          const right = n.correct_intents ?? n.expected_semantic_intents;
+          for (const r of right) expect(right, `${id}: "${r}"`).toContain(matchIntent(r, n.expected_semantic_intents, n.intent_synonyms));
+          for (const w of n.expected_semantic_intents.filter((x) => !right.includes(x)))
+            expect(right, `${id}: wrong "${w}"`).not.toContain(matchIntent(w, n.expected_semantic_intents, n.intent_synonyms));
+        }
+      });
+    });
+  }
+});
+
+describe('rounds: random mix + repeat what was missed', () => {
+  const seeded = (seed: number) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const rec = (node_id: string, ok: boolean, t: string) =>
+    ({ module_id: mod.module_id, node_id, matched_intent: ok ? 'x' : null, timestamp: t }) as never;
+  it('plays 5 different pictures from the pack', () => {
+    const r = pickRound(mod, [], 5, seeded(7));
+    expect(r).toHaveLength(5);
+    expect(new Set(r).size).toBe(5);
+    for (const id of r) expect(listItems(mod)).toContain(id);
+  });
+  it('different games get different mixes', () => {
+    const rounds = new Set([1, 2, 3, 4, 5, 6].map((s) => pickRound(mod, [], 5, seeded(s)).join(',')));
+    expect(rounds.size).toBeGreaterThan(3);
+  });
+  it('brings back pictures the child missed', () => {
+    const history = [rec('zebra', false, '2026-10-14T10:00:00Z'), rec('zebra_choice', false, '2026-10-14T10:00:05Z'), rec('hippo_choice', false, '2026-10-14T10:01:00Z'), rec('lion', true, '2026-10-14T10:02:00Z')];
+    expect(itemStats(mod, history).find((s) => s.id === 'zebra')!.lastMissed).toBe(true);
+    for (const s of [1, 2, 3, 4, 5]) {
+      const r = pickRound(mod, history, 5, seeded(s));
+      expect(r).toContain('zebra');
+      expect(r).toContain('hippo');
+    }
+  });
+  it('a game plays exactly the picked pictures, then ends', () => {
+    const d = new DialogStateManager(mod, 'Level_3', ['zebra', 'lion']);
+    expect(d.currentId).toBe('zebra');
+    d.respond('fish'); // open miss -> choice
+    expect(d.currentId).toBe('zebra_choice');
+    d.respond('zebra');
+    expect(d.currentId).toBe('lion');
+    d.respond('roar');
+    expect(d.phase).toBe('done');
+  });
+  it('Level 1 children start each picked picture on its either/or question', () => {
+    const d = new DialogStateManager(mod, 'Level_1', ['giraffe', 'zebra']);
+    expect(d.currentId).toBe('giraffe_choice');
+    d.respond('leaves');
+    expect(d.currentId).toBe('zebra_choice');
   });
 });
