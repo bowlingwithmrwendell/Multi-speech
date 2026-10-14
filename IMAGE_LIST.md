@@ -3,7 +3,11 @@
 Create each image in ChatGPT, then save it as a PNG at the exact path below, inside the `public/` folder.
 Until a file exists, the app shows the matching emoji instead, so you can add the images one at a time.
 
-**Style for every image:** bright, friendly children's picture-book illustration; simple shapes; soft colors; plain or lightly textured background; no text or letters in the image; landscape 4:3 (e.g. 1536×1152).
+**Style for every image:** bright, friendly children's picture-book illustration; simple shapes; soft colors; no text or letters in the image.
+
+**Pictures that appear in a scene (everything except the covers):** the app now draws the habitat (savannah, farm, workshop, street…) and moves the picture around in it, so ask ChatGPT for **just the animal or object, full body, on a transparent background (PNG), facing left, square (1024×1024)**. Example prompt: "A friendly cartoon zebra, full body, facing left, children's picture-book style, transparent background, no text."
+
+**Cover images:** a complete little scene, landscape 4:3 (e.g. 1536×1152).
 
 The second column is what the app says while the picture is on screen, so the image should match it.
 
@@ -53,4 +57,5 @@ The second column is what the app says while the picture is on screen, so the im
 | `public/images/vehicles/fire_truck.png` | Wee-oo wee-oo! Here comes a big red truck. What kind of truck is it? |
 | `public/images/vehicles/airplane.png` | Look up in the sky! Where is the airplane going? |
 | `public/images/vehicles/bus_car.png` | Here is a bus and a little car. Which one is bigger? |
+| `public/images/vehicles/car.png` | The car shown with: Here is a bus and a little car. Which one is bigger? |
 | `public/images/vehicles/race_car.png` | Vroom! The race car is so... is it fast or slow? |
