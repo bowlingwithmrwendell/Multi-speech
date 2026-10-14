@@ -1,12 +1,15 @@
-// Spec §5 VAD Timeout (Pediatric Wait-Time): dynamic window between 1.2 s and 2.8 s
-// based on child age and fluency score.
+// Spec §5 VAD Timeout (Pediatric Wait-Time): dynamic window based on child age and fluency.
+// The spec's 1.2–2.8 s proved too short in real testing with children, so the window is
+// now 4–8 s (younger / less fluent children get the most time).
 
-export const VAD_MIN_MS = 1200;
-export const VAD_MAX_MS = 2800;
+export const VAD_MIN_MS = 4000;
+export const VAD_MAX_MS = 8000;
+/** Once the child has started talking, how long a pause we allow before the turn ends. */
+export const END_OF_TURN_PAUSE_MS = 2000;
 
 /**
  * Younger children and less fluent speakers get more time.
- * Age 3 or younger → full 2.8 s; age 8+ → 1.2 s baseline; low fluency adds up to 40% of the range.
+ * Age 3 or younger → full 8 s; age 8+ → 4 s baseline; low fluency adds up to 40% of the range.
  */
 export function vadWaitTimeMs(ageYears: number, fluencyScore: number): number {
   const range = VAD_MAX_MS - VAD_MIN_MS;

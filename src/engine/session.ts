@@ -87,7 +87,7 @@ export class ConversationSession {
     const res = await this.deps.asr.listen({
       locale: this.locale,
       noSpeechTimeoutMs: this.waitWindowMs,
-      maxUtteranceMs: 12000,
+      maxUtteranceMs: 15000,
       signal: this.abort.signal,
     });
     const report = meter?.stop() ?? null;

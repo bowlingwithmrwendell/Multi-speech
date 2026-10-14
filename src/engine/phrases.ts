@@ -7,6 +7,10 @@ export interface Phrases {
   missRetry: string;
   modeled: string; // {answer}
   modeledNoAnswer: string;
+  wrongChoice: string; // a recognised wrong answer, first time
+  wrongFallback: string; // a recognised wrong answer to an open question
+  modeledChoice: string; // {answer} — after a second wrong answer
+
   moduleDone: string;
   greeting: string; // {name}
 }
@@ -20,6 +24,9 @@ const PHRASES: Record<string, Phrases> = {
     missRetry: "Let's try one more time.",
     modeled: "That's okay! One answer is {answer}. Let's keep going!",
     modeledNoAnswer: "That's okay! Let's keep going!",
+    wrongChoice: "Hmm, not quite. Look again!",
+    wrongFallback: 'Good guess! Let me help.',
+    modeledChoice: "Good try! The answer is {answer}. Can you say {answer}?",
     moduleDone: 'You did it! Great talking with you today!',
     greeting: "Hi {name}! Let's play and talk together!",
   },
@@ -31,6 +38,9 @@ const PHRASES: Record<string, Phrases> = {
     missRetry: 'Intentemos una vez más.',
     modeled: '¡Está bien! Una respuesta es {answer}. ¡Sigamos!',
     modeledNoAnswer: '¡Está bien! ¡Sigamos!',
+    wrongChoice: 'Mmm, no exactamente. ¡Mira otra vez!',
+    wrongFallback: '¡Buena idea! Te ayudo.',
+    modeledChoice: '¡Buen intento! La respuesta es {answer}. ¿Puedes decir {answer}?',
     moduleDone: '¡Lo lograste! ¡Me encantó hablar contigo hoy!',
     greeting: '¡Hola {name}! ¡Vamos a jugar y hablar juntos!',
   },

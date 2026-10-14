@@ -10,7 +10,10 @@ export type DialogPhase = 'prompting' | 'done';
 
 export interface DialogTurnResult {
   outcome: 'success' | 'fallback' | 'retry' | 'modeled' | 'silence';
+  /** A correct answer the child gave (null when wrong or not understood). */
   matchedIntent: string | null;
+  /** A recognised but wrong answer, e.g. "fish" for the zebra. */
+  wrongIntent?: string | null;
   /** What the app should say next (feedback + next prompt). */
   speech: string[];
   nodeId: string | null; // next node to prompt, null when the module is finished
@@ -71,13 +74,16 @@ export class DialogStateManager {
       return { outcome: 'modeled', matchedIntent: null, speech: [], nodeId: null };
     }
     this.visited.push(this.currentId);
-    const matched = matchIntent(transcript, node.expected_semantic_intents, node.intent_synonyms);
+    const heard = matchIntent(transcript, node.expected_semantic_intents, node.intent_synonyms);
+    const correct = node.correct_intents ?? node.expected_semantic_intents;
+    const isRight = heard != null && correct.some((c) => c.toLowerCase() === heard.toLowerCase());
 
-    if (matched) {
-      const praise = fill(node.praise_template ?? this.phrases.defaultPraise, { intent: matched });
+    if (heard && isRight) {
+      const praise = fill(node.praise_template ?? this.phrases.defaultPraise, { intent: heard });
       this.currentId = this.advanceFrom(node);
-      return { outcome: 'success', matchedIntent: matched, speech: [praise], nodeId: this.currentId };
+      return { outcome: 'success', matchedIntent: heard, speech: [praise], nodeId: this.currentId };
     }
+    const wrong = heard && !isRight ? heard : null;
 
     const silent = !transcript.trim();
 
@@ -89,7 +95,8 @@ export class DialogStateManager {
       return {
         outcome: silent ? 'silence' : 'fallback',
         matchedIntent: null,
-        speech: [silent ? this.phrases.silenceFallback : this.phrases.missFallback],
+        wrongIntent: wrong,
+        speech: [silent ? this.phrases.silenceFallback : wrong ? this.phrases.wrongFallback : this.phrases.missFallback],
         nodeId: this.currentId,
       };
     }
@@ -100,17 +107,20 @@ export class DialogStateManager {
       return {
         outcome: silent ? 'silence' : 'retry',
         matchedIntent: null,
-        speech: [silent ? this.phrases.silenceRetry : this.phrases.missRetry],
+        wrongIntent: wrong,
+        speech: [silent ? this.phrases.silenceRetry : wrong ? this.phrases.wrongChoice : this.phrases.missRetry],
         nodeId: this.currentId,
       };
     }
 
-    const model = node.expected_semantic_intents[0];
+    const model = correct[0];
+    const isChoice = node.prompt_type === 'forced_choice_scaffold';
     this.currentId = this.advanceFrom(node);
     return {
       outcome: 'modeled',
       matchedIntent: null,
-      speech: [model ? fill(this.phrases.modeled, { answer: model }) : this.phrases.modeledNoAnswer],
+      wrongIntent: wrong,
+      speech: [model ? fill(isChoice ? this.phrases.modeledChoice : this.phrases.modeled, { answer: model }) : this.phrases.modeledNoAnswer],
       nodeId: this.currentId,
     };
   }
