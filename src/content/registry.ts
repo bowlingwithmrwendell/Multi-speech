@@ -2,13 +2,17 @@
 // load without changing engine code. Drop a new *.json file in ./modules.
 import type { ContentModule, Domain } from '../types';
 
-const DOMAINS: Domain[] = ['Animals', 'Tools', 'Everyday', 'Vehicles'];
+const DOMAINS: Domain[] = ['Animals', 'Tools', 'Everyday', 'Vehicles', 'Food', 'Learning', 'Body', 'Nature'];
 
 export const DOMAIN_INFO: Record<Domain, { label: string; emoji: string; blurb: string }> = {
   Animals: { label: 'Animals & Ecosystems', emoji: '🦁', blurb: 'Animal names, sounds, habitats and actions' },
   Tools: { label: 'Tools & Objects', emoji: '🧰', blurb: 'What objects do and where they are' },
   Everyday: { label: 'Everyday Routines', emoji: '🌅', blurb: 'Food, clothing, home and feelings' },
   Vehicles: { label: 'Vehicles & Mobility', emoji: '🚒', blurb: 'Transport, direction, speed and size' },
+  Food: { label: 'Food & Eating', emoji: '🍎', blurb: 'Fruits, vegetables and favourite foods' },
+  Learning: { label: 'Colors & Shapes', emoji: '🎨', blurb: 'Color and shape names' },
+  Body: { label: 'My Body', emoji: '👃', blurb: 'Body parts and what they do' },
+  Nature: { label: 'Weather & Sky', emoji: '🌈', blurb: 'Weather, sky and seasons' },
 };
 
 export interface ValidationError {
