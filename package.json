@@ -1,0 +1,24 @@
+{
+  "name": "multiplay-speech",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "MultiPlay Speech \u2014 interactive speech development platform for children (MVP)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "e2e": "npm run build && node e2e/smoke.mjs",
+    "images": "node scripts/gen-image-list.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.48.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}
