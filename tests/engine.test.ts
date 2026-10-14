@@ -69,8 +69,8 @@ describe('VAD wait-time (spec 5)', () => {
     }
   });
   it('gives younger, less fluent children more time', () => {
-    expect(vadWaitTimeMs(3, 0)).toBe(2800);
-    expect(vadWaitTimeMs(8, 1)).toBe(1200);
+    expect(vadWaitTimeMs(3, 0)).toBe(VAD_MAX_MS);
+    expect(vadWaitTimeMs(8, 1)).toBe(VAD_MIN_MS);
     expect(vadWaitTimeMs(4, 0.3)).toBeGreaterThan(vadWaitTimeMs(7, 0.9));
   });
 });
@@ -109,8 +109,38 @@ describe('dialog state manager', () => {
   it('Level_1 starts on scaffolds', () => {
     const d = new DialogStateManager(mod, 'Level_1');
     expect(d.currentId).toBe('node_001_scaffold');
-    d.respond('sleeping');
+    d.respond('drinking');
     expect(d.currentId).toBe('node_002_scaffold');
+  });
+  it('does not praise the wrong choice (zebra vs fish)', () => {
+    const d = new DialogStateManager(mod, 'Level_3');
+    for (const a of ['drinking', 'roar', 'leaves']) d.respond(a);
+    expect(d.currentId).toBe('node_004');
+    const cow = d.respond('a cow');
+    expect(cow.outcome).toBe('fallback');
+    expect(d.currentId).toBe('node_004_scaffold');
+    const fish = d.respond('fish');
+    expect(fish.outcome).toBe('retry');
+    expect(fish.matchedIntent).toBeNull();
+    expect(fish.wrongIntent).toBe('fish');
+    expect(fish.speech.join(' ')).not.toMatch(/nice|great|yes/i);
+    const again = d.respond('fish');
+    expect(again.outcome).toBe('modeled');
+    expect(again.speech[0]).toContain('zebra');
+    expect(d.phase).toBe('done');
+  });
+  it('treats "horse" as a close guess for the zebra, not a right answer', () => {
+    const d = new DialogStateManager(mod, 'Level_3');
+    for (const a of ['drinking', 'roar', 'leaves']) d.respond(a);
+    const r = d.respond('horse');
+    expect(r.outcome).toBe('fallback');
+    expect(r.wrongIntent).toBe('horse');
+    expect(d.respond('zebra').outcome).toBe('success');
+  });
+  it('accepts the right choice on a scaffold', () => {
+    const d = new DialogStateManager(mod, 'Level_1');
+    expect(d.respond('it is sleeping').outcome).toBe('retry');
+    expect(d.respond('drinking').outcome).toBe('success');
   });
   it('retries once then models the answer on a scaffold miss', () => {
     const d = new DialogStateManager(mod, 'Level_1');
