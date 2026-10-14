@@ -1,0 +1,543 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_nature_weather_001",
+  "title": "Weather & Sky",
+  "domain": "Nature",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/weather/weather_cover.png",
+  "cover_emoji": "🌈",
+  "lexical_targets": [
+    {
+      "lemma": "sun",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "sunshine"
+      ]
+    },
+    {
+      "lemma": "rain",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "snow",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "snowman",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "umbrella",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items"
+    },
+    {
+      "lemma": "rainbow",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "wind",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "windy"
+      ]
+    },
+    {
+      "lemma": "kite",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Toys"
+    },
+    {
+      "lemma": "cloud",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "clouds"
+      ]
+    },
+    {
+      "lemma": "moon",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "night",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Time Words"
+    },
+    {
+      "lemma": "lightning",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "thunder"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "sun",
+    "nodes": {
+      "sun": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "It's bright and warm outside. What is shining in the sky?",
+        "expected_semantic_intents": [
+          "sun",
+          "sunshine",
+          "sunny",
+          "moon",
+          "star",
+          "light"
+        ],
+        "fallback_node": "sun_choice",
+        "image": "images/weather/sun.png",
+        "emoji": "☀️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "sunny",
+        "motion": "breathe",
+        "correct_intents": [
+          "sun",
+          "sunshine",
+          "sunny"
+        ],
+        "next_node": "rain"
+      },
+      "sun_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it the moon, or the sun?",
+        "expected_semantic_intents": [
+          "sun",
+          "moon"
+        ],
+        "correct_intents": [
+          "sun"
+        ],
+        "image": "images/weather/sun.png",
+        "emoji": "☀️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "sunny",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "sun": [
+            "sunshine"
+          ]
+        }
+      },
+      "rain": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Drip drop! What is falling from the clouds?",
+        "expected_semantic_intents": [
+          "rain",
+          "water",
+          "raindrops",
+          "drops",
+          "rainy",
+          "snow"
+        ],
+        "fallback_node": "rain_choice",
+        "image": "images/weather/rain.png",
+        "emoji": "🌧️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "rainy",
+        "motion": "float",
+        "intent_synonyms": {
+          "raindrops": [
+            "rain drops",
+            "raindrop"
+          ]
+        },
+        "correct_intents": [
+          "rain",
+          "water",
+          "raindrops",
+          "drops",
+          "rainy"
+        ],
+        "next_node": "snow"
+      },
+      "rain_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it rain, or popcorn?",
+        "expected_semantic_intents": [
+          "rain",
+          "popcorn"
+        ],
+        "correct_intents": [
+          "rain"
+        ],
+        "image": "images/weather/rain.png",
+        "emoji": "🌧️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "rainy",
+        "motion": "float",
+        "intent_synonyms": {
+          "rain": [
+            "raindrops",
+            "water",
+            "rainy"
+          ]
+        }
+      },
+      "snow": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Brrr, it's cold! What is falling from the sky?",
+        "expected_semantic_intents": [
+          "snow",
+          "snowflakes",
+          "snowflake",
+          "snowing",
+          "rain",
+          "ice"
+        ],
+        "fallback_node": "snow_choice",
+        "image": "images/weather/snow.png",
+        "emoji": "☃️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "snowy",
+        "motion": "breathe",
+        "correct_intents": [
+          "snow",
+          "snowflakes",
+          "snowflake",
+          "snowing"
+        ],
+        "next_node": "umbrella"
+      },
+      "snow_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it sand, or snow?",
+        "expected_semantic_intents": [
+          "snow",
+          "sand"
+        ],
+        "correct_intents": [
+          "snow"
+        ],
+        "image": "images/weather/snow.png",
+        "emoji": "☃️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "snowy",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "snow": [
+            "snowflakes",
+            "snowing"
+          ]
+        }
+      },
+      "umbrella": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we use to stay dry in the rain?",
+        "expected_semantic_intents": [
+          "umbrella",
+          "raincoat",
+          "rain coat",
+          "hood",
+          "rain boots",
+          "towel"
+        ],
+        "fallback_node": "umbrella_choice",
+        "image": "images/weather/umbrella.png",
+        "emoji": "☂️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "rainy",
+        "motion": "sway",
+        "intent_synonyms": {
+          "umbrella": [
+            "umbrellas",
+            "brella"
+          ]
+        },
+        "correct_intents": [
+          "umbrella",
+          "raincoat",
+          "rain coat",
+          "hood",
+          "rain boots"
+        ],
+        "next_node": "rainbow"
+      },
+      "umbrella_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we use an umbrella, or a spoon?",
+        "expected_semantic_intents": [
+          "umbrella",
+          "spoon"
+        ],
+        "correct_intents": [
+          "umbrella"
+        ],
+        "image": "images/weather/umbrella.png",
+        "emoji": "☂️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "rainy",
+        "motion": "sway",
+        "intent_synonyms": {
+          "umbrella": [
+            "umbrellas"
+          ]
+        }
+      },
+      "rainbow": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "After the rain, we see lots of colors in the sky. What is it?",
+        "expected_semantic_intents": [
+          "rainbow",
+          "sun",
+          "cloud"
+        ],
+        "fallback_node": "rainbow_choice",
+        "image": "images/weather/rainbow.png",
+        "emoji": "🌈",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "rainbow_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "rainbow": [
+            "rainbows",
+            "colors"
+          ]
+        },
+        "correct_intents": [
+          "rainbow"
+        ],
+        "next_node": "wind"
+      },
+      "rainbow_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a banana, or a rainbow?",
+        "expected_semantic_intents": [
+          "rainbow",
+          "banana"
+        ],
+        "correct_intents": [
+          "rainbow"
+        ],
+        "image": "images/weather/rainbow.png",
+        "emoji": "🌈",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "rainbow_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "rainbow": [
+            "rainbows",
+            "colors"
+          ]
+        }
+      },
+      "wind": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Whoosh! What makes the kite fly up high?",
+        "expected_semantic_intents": [
+          "wind",
+          "windy",
+          "breeze",
+          "air",
+          "blowing",
+          "rain",
+          "snow",
+          "sun"
+        ],
+        "fallback_node": "wind_choice",
+        "image": "images/weather/wind.png",
+        "emoji": "🪁",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "windy",
+        "motion": "float",
+        "intent_synonyms": {
+          "wind": [
+            "the wind"
+          ]
+        },
+        "correct_intents": [
+          "wind",
+          "windy",
+          "breeze",
+          "air",
+          "blowing"
+        ],
+        "next_node": "cloud"
+      },
+      "wind_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it windy, or snowy?",
+        "expected_semantic_intents": [
+          "windy",
+          "snowy"
+        ],
+        "correct_intents": [
+          "windy"
+        ],
+        "image": "images/weather/wind.png",
+        "emoji": "🪁",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "windy",
+        "motion": "float",
+        "intent_synonyms": {
+          "windy": [
+            "wind",
+            "breeze"
+          ]
+        }
+      },
+      "cloud": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This is white and fluffy and floats in the sky. What is it?",
+        "expected_semantic_intents": [
+          "cloud",
+          "clouds",
+          "snow",
+          "cotton",
+          "sheep"
+        ],
+        "fallback_node": "cloud_choice",
+        "image": "images/weather/cloud.png",
+        "emoji": "☁️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "cloudy",
+        "motion": "float",
+        "correct_intents": [
+          "cloud",
+          "clouds"
+        ],
+        "next_node": "moon"
+      },
+      "cloud_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a rock, or a cloud?",
+        "expected_semantic_intents": [
+          "cloud",
+          "rock"
+        ],
+        "correct_intents": [
+          "cloud"
+        ],
+        "image": "images/weather/cloud.png",
+        "emoji": "☁️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "cloudy",
+        "motion": "float",
+        "intent_synonyms": {
+          "cloud": [
+            "clouds"
+          ]
+        }
+      },
+      "moon": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We see this in the sky at night. What is it?",
+        "expected_semantic_intents": [
+          "moon",
+          "stars",
+          "star",
+          "sun",
+          "banana"
+        ],
+        "fallback_node": "moon_choice",
+        "image": "images/weather/moon.png",
+        "emoji": "🌙",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "night_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "moon": [
+            "the moon",
+            "moonlight"
+          ]
+        },
+        "correct_intents": [
+          "moon",
+          "stars",
+          "star"
+        ],
+        "next_node": "lightning"
+      },
+      "moon_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it the moon, or the sun?",
+        "expected_semantic_intents": [
+          "moon",
+          "sun"
+        ],
+        "correct_intents": [
+          "moon"
+        ],
+        "image": "images/weather/moon.png",
+        "emoji": "🌙",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "night_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "moon": [
+            "the moon",
+            "moonlight"
+          ]
+        }
+      },
+      "lightning": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Boom! Flash! What do we see in a big storm?",
+        "expected_semantic_intents": [
+          "lightning",
+          "thunder",
+          "storm",
+          "lightening",
+          "rainbow",
+          "sun"
+        ],
+        "fallback_node": "lightning_choice",
+        "image": "images/weather/lightning.png",
+        "emoji": "⚡",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "stormy",
+        "motion": "flash",
+        "correct_intents": [
+          "lightning",
+          "thunder",
+          "storm",
+          "lightening"
+        ]
+      },
+      "lightning_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it lightning, or a flower?",
+        "expected_semantic_intents": [
+          "lightning",
+          "flower"
+        ],
+        "correct_intents": [
+          "lightning"
+        ],
+        "image": "images/weather/lightning.png",
+        "emoji": "⚡",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "stormy",
+        "motion": "flash",
+        "intent_synonyms": {
+          "lightning": [
+            "thunder",
+            "lightening"
+          ]
+        }
+      }
+    }
+  }
+}

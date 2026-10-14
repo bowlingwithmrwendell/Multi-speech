@@ -1,0 +1,607 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_learning_colors_001",
+  "title": "Colors & Shapes",
+  "domain": "Learning",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/colors/colors_cover.png",
+  "cover_emoji": "🎨",
+  "lexical_targets": [
+    {
+      "lemma": "red",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "balloon",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Toys"
+    },
+    {
+      "lemma": "blue",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "yellow",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "sun",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "green",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "frog",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "orange",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "purple",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "circle",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words",
+      "synonyms": [
+        "round"
+      ]
+    },
+    {
+      "lemma": "star",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "heart",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "triangle",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "square",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "red_balloon",
+    "nodes": {
+      "red_balloon": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What color is the balloon?",
+        "expected_semantic_intents": [
+          "red",
+          "blue",
+          "yellow",
+          "green",
+          "orange",
+          "purple",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "red_balloon_choice",
+        "image": "images/colors/red_balloon.png",
+        "emoji": "🎈",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "clear_sky",
+        "motion": "float",
+        "correct_intents": [
+          "red"
+        ],
+        "next_node": "blue_berries"
+      },
+      "red_balloon_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the balloon red, or blue?",
+        "expected_semantic_intents": [
+          "red",
+          "blue"
+        ],
+        "correct_intents": [
+          "red"
+        ],
+        "image": "images/colors/red_balloon.png",
+        "emoji": "🎈",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "clear_sky",
+        "motion": "float"
+      },
+      "blue_berries": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What color are the blueberries?",
+        "expected_semantic_intents": [
+          "blue",
+          "purple",
+          "red",
+          "yellow",
+          "green",
+          "orange",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "blue_berries_choice",
+        "image": "images/colors/blue_berries.png",
+        "emoji": "🫐",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "correct_intents": [
+          "blue",
+          "purple"
+        ],
+        "next_node": "yellow_sun"
+      },
+      "blue_berries_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Are they yellow, or blue?",
+        "expected_semantic_intents": [
+          "blue",
+          "yellow"
+        ],
+        "correct_intents": [
+          "blue"
+        ],
+        "image": "images/colors/blue_berries.png",
+        "emoji": "🫐",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe"
+      },
+      "yellow_sun": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What color is the sun?",
+        "expected_semantic_intents": [
+          "yellow",
+          "orange",
+          "gold",
+          "red",
+          "blue",
+          "green",
+          "purple",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "yellow_sun_choice",
+        "image": "images/colors/yellow_sun.png",
+        "emoji": "☀️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "clear_sky",
+        "motion": "breathe",
+        "correct_intents": [
+          "yellow",
+          "orange",
+          "gold"
+        ],
+        "next_node": "green_frog"
+      },
+      "yellow_sun_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the sun yellow, or purple?",
+        "expected_semantic_intents": [
+          "yellow",
+          "purple"
+        ],
+        "correct_intents": [
+          "yellow"
+        ],
+        "image": "images/colors/yellow_sun.png",
+        "emoji": "☀️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "clear_sky",
+        "motion": "breathe"
+      },
+      "green_frog": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What color is the frog?",
+        "expected_semantic_intents": [
+          "green",
+          "red",
+          "blue",
+          "yellow",
+          "orange",
+          "purple",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "green_frog_choice",
+        "image": "images/colors/green_frog.png",
+        "emoji": "🐸",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "pond",
+        "motion": "trot",
+        "correct_intents": [
+          "green"
+        ],
+        "next_node": "orange"
+      },
+      "green_frog_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the frog pink, or green?",
+        "expected_semantic_intents": [
+          "green",
+          "pink"
+        ],
+        "correct_intents": [
+          "green"
+        ],
+        "image": "images/colors/green_frog.png",
+        "emoji": "🐸",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "pond",
+        "motion": "trot"
+      },
+      "orange": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This fruit has the same name as its color! What color is it?",
+        "expected_semantic_intents": [
+          "orange",
+          "red",
+          "blue",
+          "yellow",
+          "green",
+          "purple",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "orange_choice",
+        "image": "images/colors/orange.png",
+        "emoji": "🍊",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "correct_intents": [
+          "orange"
+        ],
+        "next_node": "purple_eggplant"
+      },
+      "orange_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it orange, or purple?",
+        "expected_semantic_intents": [
+          "orange",
+          "purple"
+        ],
+        "correct_intents": [
+          "orange"
+        ],
+        "image": "images/colors/orange.png",
+        "emoji": "🍊",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe"
+      },
+      "purple_eggplant": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What color is the eggplant?",
+        "expected_semantic_intents": [
+          "purple",
+          "violet",
+          "red",
+          "blue",
+          "yellow",
+          "green",
+          "orange",
+          "pink",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "purple_eggplant_choice",
+        "image": "images/colors/purple_eggplant.png",
+        "emoji": "🍆",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "garden",
+        "motion": "sway",
+        "correct_intents": [
+          "purple",
+          "violet"
+        ],
+        "next_node": "circle"
+      },
+      "purple_eggplant_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it white, or purple?",
+        "expected_semantic_intents": [
+          "purple",
+          "white"
+        ],
+        "correct_intents": [
+          "purple"
+        ],
+        "image": "images/colors/purple_eggplant.png",
+        "emoji": "🍆",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "garden",
+        "motion": "sway"
+      },
+      "circle": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What shape is the ball?",
+        "expected_semantic_intents": [
+          "circle",
+          "round",
+          "sphere",
+          "ball",
+          "square",
+          "triangle",
+          "star",
+          "heart"
+        ],
+        "fallback_node": "circle_choice",
+        "image": "images/colors/circle.png",
+        "emoji": "⚽",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "classroom",
+        "motion": "trot",
+        "intent_synonyms": {
+          "circle": [
+            "circles"
+          ]
+        },
+        "correct_intents": [
+          "circle",
+          "round",
+          "sphere",
+          "ball"
+        ],
+        "next_node": "star"
+      },
+      "circle_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the ball round, or square?",
+        "expected_semantic_intents": [
+          "round",
+          "square"
+        ],
+        "correct_intents": [
+          "round"
+        ],
+        "image": "images/colors/circle.png",
+        "emoji": "⚽",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "classroom",
+        "motion": "trot",
+        "intent_synonyms": {
+          "round": [
+            "circle"
+          ]
+        }
+      },
+      "star": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Twinkle twinkle! What shape is this?",
+        "expected_semantic_intents": [
+          "star",
+          "circle",
+          "triangle",
+          "heart",
+          "moon"
+        ],
+        "fallback_node": "star_choice",
+        "image": "images/colors/star.png",
+        "emoji": "⭐",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "night_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "star": [
+            "stars",
+            "twinkle star"
+          ]
+        },
+        "correct_intents": [
+          "star"
+        ],
+        "next_node": "heart"
+      },
+      "star_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a square, or a star?",
+        "expected_semantic_intents": [
+          "star",
+          "square"
+        ],
+        "correct_intents": [
+          "star"
+        ],
+        "image": "images/colors/star.png",
+        "emoji": "⭐",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "night_sky",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "star": [
+            "stars",
+            "twinkle star"
+          ]
+        }
+      },
+      "heart": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What shape is this? It means I love you!",
+        "expected_semantic_intents": [
+          "heart",
+          "circle",
+          "star",
+          "square"
+        ],
+        "fallback_node": "heart_choice",
+        "image": "images/colors/heart.png",
+        "emoji": "❤️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "heart": [
+            "hearts",
+            "love heart"
+          ]
+        },
+        "correct_intents": [
+          "heart"
+        ],
+        "next_node": "triangle"
+      },
+      "heart_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a heart, or a triangle?",
+        "expected_semantic_intents": [
+          "heart",
+          "triangle"
+        ],
+        "correct_intents": [
+          "heart"
+        ],
+        "image": "images/colors/heart.png",
+        "emoji": "❤️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "heart": [
+            "hearts",
+            "love heart"
+          ]
+        }
+      },
+      "triangle": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This shape has three sides and three points. What is it?",
+        "expected_semantic_intents": [
+          "triangle",
+          "square",
+          "circle",
+          "star"
+        ],
+        "fallback_node": "triangle_choice",
+        "image": "images/colors/triangle.png",
+        "emoji": "🔺",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "classroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "triangle": [
+            "triangles",
+            "try angle"
+          ]
+        },
+        "correct_intents": [
+          "triangle"
+        ],
+        "next_node": "square"
+      },
+      "triangle_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a circle, or a triangle?",
+        "expected_semantic_intents": [
+          "triangle",
+          "circle"
+        ],
+        "correct_intents": [
+          "triangle"
+        ],
+        "image": "images/colors/triangle.png",
+        "emoji": "🔺",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "classroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "triangle": [
+            "triangles",
+            "try angle"
+          ]
+        }
+      },
+      "square": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This shape has four sides that are all the same. What is it?",
+        "expected_semantic_intents": [
+          "square",
+          "box",
+          "triangle",
+          "circle",
+          "rectangle"
+        ],
+        "fallback_node": "square_choice",
+        "image": "images/colors/square.png",
+        "emoji": "🟦",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "classroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "square": [
+            "squares"
+          ]
+        },
+        "correct_intents": [
+          "square",
+          "box"
+        ]
+      },
+      "square_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a square, or a star?",
+        "expected_semantic_intents": [
+          "square",
+          "star"
+        ],
+        "correct_intents": [
+          "square"
+        ],
+        "image": "images/colors/square.png",
+        "emoji": "🟦",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "classroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "square": [
+            "squares"
+          ]
+        }
+      }
+    }
+  }
+}

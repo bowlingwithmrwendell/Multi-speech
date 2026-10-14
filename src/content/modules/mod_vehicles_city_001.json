@@ -3,58 +3,135 @@
   "module_id": "mod_vehicles_city_001",
   "title": "City Vehicles",
   "domain": "Vehicles",
-  "target_age_group": "3-6",
+  "target_age_group": "3-5",
   "language": "en",
-  "cover_image": "images/vehicles/cover.png",
+  "cover_image": "images/vehicles/city_cover.png",
   "cover_emoji": "🚒",
   "lexical_targets": [
     {
-      "lemma": "truck",
-      "ipa": "/trʌk/",
-      "difficulty_tier": 1,
+      "lemma": "fire truck",
+      "ipa": "",
+      "difficulty_tier": 2,
       "cdi_category": "Vehicles",
       "synonyms": [
+        "fire engine",
         "firetruck"
       ]
     },
     {
       "lemma": "airplane",
-      "ipa": "/ˈɛər.pleɪn/",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Vehicles",
       "synonyms": [
-        "plane"
+        "plane",
+        "aeroplane"
       ]
     },
     {
+      "lemma": "up",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Locations"
+    },
+    {
       "lemma": "bus",
-      "ipa": "/bʌs/",
+      "ipa": "",
       "difficulty_tier": 1,
       "cdi_category": "Vehicles"
     },
     {
       "lemma": "car",
-      "ipa": "/kɑːr/",
+      "ipa": "",
       "difficulty_tier": 1,
       "cdi_category": "Vehicles"
     },
     {
-      "lemma": "fast",
-      "ipa": "/fæst/",
-      "difficulty_tier": 2,
-      "cdi_category": "Descriptive Words"
+      "lemma": "bigger",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Descriptive Words",
+      "synonyms": [
+        "big"
+      ]
     },
     {
-      "lemma": "up",
-      "ipa": "/ʌp/",
+      "lemma": "fast",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words",
+      "synonyms": [
+        "quick"
+      ]
+    },
+    {
+      "lemma": "police car",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Vehicles",
+      "synonyms": [
+        "police"
+      ]
+    },
+    {
+      "lemma": "ambulance",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "train",
+      "ipa": "",
       "difficulty_tier": 1,
-      "cdi_category": "Locations"
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "boat",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Vehicles",
+      "synonyms": [
+        "ship"
+      ]
+    },
+    {
+      "lemma": "helicopter",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "bike",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Vehicles",
+      "synonyms": [
+        "bicycle"
+      ]
+    },
+    {
+      "lemma": "tractor",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "rocket",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Vehicles"
+    },
+    {
+      "lemma": "space",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things"
     }
   ],
   "prompt_tree": {
-    "root_id": "node_001",
+    "root_id": "fire_truck",
     "nodes": {
-      "node_001": {
+      "fire_truck": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Wee-oo wee-oo! Here comes a big red truck. What kind of truck is it?",
         "expected_semantic_intents": [
@@ -63,37 +140,38 @@
           "firetruck",
           "fire"
         ],
-        "fallback_node": "node_001_scaffold",
+        "fallback_node": "fire_truck_choice",
         "image": "images/vehicles/fire_truck.png",
         "emoji": "🚒",
-        "praise_template": "Yes! A fire truck! Wee-oo!",
-        "next_node": "node_002",
+        "praise_template": "Yes! {intent}! Great talking!",
         "scene": "city_street",
-        "motion": "drive"
+        "motion": "drive",
+        "next_node": "airplane"
       },
-      "node_001_scaffold": {
+      "fire_truck_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is it a fire truck, or an ice cream truck?",
         "expected_semantic_intents": [
           "fire truck",
           "ice cream"
         ],
-        "image": "images/vehicles/fire_truck.png",
-        "emoji": "🚒",
-        "praise_template": "You said {intent}! Nice!",
-        "intent_synonyms": {
-          "fire truck": [
-            "fire",
-            "firetruck"
-          ]
-        },
-        "scene": "city_street",
-        "motion": "drive",
         "correct_intents": [
           "fire truck"
-        ]
+        ],
+        "image": "images/vehicles/fire_truck.png",
+        "emoji": "🚒",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_street",
+        "motion": "drive",
+        "intent_synonyms": {
+          "fire truck": [
+            "fire engine",
+            "firetruck",
+            "fire"
+          ]
+        }
       },
-      "node_002": {
+      "airplane": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Look up in the sky! Where is the airplane going?",
         "expected_semantic_intents": [
@@ -104,53 +182,50 @@
           "clouds",
           "away"
         ],
-        "fallback_node": "node_002_scaffold",
+        "fallback_node": "airplane_choice",
         "image": "images/vehicles/airplane.png",
         "emoji": "✈️",
         "praise_template": "Yes! {intent}! Great talking!",
-        "intent_synonyms": {
-          "fly": [
-            "flying",
-            "flies"
-          ],
-          "clouds": [
-            "cloud"
-          ]
-        },
-        "next_node": "node_003",
         "scene": "city_sky",
-        "motion": "fly"
+        "motion": "fly",
+        "next_node": "bus"
       },
-      "node_002_scaffold": {
+      "airplane_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is the airplane going up, or down?",
         "expected_semantic_intents": [
           "up",
           "down"
         ],
-        "image": "images/vehicles/airplane.png",
-        "emoji": "✈️",
-        "praise_template": "You said {intent}! Nice!",
-        "scene": "city_sky",
-        "motion": "fly",
         "correct_intents": [
           "up"
-        ]
+        ],
+        "image": "images/vehicles/airplane.png",
+        "emoji": "✈️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_sky",
+        "motion": "fly"
       },
-      "node_003": {
+      "bus": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Here is a bus and a little car. Which one is bigger?",
         "expected_semantic_intents": [
           "bus",
-          "the bus"
+          "the bus",
+          "car",
+          "the car"
         ],
-        "fallback_node": "node_003_scaffold",
-        "image": "images/vehicles/bus_car.png",
+        "fallback_node": "bus_choice",
+        "image": "images/vehicles/bus.png",
         "emoji": "🚌",
-        "praise_template": "Right! The bus is bigger!",
-        "next_node": "node_004",
+        "praise_template": "Yes! {intent}! Great talking!",
         "scene": "city_street",
         "motion": "drive_slow",
+        "correct_intents": [
+          "bus",
+          "the bus"
+        ],
+        "next_node": "race_car",
         "companions": [
           {
             "emoji": "🚗",
@@ -161,21 +236,21 @@
           }
         ]
       },
-      "node_003_scaffold": {
+      "bus_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is the bus bigger, or is the car bigger?",
         "expected_semantic_intents": [
           "bus",
           "car"
         ],
-        "image": "images/vehicles/bus_car.png",
-        "emoji": "🚌",
-        "praise_template": "You said {intent}! Nice!",
-        "scene": "city_street",
-        "motion": "drive_slow",
         "correct_intents": [
           "bus"
         ],
+        "image": "images/vehicles/bus.png",
+        "emoji": "🚌",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_street",
+        "motion": "drive_slow",
         "companions": [
           {
             "emoji": "🚗",
@@ -186,46 +261,467 @@
           }
         ]
       },
-      "node_004": {
+      "race_car": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Vroom! The race car is so... is it fast or slow?",
         "expected_semantic_intents": [
           "fast",
           "quick",
           "speedy",
-          "zoom"
+          "zoom",
+          "slow"
         ],
-        "fallback_node": "node_004_scaffold",
+        "fallback_node": "race_car_choice",
         "image": "images/vehicles/race_car.png",
         "emoji": "🏎️",
         "praise_template": "Yes! {intent}! Great talking!",
-        "intent_synonyms": {
-          "fast": [
-            "faster",
-            "super fast"
-          ],
-          "zoom": [
-            "vroom"
-          ]
-        },
         "scene": "racetrack",
-        "motion": "race"
+        "motion": "race",
+        "correct_intents": [
+          "fast",
+          "quick",
+          "speedy",
+          "zoom"
+        ],
+        "next_node": "police_car"
       },
-      "node_004_scaffold": {
+      "race_car_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is the race car fast, or slow?",
         "expected_semantic_intents": [
           "fast",
           "slow"
         ],
-        "image": "images/vehicles/race_car.png",
-        "emoji": "🏎️",
-        "praise_template": "You said {intent}! Nice!",
-        "scene": "racetrack",
-        "motion": "race",
         "correct_intents": [
           "fast"
+        ],
+        "image": "images/vehicles/race_car.png",
+        "emoji": "🏎️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "racetrack",
+        "motion": "race"
+      },
+      "police_car": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Wee-oo! Who drives the car with the flashing lights?",
+        "expected_semantic_intents": [
+          "police",
+          "police officer",
+          "cop",
+          "policeman",
+          "policewoman",
+          "officer",
+          "fireman",
+          "firefighter"
+        ],
+        "fallback_node": "police_car_choice",
+        "image": "images/vehicles/police_car.png",
+        "emoji": "🚓",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "city_street",
+        "motion": "drive",
+        "intent_synonyms": {
+          "police": [
+            "cops",
+            "police car"
+          ]
+        },
+        "correct_intents": [
+          "police",
+          "police officer",
+          "cop",
+          "policeman",
+          "policewoman",
+          "officer"
+        ],
+        "next_node": "ambulance"
+      },
+      "police_car_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a police car, or a tractor?",
+        "expected_semantic_intents": [
+          "police",
+          "tractor"
+        ],
+        "correct_intents": [
+          "police"
+        ],
+        "image": "images/vehicles/police_car.png",
+        "emoji": "🚓",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_street",
+        "motion": "drive",
+        "intent_synonyms": {
+          "police": [
+            "cops",
+            "police car"
+          ]
+        }
+      },
+      "ambulance": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This truck takes sick people to the hospital. What is it?",
+        "expected_semantic_intents": [
+          "ambulance",
+          "fire truck",
+          "police",
+          "bus"
+        ],
+        "fallback_node": "ambulance_choice",
+        "image": "images/vehicles/ambulance.png",
+        "emoji": "🚑",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "city_street",
+        "motion": "drive",
+        "intent_synonyms": {
+          "ambulance": [
+            "ambulances",
+            "amblance"
+          ]
+        },
+        "correct_intents": [
+          "ambulance"
+        ],
+        "next_node": "train"
+      },
+      "ambulance_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a bus, or an ambulance?",
+        "expected_semantic_intents": [
+          "ambulance",
+          "bus"
+        ],
+        "correct_intents": [
+          "ambulance"
+        ],
+        "image": "images/vehicles/ambulance.png",
+        "emoji": "🚑",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_street",
+        "motion": "drive",
+        "intent_synonyms": {
+          "ambulance": [
+            "ambulances",
+            "amblance"
+          ]
+        }
+      },
+      "train": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Choo choo! What is coming down the track?",
+        "expected_semantic_intents": [
+          "train",
+          "choo choo",
+          "engine",
+          "locomotive",
+          "bus",
+          "car",
+          "truck"
+        ],
+        "fallback_node": "train_choice",
+        "image": "images/vehicles/train.png",
+        "emoji": "🚂",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "railway",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "train": [
+            "trains",
+            "choo choo train"
+          ]
+        },
+        "correct_intents": [
+          "train",
+          "choo choo",
+          "engine",
+          "locomotive"
+        ],
+        "next_node": "boat"
+      },
+      "train_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a train, or a boat?",
+        "expected_semantic_intents": [
+          "train",
+          "boat"
+        ],
+        "correct_intents": [
+          "train"
+        ],
+        "image": "images/vehicles/train.png",
+        "emoji": "🚂",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "railway",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "train": [
+            "trains",
+            "choo choo train"
+          ]
+        }
+      },
+      "boat": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This goes on the water. What is it?",
+        "expected_semantic_intents": [
+          "boat",
+          "sailboat",
+          "ship",
+          "car",
+          "fish"
+        ],
+        "fallback_node": "boat_choice",
+        "image": "images/vehicles/boat.png",
+        "emoji": "⛵",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "lake",
+        "motion": "sail",
+        "intent_synonyms": {
+          "boat": [
+            "boats"
+          ],
+          "ship": [
+            "ships"
+          ]
+        },
+        "correct_intents": [
+          "boat",
+          "sailboat",
+          "ship"
+        ],
+        "next_node": "helicopter"
+      },
+      "boat_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a plane, or a boat?",
+        "expected_semantic_intents": [
+          "boat",
+          "plane"
+        ],
+        "correct_intents": [
+          "boat"
+        ],
+        "image": "images/vehicles/boat.png",
+        "emoji": "⛵",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "lake",
+        "motion": "sail",
+        "intent_synonyms": {
+          "boat": [
+            "boats"
+          ]
+        }
+      },
+      "helicopter": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This flies in the sky with spinning blades on top. What is it?",
+        "expected_semantic_intents": [
+          "helicopter",
+          "chopper",
+          "airplane",
+          "plane",
+          "bird"
+        ],
+        "fallback_node": "helicopter_choice",
+        "image": "images/vehicles/helicopter.png",
+        "emoji": "🚁",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "city_sky",
+        "motion": "hover",
+        "intent_synonyms": {
+          "helicopter": [
+            "helicopters",
+            "copter"
+          ]
+        },
+        "correct_intents": [
+          "helicopter",
+          "chopper"
+        ],
+        "next_node": "bike"
+      },
+      "helicopter_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a helicopter, or a car?",
+        "expected_semantic_intents": [
+          "helicopter",
+          "car"
+        ],
+        "correct_intents": [
+          "helicopter"
+        ],
+        "image": "images/vehicles/helicopter.png",
+        "emoji": "🚁",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_sky",
+        "motion": "hover",
+        "intent_synonyms": {
+          "helicopter": [
+            "helicopters",
+            "copter"
+          ]
+        }
+      },
+      "bike": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "You pedal this with your feet. What is it?",
+        "expected_semantic_intents": [
+          "bike",
+          "bicycle",
+          "tricycle",
+          "trike",
+          "car",
+          "scooter",
+          "motorcycle"
+        ],
+        "fallback_node": "bike_choice",
+        "image": "images/vehicles/bike.png",
+        "emoji": "🚲",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "city_street",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "bike": [
+            "bikes",
+            "bicycle"
+          ]
+        },
+        "correct_intents": [
+          "bike",
+          "bicycle",
+          "tricycle",
+          "trike"
+        ],
+        "next_node": "tractor"
+      },
+      "bike_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a bed, or a bike?",
+        "expected_semantic_intents": [
+          "bike",
+          "bed"
+        ],
+        "correct_intents": [
+          "bike"
+        ],
+        "image": "images/vehicles/bike.png",
+        "emoji": "🚲",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "city_street",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "bike": [
+            "bikes",
+            "bicycle"
+          ]
+        }
+      },
+      "tractor": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This big machine works on the farm. What is it?",
+        "expected_semantic_intents": [
+          "tractor",
+          "truck",
+          "car",
+          "bus"
+        ],
+        "fallback_node": "tractor_choice",
+        "image": "images/vehicles/tractor.png",
+        "emoji": "🚜",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "tractor": [
+            "tractors"
+          ]
+        },
+        "correct_intents": [
+          "tractor"
+        ],
+        "next_node": "rocket"
+      },
+      "tractor_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a tractor, or a rocket?",
+        "expected_semantic_intents": [
+          "tractor",
+          "rocket"
+        ],
+        "correct_intents": [
+          "tractor"
+        ],
+        "image": "images/vehicles/tractor.png",
+        "emoji": "🚜",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "drive_slow",
+        "intent_synonyms": {
+          "tractor": [
+            "tractors"
+          ]
+        }
+      },
+      "rocket": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Three, two, one, blast off! Where is the rocket going?",
+        "expected_semantic_intents": [
+          "space",
+          "up",
+          "moon",
+          "sky",
+          "stars",
+          "planets",
+          "down"
+        ],
+        "fallback_node": "rocket_choice",
+        "image": "images/vehicles/rocket.png",
+        "emoji": "🚀",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "space",
+        "motion": "launch",
+        "intent_synonyms": {
+          "space": [
+            "outer space"
+          ],
+          "stars": [
+            "star"
+          ],
+          "planets": [
+            "planet"
+          ]
+        },
+        "correct_intents": [
+          "space",
+          "up",
+          "moon",
+          "sky",
+          "stars",
+          "planets"
         ]
+      },
+      "rocket_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the rocket going up to space, or under the sea?",
+        "expected_semantic_intents": [
+          "space",
+          "sea"
+        ],
+        "correct_intents": [
+          "space"
+        ],
+        "image": "images/vehicles/rocket.png",
+        "emoji": "🚀",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "space",
+        "motion": "launch",
+        "intent_synonyms": {
+          "space": [
+            "up",
+            "moon",
+            "stars"
+          ]
+        }
       }
     }
   }

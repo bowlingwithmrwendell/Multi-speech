@@ -3,20 +3,20 @@
   "module_id": "mod_tools_workshop_001",
   "title": "Tool Workshop",
   "domain": "Tools",
-  "target_age_group": "3-6",
+  "target_age_group": "3-5",
   "language": "en",
-  "cover_image": "images/tools/cover.png",
-  "cover_emoji": "🧰",
+  "cover_image": "images/tools/workshop_cover.png",
+  "cover_emoji": "🔨",
   "lexical_targets": [
     {
       "lemma": "hammer",
-      "ipa": "/ˈhæm.ər/",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Household Items"
     },
     {
       "lemma": "nail",
-      "ipa": "/neɪl/",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Household Items",
       "synonyms": [
@@ -25,143 +25,211 @@
     },
     {
       "lemma": "scissors",
-      "ipa": "/ˈsɪz.ərz/",
+      "ipa": "",
       "difficulty_tier": 3,
       "cdi_category": "Household Items"
     },
     {
       "lemma": "paper",
-      "ipa": "/ˈpeɪ.pər/",
+      "ipa": "",
       "difficulty_tier": 1,
       "cdi_category": "Household Items"
     },
     {
       "lemma": "paint",
-      "ipa": "/peɪnt/",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "painting"
+      ]
+    },
+    {
+      "lemma": "paintbrush",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Household Items",
+      "synonyms": [
+        "brush"
+      ]
+    },
+    {
+      "lemma": "shovel",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Toys"
+    },
+    {
+      "lemma": "next to",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Locations",
+      "synonyms": [
+        "beside"
+      ]
+    },
+    {
+      "lemma": "saw",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items"
+    },
+    {
+      "lemma": "wood",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things"
+    },
+    {
+      "lemma": "wrench",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Household Items"
+    },
+    {
+      "lemma": "pencil",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items"
+    },
+    {
+      "lemma": "write",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Action Words"
     },
     {
-      "lemma": "shovel",
-      "ipa": "/ˈʃʌv.əl/",
+      "lemma": "crayon",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Toys",
+      "synonyms": [
+        "crayons"
+      ]
+    },
+    {
+      "lemma": "color",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words"
+    },
+    {
+      "lemma": "broom",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items"
+    },
+    {
+      "lemma": "sweep",
+      "ipa": "",
       "difficulty_tier": 3,
-      "cdi_category": "Outside Things"
+      "cdi_category": "Action Words"
+    },
+    {
+      "lemma": "ladder",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items"
     }
   ],
   "prompt_tree": {
-    "root_id": "node_001",
+    "root_id": "hammer",
     "nodes": {
-      "node_001": {
+      "hammer": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "What do we use a hammer for?",
         "expected_semantic_intents": [
           "nail",
           "hit",
           "build",
-          "bang"
+          "bang",
+          "fix"
         ],
-        "fallback_node": "node_001_scaffold",
+        "fallback_node": "hammer_choice",
         "image": "images/tools/hammer.png",
         "emoji": "🔨",
         "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "workbench",
+        "motion": "hammer",
         "intent_synonyms": {
           "nail": [
             "nails"
           ],
           "hit": [
             "hitting",
-            "pound",
             "smash"
           ],
           "build": [
             "building",
-            "fix",
             "make"
           ],
           "bang": [
-            "bonk",
-            "knock"
+            "banging",
+            "pound"
+          ],
+          "fix": [
+            "fixing"
           ]
         },
-        "next_node": "node_002",
-        "scene": "workbench",
-        "motion": "hammer"
+        "next_node": "scissors"
       },
-      "node_001_scaffold": {
+      "hammer_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do we use a hammer to hit nails, or to brush our teeth?",
         "expected_semantic_intents": [
           "nails",
           "teeth"
         ],
+        "correct_intents": [
+          "nails"
+        ],
         "image": "images/tools/hammer.png",
         "emoji": "🔨",
-        "praise_template": "You said {intent}! Nice!",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "workbench",
+        "motion": "hammer",
         "intent_synonyms": {
           "nails": [
             "nail",
             "hit"
-          ],
-          "teeth": [
-            "brush"
           ]
-        },
-        "scene": "workbench",
-        "motion": "hammer",
-        "correct_intents": [
-          "nails"
-        ]
+        }
       },
-      "node_002": {
+      "scissors": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Snip snip! What can scissors cut?",
         "expected_semantic_intents": [
           "paper",
           "hair",
           "string",
-          "cut"
+          "cut",
+          "ribbon"
         ],
-        "fallback_node": "node_002_scaffold",
+        "fallback_node": "scissors_choice",
         "image": "images/tools/scissors.png",
         "emoji": "✂️",
         "praise_template": "Yes! {intent}! Great talking!",
-        "intent_synonyms": {
-          "paper": [
-            "papers",
-            "card"
-          ],
-          "string": [
-            "yarn",
-            "ribbon",
-            "tape"
-          ]
-        },
-        "next_node": "node_003",
         "scene": "craft_table",
-        "motion": "snip"
+        "motion": "snip",
+        "next_node": "paintbrush"
       },
-      "node_002_scaffold": {
+      "scissors_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do scissors cut paper, or do they cook soup?",
         "expected_semantic_intents": [
           "paper",
           "soup"
         ],
-        "image": "images/tools/scissors.png",
-        "emoji": "✂️",
-        "praise_template": "You said {intent}! Nice!",
-        "intent_synonyms": {
-          "paper": [
-            "cut"
-          ]
-        },
-        "scene": "craft_table",
-        "motion": "snip",
         "correct_intents": [
           "paper"
-        ]
+        ],
+        "image": "images/tools/scissors.png",
+        "emoji": "✂️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "craft_table",
+        "motion": "snip"
       },
-      "node_003": {
+      "paintbrush": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Here is a paintbrush. What can you do with it?",
         "expected_semantic_intents": [
@@ -170,43 +238,54 @@
           "draw",
           "picture"
         ],
-        "fallback_node": "node_003_scaffold",
+        "fallback_node": "paintbrush_choice",
         "image": "images/tools/paintbrush.png",
         "emoji": "🖌️",
         "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "art_corner",
+        "motion": "paint",
         "intent_synonyms": {
           "paint": [
-            "painting"
+            "painting",
+            "paints"
           ],
           "color": [
-            "colour",
-            "coloring"
+            "coloring",
+            "colour"
+          ],
+          "draw": [
+            "drawing"
           ],
           "picture": [
+            "pictures",
             "art"
           ]
         },
-        "next_node": "node_004",
-        "scene": "art_corner",
-        "motion": "paint"
+        "next_node": "shovel"
       },
-      "node_003_scaffold": {
+      "paintbrush_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do we paint with a paintbrush, or do we sleep with it?",
         "expected_semantic_intents": [
           "paint",
           "sleep"
         ],
-        "image": "images/tools/paintbrush.png",
-        "emoji": "🖌️",
-        "praise_template": "You said {intent}! Nice!",
-        "scene": "art_corner",
-        "motion": "paint",
         "correct_intents": [
           "paint"
-        ]
+        ],
+        "image": "images/tools/paintbrush.png",
+        "emoji": "🖌️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "art_corner",
+        "motion": "paint",
+        "intent_synonyms": {
+          "paint": [
+            "painting",
+            "paints"
+          ]
+        }
       },
-      "node_004": {
+      "shovel": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "The shovel is next to the sandbox. Where is the shovel?",
         "expected_semantic_intents": [
@@ -215,42 +294,348 @@
           "sand",
           "beside"
         ],
-        "fallback_node": "node_004_scaffold",
+        "fallback_node": "shovel_choice",
         "image": "images/tools/shovel.png",
         "emoji": "🪏",
         "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "sandbox",
+        "motion": "dig",
         "intent_synonyms": {
-          "sand": [
-            "dirt"
+          "sandbox": [
+            "sand box",
+            "sandpit"
           ],
-          "beside": [
-            "by"
+          "next to": [
+            "by",
+            "near"
           ]
         },
-        "scene": "sandbox",
-        "motion": "dig"
+        "next_node": "saw"
       },
-      "node_004_scaffold": {
+      "shovel_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is the shovel next to the sandbox, or on the moon?",
         "expected_semantic_intents": [
           "sandbox",
           "moon"
         ],
-        "image": "images/tools/shovel.png",
-        "emoji": "🪏",
-        "praise_template": "You said {intent}! Nice!",
-        "intent_synonyms": {
-          "sandbox": [
-            "sand",
-            "next to"
-          ]
-        },
-        "scene": "sandbox",
-        "motion": "dig",
         "correct_intents": [
           "sandbox"
+        ],
+        "image": "images/tools/shovel.png",
+        "emoji": "🪏",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "sandbox",
+        "motion": "dig",
+        "intent_synonyms": {
+          "sandbox": [
+            "sand box",
+            "sandpit"
+          ]
+        }
+      },
+      "saw": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We use this tool to cut wood. What is it?",
+        "expected_semantic_intents": [
+          "saw",
+          "knife",
+          "hammer",
+          "scissors"
+        ],
+        "fallback_node": "saw_choice",
+        "image": "images/tools/saw.png",
+        "emoji": "🪚",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "workbench",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "saw": [
+            "saws"
+          ]
+        },
+        "correct_intents": [
+          "saw"
+        ],
+        "next_node": "wrench"
+      },
+      "saw_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a spoon, or a saw?",
+        "expected_semantic_intents": [
+          "saw",
+          "spoon"
+        ],
+        "correct_intents": [
+          "saw"
+        ],
+        "image": "images/tools/saw.png",
+        "emoji": "🪚",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "workbench",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "saw": [
+            "saws"
+          ]
+        }
+      },
+      "wrench": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This tool turns and tightens things. What is it?",
+        "expected_semantic_intents": [
+          "wrench",
+          "spanner",
+          "hammer",
+          "screwdriver"
+        ],
+        "fallback_node": "wrench_choice",
+        "image": "images/tools/wrench.png",
+        "emoji": "🔧",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "workbench",
+        "motion": "twist",
+        "intent_synonyms": {
+          "wrench": [
+            "wrenches",
+            "rench"
+          ]
+        },
+        "correct_intents": [
+          "wrench",
+          "spanner"
+        ],
+        "next_node": "pencil"
+      },
+      "wrench_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a wrench, or a banana?",
+        "expected_semantic_intents": [
+          "wrench",
+          "banana"
+        ],
+        "correct_intents": [
+          "wrench"
+        ],
+        "image": "images/tools/wrench.png",
+        "emoji": "🔧",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "workbench",
+        "motion": "twist",
+        "intent_synonyms": {
+          "wrench": [
+            "wrenches",
+            "rench"
+          ]
+        }
+      },
+      "pencil": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we do with a pencil?",
+        "expected_semantic_intents": [
+          "write",
+          "draw",
+          "color",
+          "scribble",
+          "letters",
+          "picture"
+        ],
+        "fallback_node": "pencil_choice",
+        "image": "images/tools/pencil.png",
+        "emoji": "✏️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "craft_table",
+        "motion": "paint",
+        "intent_synonyms": {
+          "write": [
+            "writing",
+            "writes"
+          ],
+          "draw": [
+            "drawing"
+          ],
+          "color": [
+            "coloring"
+          ]
+        },
+        "next_node": "crayons"
+      },
+      "pencil_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we write with a pencil, or eat it?",
+        "expected_semantic_intents": [
+          "write",
+          "eat"
+        ],
+        "correct_intents": [
+          "write"
+        ],
+        "image": "images/tools/pencil.png",
+        "emoji": "✏️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "craft_table",
+        "motion": "paint",
+        "intent_synonyms": {
+          "write": [
+            "writing",
+            "draw"
+          ],
+          "eat": [
+            "eating"
+          ]
+        }
+      },
+      "crayons": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What can we make with crayons?",
+        "expected_semantic_intents": [
+          "picture",
+          "drawing",
+          "draw",
+          "color",
+          "rainbow",
+          "art"
+        ],
+        "fallback_node": "crayons_choice",
+        "image": "images/tools/crayons.png",
+        "emoji": "🖍️",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "art_corner",
+        "motion": "paint",
+        "intent_synonyms": {
+          "picture": [
+            "pictures"
+          ],
+          "color": [
+            "coloring",
+            "colors"
+          ]
+        },
+        "next_node": "broom"
+      },
+      "crayons_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we color with crayons, or wear them?",
+        "expected_semantic_intents": [
+          "color",
+          "wear"
+        ],
+        "correct_intents": [
+          "color"
+        ],
+        "image": "images/tools/crayons.png",
+        "emoji": "🖍️",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "art_corner",
+        "motion": "paint",
+        "intent_synonyms": {
+          "color": [
+            "coloring",
+            "draw"
+          ],
+          "wear": [
+            "wearing"
+          ]
+        }
+      },
+      "broom": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we do with a broom?",
+        "expected_semantic_intents": [
+          "sweep",
+          "clean",
+          "dust"
+        ],
+        "fallback_node": "broom_choice",
+        "image": "images/tools/broom.png",
+        "emoji": "🧹",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "sweep": [
+            "sweeping",
+            "sweeps"
+          ],
+          "clean": [
+            "cleaning",
+            "tidy"
+          ]
+        },
+        "next_node": "ladder"
+      },
+      "broom_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we sweep with a broom, or swim with it?",
+        "expected_semantic_intents": [
+          "sweep",
+          "swim"
+        ],
+        "correct_intents": [
+          "sweep"
+        ],
+        "image": "images/tools/broom.png",
+        "emoji": "🧹",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "sweep": [
+            "sweeping",
+            "clean"
+          ],
+          "swim": [
+            "swimming"
+          ]
+        }
+      },
+      "ladder": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We climb this to reach up high. What is it?",
+        "expected_semantic_intents": [
+          "ladder",
+          "steps",
+          "stairs",
+          "chair",
+          "slide"
+        ],
+        "fallback_node": "ladder_choice",
+        "image": "images/tools/ladder.png",
+        "emoji": "🪜",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "workbench",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "ladder": [
+            "ladders"
+          ]
+        },
+        "correct_intents": [
+          "ladder",
+          "steps",
+          "stairs"
         ]
+      },
+      "ladder_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a pillow, or a ladder?",
+        "expected_semantic_intents": [
+          "ladder",
+          "pillow"
+        ],
+        "correct_intents": [
+          "ladder"
+        ],
+        "image": "images/tools/ladder.png",
+        "emoji": "🪜",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "workbench",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "ladder": [
+            "ladders"
+          ]
+        }
       }
     }
   }

@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_food_yummy_001",
+  "title": "Yummy Food",
+  "domain": "Food",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/food/yummy_cover.png",
+  "cover_emoji": "🍎",
+  "lexical_targets": [
+    {
+      "lemma": "apple",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "banana",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "carrot",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "pizza",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "ice cream",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "grapes",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink",
+      "synonyms": [
+        "grape"
+      ]
+    },
+    {
+      "lemma": "watermelon",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "cookie",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink",
+      "synonyms": [
+        "cookies"
+      ]
+    },
+    {
+      "lemma": "bread",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "cheese",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "corn",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "egg",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink",
+      "synonyms": [
+        "eggs"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "apple",
+    "nodes": {
+      "apple": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This fruit is red and crunchy. What is it?",
+        "expected_semantic_intents": [
+          "apple",
+          "tomato",
+          "cherry",
+          "ball"
+        ],
+        "fallback_node": "apple_choice",
+        "image": "images/food/apple.png",
+        "emoji": "🍎",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "apple": [
+            "apples"
+          ]
+        },
+        "correct_intents": [
+          "apple"
+        ],
+        "next_node": "banana"
+      },
+      "apple_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it an apple, or a shoe?",
+        "expected_semantic_intents": [
+          "apple",
+          "shoe"
+        ],
+        "correct_intents": [
+          "apple"
+        ],
+        "image": "images/food/apple.png",
+        "emoji": "🍎",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "apple": [
+            "apples"
+          ]
+        }
+      },
+      "banana": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Monkeys love this yellow fruit. What is it?",
+        "expected_semantic_intents": [
+          "banana",
+          "lemon",
+          "corn"
+        ],
+        "fallback_node": "banana_choice",
+        "image": "images/food/banana.png",
+        "emoji": "🍌",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "sway",
+        "intent_synonyms": {
+          "banana": [
+            "bananas",
+            "nana"
+          ]
+        },
+        "correct_intents": [
+          "banana"
+        ],
+        "next_node": "carrot"
+      },
+      "banana_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a car, or a banana?",
+        "expected_semantic_intents": [
+          "banana",
+          "car"
+        ],
+        "correct_intents": [
+          "banana"
+        ],
+        "image": "images/food/banana.png",
+        "emoji": "🍌",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "sway",
+        "intent_synonyms": {
+          "banana": [
+            "bananas",
+            "nana"
+          ]
+        }
+      },
+      "carrot": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Bunnies love to munch this orange vegetable. What is it?",
+        "expected_semantic_intents": [
+          "carrot",
+          "orange",
+          "pumpkin"
+        ],
+        "fallback_node": "carrot_choice",
+        "image": "images/food/carrot.png",
+        "emoji": "🥕",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "garden",
+        "motion": "sway",
+        "intent_synonyms": {
+          "carrot": [
+            "carrots"
+          ]
+        },
+        "correct_intents": [
+          "carrot"
+        ],
+        "next_node": "pizza"
+      },
+      "carrot_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a carrot, or a cookie?",
+        "expected_semantic_intents": [
+          "carrot",
+          "cookie"
+        ],
+        "correct_intents": [
+          "carrot"
+        ],
+        "image": "images/food/carrot.png",
+        "emoji": "🥕",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "garden",
+        "motion": "sway",
+        "intent_synonyms": {
+          "carrot": [
+            "carrots"
+          ]
+        }
+      },
+      "pizza": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Yum! What food is this?",
+        "expected_semantic_intents": [
+          "pizza",
+          "cheese",
+          "cake",
+          "sandwich"
+        ],
+        "fallback_node": "pizza_choice",
+        "image": "images/food/pizza.png",
+        "emoji": "🍕",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "steam",
+        "intent_synonyms": {
+          "pizza": [
+            "pizzas",
+            "pizza pie"
+          ]
+        },
+        "correct_intents": [
+          "pizza"
+        ],
+        "next_node": "ice_cream"
+      },
+      "pizza_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a ball, or pizza?",
+        "expected_semantic_intents": [
+          "pizza",
+          "ball"
+        ],
+        "correct_intents": [
+          "pizza"
+        ],
+        "image": "images/food/pizza.png",
+        "emoji": "🍕",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "steam",
+        "intent_synonyms": {
+          "pizza": [
+            "pizzas",
+            "pizza pie"
+          ]
+        }
+      },
+      "ice_cream": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "It's cold and sweet, and we lick it! What is it?",
+        "expected_semantic_intents": [
+          "ice cream",
+          "icecream",
+          "cone",
+          "ice-cream",
+          "cake",
+          "cookie",
+          "popsicle"
+        ],
+        "fallback_node": "ice_cream_choice",
+        "image": "images/food/ice_cream.png",
+        "emoji": "🍦",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "correct_intents": [
+          "ice cream",
+          "icecream",
+          "cone",
+          "ice-cream"
+        ],
+        "next_node": "grapes"
+      },
+      "ice_cream_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it ice cream, or soup?",
+        "expected_semantic_intents": [
+          "ice cream",
+          "soup"
+        ],
+        "correct_intents": [
+          "ice cream"
+        ],
+        "image": "images/food/ice_cream.png",
+        "emoji": "🍦",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "ice cream": [
+            "icecream",
+            "cone"
+          ]
+        }
+      },
+      "grapes": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "These little purple fruits grow in bunches. What are they?",
+        "expected_semantic_intents": [
+          "grapes",
+          "grape",
+          "blueberries",
+          "berries",
+          "cherries"
+        ],
+        "fallback_node": "grapes_choice",
+        "image": "images/food/grapes.png",
+        "emoji": "🍇",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "correct_intents": [
+          "grapes",
+          "grape"
+        ],
+        "next_node": "watermelon"
+      },
+      "grapes_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Are they rocks, or grapes?",
+        "expected_semantic_intents": [
+          "grapes",
+          "rocks"
+        ],
+        "correct_intents": [
+          "grapes"
+        ],
+        "image": "images/food/grapes.png",
+        "emoji": "🍇",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "grapes": [
+            "grape"
+          ]
+        }
+      },
+      "watermelon": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This big fruit is green on the outside and red inside. What is it?",
+        "expected_semantic_intents": [
+          "watermelon",
+          "melon",
+          "apple",
+          "pizza"
+        ],
+        "fallback_node": "watermelon_choice",
+        "image": "images/food/watermelon.png",
+        "emoji": "🍉",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "watermelon": [
+            "water melon",
+            "watermelons"
+          ]
+        },
+        "correct_intents": [
+          "watermelon",
+          "melon"
+        ],
+        "next_node": "cookie"
+      },
+      "watermelon_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a watermelon, or a hat?",
+        "expected_semantic_intents": [
+          "watermelon",
+          "hat"
+        ],
+        "correct_intents": [
+          "watermelon"
+        ],
+        "image": "images/food/watermelon.png",
+        "emoji": "🍉",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "picnic",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "watermelon": [
+            "melon",
+            "water melon"
+          ]
+        }
+      },
+      "cookie": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This sweet treat goes great with milk. What is it?",
+        "expected_semantic_intents": [
+          "cookie",
+          "biscuit",
+          "cake",
+          "pizza",
+          "cracker"
+        ],
+        "fallback_node": "cookie_choice",
+        "image": "images/food/cookie.png",
+        "emoji": "🍪",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "cookie": [
+            "cookies"
+          ]
+        },
+        "correct_intents": [
+          "cookie",
+          "biscuit"
+        ],
+        "next_node": "bread"
+      },
+      "cookie_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a sock, or a cookie?",
+        "expected_semantic_intents": [
+          "cookie",
+          "sock"
+        ],
+        "correct_intents": [
+          "cookie"
+        ],
+        "image": "images/food/cookie.png",
+        "emoji": "🍪",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "cookie": [
+            "cookies"
+          ]
+        }
+      },
+      "bread": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We make sandwiches with this. What is it?",
+        "expected_semantic_intents": [
+          "bread",
+          "toast",
+          "loaf",
+          "cake",
+          "cheese"
+        ],
+        "fallback_node": "bread_choice",
+        "image": "images/food/bread.png",
+        "emoji": "🍞",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "correct_intents": [
+          "bread",
+          "toast",
+          "loaf"
+        ],
+        "next_node": "cheese"
+      },
+      "bread_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it bread, or a book?",
+        "expected_semantic_intents": [
+          "bread",
+          "book"
+        ],
+        "correct_intents": [
+          "bread"
+        ],
+        "image": "images/food/bread.png",
+        "emoji": "🍞",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe"
+      },
+      "cheese": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Mice love this yellow food! What is it?",
+        "expected_semantic_intents": [
+          "cheese",
+          "cake",
+          "bread",
+          "butter"
+        ],
+        "fallback_node": "cheese_choice",
+        "image": "images/food/cheese.png",
+        "emoji": "🧀",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "cheese": [
+            "cheesy"
+          ]
+        },
+        "correct_intents": [
+          "cheese"
+        ],
+        "next_node": "corn"
+      },
+      "cheese_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a car, or cheese?",
+        "expected_semantic_intents": [
+          "cheese",
+          "car"
+        ],
+        "correct_intents": [
+          "cheese"
+        ],
+        "image": "images/food/cheese.png",
+        "emoji": "🧀",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "cheese": [
+            "cheesy"
+          ]
+        }
+      },
+      "corn": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This yellow vegetable grows on a tall plant. What is it?",
+        "expected_semantic_intents": [
+          "corn",
+          "corn on the cob",
+          "banana",
+          "carrot"
+        ],
+        "fallback_node": "corn_choice",
+        "image": "images/food/corn.png",
+        "emoji": "🌽",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "garden",
+        "motion": "sway",
+        "correct_intents": [
+          "corn",
+          "corn on the cob"
+        ],
+        "next_node": "egg"
+      },
+      "corn_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it corn, or a cat?",
+        "expected_semantic_intents": [
+          "corn",
+          "cat"
+        ],
+        "correct_intents": [
+          "corn"
+        ],
+        "image": "images/food/corn.png",
+        "emoji": "🌽",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "garden",
+        "motion": "sway"
+      },
+      "egg": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "A chicken lays this. What is it?",
+        "expected_semantic_intents": [
+          "egg",
+          "eggs",
+          "ball",
+          "rock"
+        ],
+        "fallback_node": "egg_choice",
+        "image": "images/food/egg.png",
+        "emoji": "🥚",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "correct_intents": [
+          "egg",
+          "eggs"
+        ]
+      },
+      "egg_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a boot, or an egg?",
+        "expected_semantic_intents": [
+          "egg",
+          "boot"
+        ],
+        "correct_intents": [
+          "egg"
+        ],
+        "image": "images/food/egg.png",
+        "emoji": "🥚",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "egg": [
+            "eggs"
+          ]
+        }
+      }
+    }
+  }
+}

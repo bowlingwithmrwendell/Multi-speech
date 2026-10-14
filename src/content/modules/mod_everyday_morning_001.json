@@ -3,20 +3,26 @@
   "module_id": "mod_everyday_morning_001",
   "title": "Morning Routine",
   "domain": "Everyday",
-  "target_age_group": "2-5",
+  "target_age_group": "3-5",
   "language": "en",
-  "cover_image": "images/everyday/cover.png",
+  "cover_image": "images/everyday/morning_cover.png",
   "cover_emoji": "🌅",
   "lexical_targets": [
     {
-      "lemma": "cereal",
-      "ipa": "/ˈsɪə.ri.əl/",
+      "lemma": "breakfast",
+      "ipa": "",
       "difficulty_tier": 3,
       "cdi_category": "Food and Drink"
     },
     {
+      "lemma": "cereal",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
       "lemma": "teeth",
-      "ipa": "/tiːθ/",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Body Parts",
       "synonyms": [
@@ -24,8 +30,14 @@
       ]
     },
     {
+      "lemma": "toothbrush",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Household Items"
+    },
+    {
       "lemma": "shoes",
-      "ipa": "/ʃuːz/",
+      "ipa": "",
       "difficulty_tier": 1,
       "cdi_category": "Clothing",
       "synonyms": [
@@ -34,7 +46,7 @@
     },
     {
       "lemma": "socks",
-      "ipa": "/sɑːks/",
+      "ipa": "",
       "difficulty_tier": 1,
       "cdi_category": "Clothing",
       "synonyms": [
@@ -43,15 +55,76 @@
     },
     {
       "lemma": "happy",
-      "ipa": "/ˈhæp.i/",
+      "ipa": "",
       "difficulty_tier": 2,
       "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "hands",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "hand"
+      ]
+    },
+    {
+      "lemma": "wash",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words"
+    },
+    {
+      "lemma": "backpack",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Clothing",
+      "synonyms": [
+        "bag"
+      ]
+    },
+    {
+      "lemma": "sleepy",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Descriptive Words",
+      "synonyms": [
+        "tired"
+      ]
+    },
+    {
+      "lemma": "sad",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "juice",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "milk",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Food and Drink"
+    },
+    {
+      "lemma": "bath",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Household Items",
+      "synonyms": [
+        "bathtub",
+        "tub"
+      ]
     }
   ],
   "prompt_tree": {
-    "root_id": "node_001",
+    "root_id": "breakfast",
     "nodes": {
-      "node_001": {
+      "breakfast": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Good morning! What do you like to eat for breakfast?",
         "expected_semantic_intents": [
@@ -63,12 +136,16 @@
           "banana",
           "oatmeal",
           "waffles",
-          "fruit"
+          "fruit",
+          "bacon",
+          "yogurt"
         ],
-        "fallback_node": "node_001_scaffold",
+        "fallback_node": "breakfast_choice",
         "image": "images/everyday/breakfast.png",
         "emoji": "🥣",
-        "praise_template": "Yum! {intent}! That sounds delicious!",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "steam",
         "intent_synonyms": {
           "pancakes": [
             "pancake"
@@ -80,74 +157,62 @@
             "waffle"
           ]
         },
-        "next_node": "node_002",
-        "scene": "kitchen",
-        "motion": "steam"
+        "next_node": "toothbrush"
       },
-      "node_001_scaffold": {
+      "breakfast_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do you want cereal, or pancakes?",
         "expected_semantic_intents": [
           "cereal",
           "pancakes"
         ],
+        "correct_intents": [
+          "cereal"
+        ],
         "image": "images/everyday/breakfast.png",
         "emoji": "🥣",
-        "praise_template": "You said {intent}! Nice!",
-        "intent_synonyms": {
-          "pancakes": [
-            "pancake"
-          ]
-        },
+        "praise_template": "Yes, {intent}! You got it!",
         "scene": "kitchen",
         "motion": "steam"
       },
-      "node_002": {
+      "toothbrush": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "After breakfast we brush our... what do we brush?",
         "expected_semantic_intents": [
           "teeth",
-          "tooth"
+          "tooth",
+          "hair",
+          "shoes"
         ],
-        "fallback_node": "node_002_scaffold",
+        "fallback_node": "toothbrush_choice",
         "image": "images/everyday/toothbrush.png",
         "emoji": "🪥",
         "praise_template": "Yes! {intent}! Great talking!",
-        "intent_synonyms": {
-          "teeth": [
-            "teef",
-            "teethes"
-          ]
-        },
-        "next_node": "node_003",
         "scene": "bathroom",
-        "motion": "scrub"
+        "motion": "scrub",
+        "correct_intents": [
+          "teeth",
+          "tooth"
+        ],
+        "next_node": "clothes"
       },
-      "node_002_scaffold": {
+      "toothbrush_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do we brush our teeth, or our shoes?",
         "expected_semantic_intents": [
           "teeth",
           "shoes"
         ],
-        "image": "images/everyday/toothbrush.png",
-        "emoji": "🪥",
-        "praise_template": "You said {intent}! Nice!",
-        "intent_synonyms": {
-          "teeth": [
-            "tooth"
-          ],
-          "shoes": [
-            "shoe"
-          ]
-        },
-        "scene": "bathroom",
-        "motion": "scrub",
         "correct_intents": [
           "teeth"
-        ]
+        ],
+        "image": "images/everyday/toothbrush.png",
+        "emoji": "🪥",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bathroom",
+        "motion": "scrub"
       },
-      "node_003": {
+      "clothes": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Time to get dressed! What do you put on your feet?",
         "expected_semantic_intents": [
@@ -155,15 +220,21 @@
           "socks",
           "boots",
           "sandals",
-          "slippers"
+          "slippers",
+          "hat",
+          "shirt",
+          "gloves"
         ],
-        "fallback_node": "node_003_scaffold",
+        "fallback_node": "clothes_choice",
         "image": "images/everyday/clothes.png",
         "emoji": "👕",
         "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bedroom",
+        "motion": "sway",
         "intent_synonyms": {
           "shoes": [
-            "shoe"
+            "shoe",
+            "sneakers"
           ],
           "socks": [
             "sock"
@@ -172,72 +243,361 @@
             "boot"
           ]
         },
-        "next_node": "node_004",
-        "scene": "bedroom",
-        "motion": "sway"
+        "correct_intents": [
+          "shoes",
+          "socks",
+          "boots",
+          "sandals",
+          "slippers"
+        ],
+        "next_node": "happy"
       },
-      "node_003_scaffold": {
+      "clothes_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Do socks go on your feet, or on your head?",
         "expected_semantic_intents": [
           "feet",
           "head"
         ],
+        "correct_intents": [
+          "feet"
+        ],
         "image": "images/everyday/clothes.png",
         "emoji": "👕",
-        "praise_template": "You said {intent}! Nice!",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bedroom",
+        "motion": "sway",
         "intent_synonyms": {
           "feet": [
             "foot",
-            "socks"
+            "toes"
           ]
-        },
-        "scene": "bedroom",
-        "motion": "sway",
-        "correct_intents": [
-          "feet"
-        ]
+        }
       },
-      "node_004": {
+      "happy": {
         "prompt_type": "open_ended_conversational",
         "tts_template": "Look at this face! How is this child feeling?",
         "expected_semantic_intents": [
           "happy",
           "glad",
           "smiling",
-          "excited"
+          "excited",
+          "sad",
+          "mad",
+          "angry"
         ],
-        "fallback_node": "node_004_scaffold",
-        "image": "images/everyday/happy_face.png",
+        "fallback_node": "happy_choice",
+        "image": "images/everyday/happy.png",
         "emoji": "😊",
         "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "breathe",
         "intent_synonyms": {
-          "happy": [
-            "good",
-            "great"
-          ],
           "smiling": [
-            "smile"
+            "smile",
+            "smiley"
           ]
         },
-        "scene": "playroom",
-        "motion": "breathe"
+        "correct_intents": [
+          "happy",
+          "glad",
+          "smiling",
+          "excited"
+        ],
+        "next_node": "wash_hands"
       },
-      "node_004_scaffold": {
+      "happy_choice": {
         "prompt_type": "forced_choice_scaffold",
         "tts_template": "Is the child happy, or sad?",
         "expected_semantic_intents": [
           "happy",
           "sad"
         ],
-        "image": "images/everyday/happy_face.png",
-        "emoji": "😊",
-        "praise_template": "You said {intent}! Nice!",
-        "scene": "playroom",
-        "motion": "breathe",
         "correct_intents": [
           "happy"
-        ]
+        ],
+        "image": "images/everyday/happy.png",
+        "emoji": "😊",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "breathe"
+      },
+      "wash_hands": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Before we eat, we wash our... what do we wash?",
+        "expected_semantic_intents": [
+          "hands",
+          "hand",
+          "fingers",
+          "feet",
+          "shoes",
+          "car"
+        ],
+        "fallback_node": "wash_hands_choice",
+        "image": "images/everyday/wash_hands.png",
+        "emoji": "🧼",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bathroom",
+        "motion": "scrub",
+        "correct_intents": [
+          "hands",
+          "hand",
+          "fingers"
+        ],
+        "next_node": "backpack"
+      },
+      "wash_hands_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we wash our hands, or our shoes?",
+        "expected_semantic_intents": [
+          "hands",
+          "shoes"
+        ],
+        "correct_intents": [
+          "hands"
+        ],
+        "image": "images/everyday/wash_hands.png",
+        "emoji": "🧼",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bathroom",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "hands": [
+            "hand"
+          ]
+        }
+      },
+      "backpack": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We carry our books to school in a... what?",
+        "expected_semantic_intents": [
+          "backpack",
+          "bag",
+          "bookbag",
+          "school bag",
+          "box",
+          "basket"
+        ],
+        "fallback_node": "backpack_choice",
+        "image": "images/everyday/backpack.png",
+        "emoji": "🎒",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bedroom",
+        "motion": "sway",
+        "intent_synonyms": {
+          "backpack": [
+            "back pack",
+            "backpacks"
+          ]
+        },
+        "correct_intents": [
+          "backpack",
+          "bag",
+          "bookbag",
+          "school bag"
+        ],
+        "next_node": "sleepy"
+      },
+      "backpack_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a pumpkin, or a backpack?",
+        "expected_semantic_intents": [
+          "backpack",
+          "pumpkin"
+        ],
+        "correct_intents": [
+          "backpack"
+        ],
+        "image": "images/everyday/backpack.png",
+        "emoji": "🎒",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bedroom",
+        "motion": "sway",
+        "intent_synonyms": {
+          "backpack": [
+            "bag"
+          ]
+        }
+      },
+      "sleepy": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Yawn! How is this child feeling?",
+        "expected_semantic_intents": [
+          "sleepy",
+          "tired",
+          "sleeping",
+          "asleep",
+          "happy",
+          "sad",
+          "hungry"
+        ],
+        "fallback_node": "sleepy_choice",
+        "image": "images/everyday/sleepy.png",
+        "emoji": "😴",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bedroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "sleepy",
+          "tired",
+          "sleeping",
+          "asleep"
+        ],
+        "next_node": "sad"
+      },
+      "sleepy_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the child sleepy, or hungry?",
+        "expected_semantic_intents": [
+          "sleepy",
+          "hungry"
+        ],
+        "correct_intents": [
+          "sleepy"
+        ],
+        "image": "images/everyday/sleepy.png",
+        "emoji": "😴",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bedroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "sleepy": [
+            "tired"
+          ]
+        }
+      },
+      "sad": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Oh no, tears! How is this child feeling?",
+        "expected_semantic_intents": [
+          "sad",
+          "crying",
+          "upset",
+          "unhappy",
+          "happy",
+          "silly"
+        ],
+        "fallback_node": "sad_choice",
+        "image": "images/everyday/sad.png",
+        "emoji": "😢",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "crying": [
+            "cry",
+            "cries"
+          ]
+        },
+        "correct_intents": [
+          "sad",
+          "crying",
+          "upset",
+          "unhappy"
+        ],
+        "next_node": "juice"
+      },
+      "sad_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the child happy, or sad?",
+        "expected_semantic_intents": [
+          "sad",
+          "happy"
+        ],
+        "correct_intents": [
+          "sad"
+        ],
+        "image": "images/everyday/sad.png",
+        "emoji": "😢",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "breathe"
+      },
+      "juice": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What can you drink in the morning?",
+        "expected_semantic_intents": [
+          "juice",
+          "milk",
+          "water",
+          "orange juice",
+          "apple juice",
+          "chocolate milk"
+        ],
+        "fallback_node": "juice_choice",
+        "image": "images/everyday/juice.png",
+        "emoji": "🧃",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "next_node": "bath"
+      },
+      "juice_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we drink juice, or sand?",
+        "expected_semantic_intents": [
+          "juice",
+          "sand"
+        ],
+        "correct_intents": [
+          "juice"
+        ],
+        "image": "images/everyday/juice.png",
+        "emoji": "🧃",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "juice": [
+            "milk",
+            "water"
+          ]
+        }
+      },
+      "bath": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Splash splash! Where do we take a bath?",
+        "expected_semantic_intents": [
+          "tub",
+          "bathtub",
+          "bath",
+          "water",
+          "bathroom"
+        ],
+        "fallback_node": "bath_choice",
+        "image": "images/everyday/bath.png",
+        "emoji": "🛁",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bathroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "tub": [
+            "bath tub"
+          ]
+        }
+      },
+      "bath_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we take a bath in the car, or in the tub?",
+        "expected_semantic_intents": [
+          "tub",
+          "car"
+        ],
+        "correct_intents": [
+          "tub"
+        ],
+        "image": "images/everyday/bath.png",
+        "emoji": "🛁",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bathroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "tub": [
+            "bathtub",
+            "bath",
+            "water"
+          ]
+        }
       }
     }
   }

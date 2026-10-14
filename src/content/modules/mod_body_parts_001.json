@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_body_parts_001",
+  "title": "My Body",
+  "domain": "Body",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/body/parts_cover.png",
+  "cover_emoji": "👃",
+  "lexical_targets": [
+    {
+      "lemma": "nose",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts"
+    },
+    {
+      "lemma": "eyes",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "eye"
+      ]
+    },
+    {
+      "lemma": "ears",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "ear"
+      ]
+    },
+    {
+      "lemma": "mouth",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts"
+    },
+    {
+      "lemma": "hand",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "hands"
+      ]
+    },
+    {
+      "lemma": "feet",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "foot"
+      ]
+    },
+    {
+      "lemma": "teeth",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "tooth"
+      ]
+    },
+    {
+      "lemma": "legs",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Body Parts",
+      "synonyms": [
+        "leg"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "nose",
+    "nodes": {
+      "nose": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we smell flowers with?",
+        "expected_semantic_intents": [
+          "nose",
+          "mouth",
+          "eyes",
+          "ears",
+          "hands"
+        ],
+        "fallback_node": "nose_choice",
+        "image": "images/body/nose.png",
+        "emoji": "👃",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "garden",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "nose": [
+            "nostrils",
+            "nosey"
+          ]
+        },
+        "correct_intents": [
+          "nose"
+        ],
+        "next_node": "eyes"
+      },
+      "nose_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we smell with our nose, or our feet?",
+        "expected_semantic_intents": [
+          "nose",
+          "feet"
+        ],
+        "correct_intents": [
+          "nose"
+        ],
+        "image": "images/body/nose.png",
+        "emoji": "👃",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "garden",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "nose": [
+            "nostrils"
+          ]
+        }
+      },
+      "eyes": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we see with?",
+        "expected_semantic_intents": [
+          "eyes",
+          "eye",
+          "nose",
+          "ears",
+          "mouth",
+          "hands"
+        ],
+        "fallback_node": "eyes_choice",
+        "image": "images/body/eyes.png",
+        "emoji": "👀",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "eyes",
+          "eye"
+        ],
+        "next_node": "ears"
+      },
+      "eyes_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we see with our knees, or our eyes?",
+        "expected_semantic_intents": [
+          "eyes",
+          "knees"
+        ],
+        "correct_intents": [
+          "eyes"
+        ],
+        "image": "images/body/eyes.png",
+        "emoji": "👀",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "eyes": [
+            "eye"
+          ]
+        }
+      },
+      "ears": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we hear music with?",
+        "expected_semantic_intents": [
+          "ears",
+          "ear",
+          "eyes",
+          "nose",
+          "mouth",
+          "hands"
+        ],
+        "fallback_node": "ears_choice",
+        "image": "images/body/ears.png",
+        "emoji": "👂",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "ears",
+          "ear"
+        ],
+        "next_node": "mouth"
+      },
+      "ears_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we hear with our ears, or our toes?",
+        "expected_semantic_intents": [
+          "ears",
+          "toes"
+        ],
+        "correct_intents": [
+          "ears"
+        ],
+        "image": "images/body/ears.png",
+        "emoji": "👂",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "ears": [
+            "ear"
+          ]
+        }
+      },
+      "mouth": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we eat with?",
+        "expected_semantic_intents": [
+          "mouth",
+          "teeth",
+          "lips",
+          "nose",
+          "ears",
+          "eyes"
+        ],
+        "fallback_node": "mouth_choice",
+        "image": "images/body/mouth.png",
+        "emoji": "👄",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "kitchen",
+        "motion": "breathe",
+        "correct_intents": [
+          "mouth",
+          "teeth",
+          "lips"
+        ],
+        "next_node": "hand"
+      },
+      "mouth_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we eat with our elbow, or our mouth?",
+        "expected_semantic_intents": [
+          "mouth",
+          "elbow"
+        ],
+        "correct_intents": [
+          "mouth"
+        ],
+        "image": "images/body/mouth.png",
+        "emoji": "👄",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "kitchen",
+        "motion": "breathe"
+      },
+      "hand": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Wave hello! What do we wave with?",
+        "expected_semantic_intents": [
+          "hand",
+          "hands",
+          "fingers",
+          "arm",
+          "foot",
+          "feet",
+          "head"
+        ],
+        "fallback_node": "hand_choice",
+        "image": "images/body/hand.png",
+        "emoji": "👋",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "scrub",
+        "correct_intents": [
+          "hand",
+          "hands",
+          "fingers",
+          "arm"
+        ],
+        "next_node": "feet"
+      },
+      "hand_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we wave with our hand, or our nose?",
+        "expected_semantic_intents": [
+          "hand",
+          "nose"
+        ],
+        "correct_intents": [
+          "hand"
+        ],
+        "image": "images/body/hand.png",
+        "emoji": "👋",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "scrub",
+        "intent_synonyms": {
+          "hand": [
+            "hands"
+          ]
+        }
+      },
+      "feet": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Where do we put our socks?",
+        "expected_semantic_intents": [
+          "feet",
+          "foot",
+          "toes",
+          "hands",
+          "head",
+          "ears"
+        ],
+        "fallback_node": "feet_choice",
+        "image": "images/body/feet.png",
+        "emoji": "🦶",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bedroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "feet",
+          "foot",
+          "toes"
+        ],
+        "next_node": "teeth"
+      },
+      "feet_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do socks go on our ears, or our feet?",
+        "expected_semantic_intents": [
+          "feet",
+          "ears"
+        ],
+        "correct_intents": [
+          "feet"
+        ],
+        "image": "images/body/feet.png",
+        "emoji": "🦶",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bedroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "feet": [
+            "foot",
+            "toes"
+          ]
+        }
+      },
+      "teeth": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "We brush these every morning and night. What are they?",
+        "expected_semantic_intents": [
+          "teeth",
+          "tooth",
+          "hair",
+          "shoes"
+        ],
+        "fallback_node": "teeth_choice",
+        "image": "images/body/teeth.png",
+        "emoji": "🦷",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "bathroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "teeth",
+          "tooth"
+        ],
+        "next_node": "legs"
+      },
+      "teeth_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we brush our teeth, or our elbows?",
+        "expected_semantic_intents": [
+          "teeth",
+          "elbows"
+        ],
+        "correct_intents": [
+          "teeth"
+        ],
+        "image": "images/body/teeth.png",
+        "emoji": "🦷",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "bathroom",
+        "motion": "breathe",
+        "intent_synonyms": {
+          "teeth": [
+            "tooth"
+          ]
+        }
+      },
+      "legs": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What do we use to jump and run?",
+        "expected_semantic_intents": [
+          "legs",
+          "leg",
+          "feet",
+          "foot",
+          "hands",
+          "arms",
+          "ears"
+        ],
+        "fallback_node": "legs_choice",
+        "image": "images/body/legs.png",
+        "emoji": "🦵",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "playroom",
+        "motion": "trot",
+        "correct_intents": [
+          "legs",
+          "leg",
+          "feet",
+          "foot"
+        ]
+      },
+      "legs_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Do we run with our ears, or our legs?",
+        "expected_semantic_intents": [
+          "legs",
+          "ears"
+        ],
+        "correct_intents": [
+          "legs"
+        ],
+        "image": "images/body/legs.png",
+        "emoji": "🦵",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "playroom",
+        "motion": "trot",
+        "intent_synonyms": {
+          "legs": [
+            "leg",
+            "feet"
+          ]
+        }
+      }
+    }
+  }
+}

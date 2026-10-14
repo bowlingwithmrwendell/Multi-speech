@@ -1,0 +1,493 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_ocean_001",
+  "title": "Under the Sea",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/ocean/ocean_cover.png",
+  "cover_emoji": "🐠",
+  "lexical_targets": [
+    {
+      "lemma": "fish",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "whale",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "dolphin",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "octopus",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "crab",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "turtle",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "shark",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "seal",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "penguin",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "fish",
+    "nodes": {
+      "fish": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look at the colorful animal swimming in the water. What is it?",
+        "expected_semantic_intents": [
+          "fish"
+        ],
+        "fallback_node": "fish_choice",
+        "image": "images/ocean/fish.png",
+        "emoji": "🐠",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "reef",
+        "motion": "swim",
+        "intent_synonyms": {
+          "fish": [
+            "fishy",
+            "fishes",
+            "goldfish"
+          ]
+        },
+        "next_node": "whale"
+      },
+      "fish_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a fish, or a dog?",
+        "expected_semantic_intents": [
+          "fish",
+          "dog"
+        ],
+        "correct_intents": [
+          "fish"
+        ],
+        "image": "images/ocean/fish.png",
+        "emoji": "🐠",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "reef",
+        "motion": "swim",
+        "intent_synonyms": {
+          "fish": [
+            "fishy",
+            "fishes",
+            "goldfish"
+          ]
+        }
+      },
+      "whale": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This is the biggest animal in the ocean! What is it?",
+        "expected_semantic_intents": [
+          "whale",
+          "shark",
+          "fish",
+          "dolphin"
+        ],
+        "fallback_node": "whale_choice",
+        "image": "images/ocean/whale.png",
+        "emoji": "🐋",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "whale": [
+            "whales"
+          ]
+        },
+        "correct_intents": [
+          "whale"
+        ],
+        "next_node": "dolphin"
+      },
+      "whale_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a mouse, or a whale?",
+        "expected_semantic_intents": [
+          "whale",
+          "mouse"
+        ],
+        "correct_intents": [
+          "whale"
+        ],
+        "image": "images/ocean/whale.png",
+        "emoji": "🐋",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "whale": [
+            "whales"
+          ]
+        }
+      },
+      "dolphin": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This friendly animal jumps out of the water and squeaks. What is it?",
+        "expected_semantic_intents": [
+          "dolphin",
+          "shark",
+          "whale",
+          "fish"
+        ],
+        "fallback_node": "dolphin_choice",
+        "image": "images/ocean/dolphin.png",
+        "emoji": "🐬",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "dolphin": [
+            "dolphins"
+          ]
+        },
+        "correct_intents": [
+          "dolphin"
+        ],
+        "next_node": "octopus"
+      },
+      "dolphin_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a dolphin, or a cow?",
+        "expected_semantic_intents": [
+          "dolphin",
+          "cow"
+        ],
+        "correct_intents": [
+          "dolphin"
+        ],
+        "image": "images/ocean/dolphin.png",
+        "emoji": "🐬",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "dolphin": [
+            "dolphins"
+          ]
+        }
+      },
+      "octopus": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has lots of wiggly arms. What is it?",
+        "expected_semantic_intents": [
+          "octopus",
+          "fish",
+          "spider"
+        ],
+        "fallback_node": "octopus_choice",
+        "image": "images/ocean/octopus.png",
+        "emoji": "🐙",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "reef",
+        "motion": "swim",
+        "intent_synonyms": {
+          "octopus": [
+            "octopuses",
+            "octopi",
+            "squid"
+          ]
+        },
+        "correct_intents": [
+          "octopus"
+        ],
+        "next_node": "crab"
+      },
+      "octopus_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it an octopus, or a horse?",
+        "expected_semantic_intents": [
+          "octopus",
+          "horse"
+        ],
+        "correct_intents": [
+          "octopus"
+        ],
+        "image": "images/ocean/octopus.png",
+        "emoji": "🐙",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "reef",
+        "motion": "swim",
+        "intent_synonyms": {
+          "octopus": [
+            "octopuses",
+            "octopi",
+            "squid"
+          ]
+        }
+      },
+      "crab": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal walks sideways on the sand. What is it?",
+        "expected_semantic_intents": [
+          "crab",
+          "spider",
+          "bug",
+          "lobster"
+        ],
+        "fallback_node": "crab_choice",
+        "image": "images/ocean/crab.png",
+        "emoji": "🦀",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "crab": [
+            "crabs",
+            "crabby"
+          ]
+        },
+        "correct_intents": [
+          "crab"
+        ],
+        "next_node": "turtle"
+      },
+      "crab_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a bird, or a crab?",
+        "expected_semantic_intents": [
+          "crab",
+          "bird"
+        ],
+        "correct_intents": [
+          "crab"
+        ],
+        "image": "images/ocean/crab.png",
+        "emoji": "🦀",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "crab": [
+            "crabs",
+            "crabby"
+          ]
+        }
+      },
+      "turtle": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal carries a shell on its back. What is it?",
+        "expected_semantic_intents": [
+          "turtle",
+          "tortoise",
+          "snail",
+          "frog"
+        ],
+        "fallback_node": "turtle_choice",
+        "image": "images/ocean/turtle.png",
+        "emoji": "🐢",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "turtle": [
+            "turtles",
+            "sea turtle"
+          ]
+        },
+        "correct_intents": [
+          "turtle",
+          "tortoise"
+        ],
+        "next_node": "shark"
+      },
+      "turtle_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a turtle, or a lion?",
+        "expected_semantic_intents": [
+          "turtle",
+          "lion"
+        ],
+        "correct_intents": [
+          "turtle"
+        ],
+        "image": "images/ocean/turtle.png",
+        "emoji": "🐢",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "turtle": [
+            "turtles",
+            "sea turtle"
+          ]
+        }
+      },
+      "shark": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This big fish has a fin on its back and lots of teeth. What is it?",
+        "expected_semantic_intents": [
+          "shark",
+          "dolphin",
+          "whale"
+        ],
+        "fallback_node": "shark_choice",
+        "image": "images/ocean/shark.png",
+        "emoji": "🦈",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "shark": [
+            "sharks"
+          ]
+        },
+        "correct_intents": [
+          "shark"
+        ],
+        "next_node": "seal"
+      },
+      "shark_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a sheep, or a shark?",
+        "expected_semantic_intents": [
+          "shark",
+          "sheep"
+        ],
+        "correct_intents": [
+          "shark"
+        ],
+        "image": "images/ocean/shark.png",
+        "emoji": "🦈",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "underwater",
+        "motion": "swim",
+        "intent_synonyms": {
+          "shark": [
+            "sharks"
+          ]
+        }
+      },
+      "seal": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal claps its flippers and barks. What is it?",
+        "expected_semantic_intents": [
+          "seal",
+          "sea lion",
+          "dog",
+          "walrus",
+          "fish"
+        ],
+        "fallback_node": "seal_choice",
+        "image": "images/ocean/seal.png",
+        "emoji": "🦭",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "seal": [
+            "seals"
+          ]
+        },
+        "correct_intents": [
+          "seal",
+          "sea lion"
+        ],
+        "next_node": "penguin"
+      },
+      "seal_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a seal, or a giraffe?",
+        "expected_semantic_intents": [
+          "seal",
+          "giraffe"
+        ],
+        "correct_intents": [
+          "seal"
+        ],
+        "image": "images/ocean/seal.png",
+        "emoji": "🦭",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "beach",
+        "motion": "walk",
+        "intent_synonyms": {
+          "seal": [
+            "seals"
+          ]
+        }
+      },
+      "penguin": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This bird can't fly, but it can swim! It is black and white. What is it?",
+        "expected_semantic_intents": [
+          "penguin",
+          "duck",
+          "bird",
+          "zebra"
+        ],
+        "fallback_node": "penguin_choice",
+        "image": "images/ocean/penguin.png",
+        "emoji": "🐧",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "ice",
+        "motion": "walk",
+        "intent_synonyms": {
+          "penguin": [
+            "penguins",
+            "pengwin"
+          ]
+        },
+        "correct_intents": [
+          "penguin"
+        ]
+      },
+      "penguin_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a pig, or a penguin?",
+        "expected_semantic_intents": [
+          "penguin",
+          "pig"
+        ],
+        "correct_intents": [
+          "penguin"
+        ],
+        "image": "images/ocean/penguin.png",
+        "emoji": "🐧",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "ice",
+        "motion": "walk",
+        "intent_synonyms": {
+          "penguin": [
+            "penguins",
+            "pengwin"
+          ]
+        }
+      }
+    }
+  }
+}
