@@ -67,7 +67,9 @@
         "image": "images/vehicles/fire_truck.png",
         "emoji": "🚒",
         "praise_template": "Yes! A fire truck! Wee-oo!",
-        "next_node": "node_002"
+        "next_node": "node_002",
+        "scene": "city_street",
+        "motion": "drive"
       },
       "node_001_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -84,7 +86,12 @@
             "fire",
             "firetruck"
           ]
-        }
+        },
+        "scene": "city_street",
+        "motion": "drive",
+        "correct_intents": [
+          "fire truck"
+        ]
       },
       "node_002": {
         "prompt_type": "open_ended_conversational",
@@ -110,7 +117,9 @@
             "cloud"
           ]
         },
-        "next_node": "node_003"
+        "next_node": "node_003",
+        "scene": "city_sky",
+        "motion": "fly"
       },
       "node_002_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -121,7 +130,12 @@
         ],
         "image": "images/vehicles/airplane.png",
         "emoji": "✈️",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "city_sky",
+        "motion": "fly",
+        "correct_intents": [
+          "up"
+        ]
       },
       "node_003": {
         "prompt_type": "open_ended_conversational",
@@ -134,7 +148,18 @@
         "image": "images/vehicles/bus_car.png",
         "emoji": "🚌",
         "praise_template": "Right! The bus is bigger!",
-        "next_node": "node_004"
+        "next_node": "node_004",
+        "scene": "city_street",
+        "motion": "drive_slow",
+        "companions": [
+          {
+            "emoji": "🚗",
+            "image": "images/vehicles/car.png",
+            "alt": "car",
+            "scale": 0.55,
+            "delay": 3.5
+          }
+        ]
       },
       "node_003_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -145,7 +170,21 @@
         ],
         "image": "images/vehicles/bus_car.png",
         "emoji": "🚌",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "city_street",
+        "motion": "drive_slow",
+        "correct_intents": [
+          "bus"
+        ],
+        "companions": [
+          {
+            "emoji": "🚗",
+            "image": "images/vehicles/car.png",
+            "alt": "car",
+            "scale": 0.55,
+            "delay": 3.5
+          }
+        ]
       },
       "node_004": {
         "prompt_type": "open_ended_conversational",
@@ -168,7 +207,9 @@
           "zoom": [
             "vroom"
           ]
-        }
+        },
+        "scene": "racetrack",
+        "motion": "race"
       },
       "node_004_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -179,7 +220,12 @@
         ],
         "image": "images/vehicles/race_car.png",
         "emoji": "🏎️",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "racetrack",
+        "motion": "race",
+        "correct_intents": [
+          "fast"
+        ]
       }
     }
   }

@@ -36,7 +36,9 @@
         "image": "images/animals/cow.png",
         "emoji": "🐄",
         "praise_template": "¡Sí! ¡Muuu! ¡Muy bien!",
-        "next_node": "node_002"
+        "next_node": "node_002",
+        "scene": "barnyard",
+        "motion": "graze"
       },
       "node_001_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -53,7 +55,12 @@
             "muu",
             "muuu"
           ]
-        }
+        },
+        "scene": "barnyard",
+        "motion": "graze",
+        "correct_intents": [
+          "mu"
+        ]
       },
       "node_002": {
         "prompt_type": "open_ended_conversational",
@@ -86,7 +93,9 @@
           "durmiendo": [
             "duerme"
           ]
-        }
+        },
+        "scene": "farmyard",
+        "motion": "run"
       },
       "node_002_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -105,7 +114,12 @@
           "volando": [
             "vuela"
           ]
-        }
+        },
+        "scene": "farmyard",
+        "motion": "run",
+        "correct_intents": [
+          "corriendo"
+        ]
       }
     }
   }

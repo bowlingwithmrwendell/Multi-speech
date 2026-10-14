@@ -83,7 +83,9 @@
             "knock"
           ]
         },
-        "next_node": "node_002"
+        "next_node": "node_002",
+        "scene": "workbench",
+        "motion": "hammer"
       },
       "node_001_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -103,7 +105,12 @@
           "teeth": [
             "brush"
           ]
-        }
+        },
+        "scene": "workbench",
+        "motion": "hammer",
+        "correct_intents": [
+          "nails"
+        ]
       },
       "node_002": {
         "prompt_type": "open_ended_conversational",
@@ -129,7 +136,9 @@
             "tape"
           ]
         },
-        "next_node": "node_003"
+        "next_node": "node_003",
+        "scene": "craft_table",
+        "motion": "snip"
       },
       "node_002_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -145,7 +154,12 @@
           "paper": [
             "cut"
           ]
-        }
+        },
+        "scene": "craft_table",
+        "motion": "snip",
+        "correct_intents": [
+          "paper"
+        ]
       },
       "node_003": {
         "prompt_type": "open_ended_conversational",
@@ -172,7 +186,9 @@
             "art"
           ]
         },
-        "next_node": "node_004"
+        "next_node": "node_004",
+        "scene": "art_corner",
+        "motion": "paint"
       },
       "node_003_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -183,7 +199,12 @@
         ],
         "image": "images/tools/paintbrush.png",
         "emoji": "🖌️",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "art_corner",
+        "motion": "paint",
+        "correct_intents": [
+          "paint"
+        ]
       },
       "node_004": {
         "prompt_type": "open_ended_conversational",
@@ -205,7 +226,9 @@
           "beside": [
             "by"
           ]
-        }
+        },
+        "scene": "sandbox",
+        "motion": "dig"
       },
       "node_004_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -222,7 +245,12 @@
             "sand",
             "next to"
           ]
-        }
+        },
+        "scene": "sandbox",
+        "motion": "dig",
+        "correct_intents": [
+          "sandbox"
+        ]
       }
     }
   }

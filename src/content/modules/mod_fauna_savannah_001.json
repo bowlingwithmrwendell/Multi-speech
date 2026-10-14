@@ -98,7 +98,9 @@
             "play"
           ]
         },
-        "next_node": "node_002"
+        "next_node": "node_002",
+        "scene": "waterhole",
+        "motion": "walk"
       },
       "node_001_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -119,7 +121,12 @@
             "sleep",
             "nap"
           ]
-        }
+        },
+        "scene": "waterhole",
+        "motion": "walk",
+        "correct_intents": [
+          "drinking"
+        ]
       },
       "node_002": {
         "prompt_type": "open_ended_conversational",
@@ -140,7 +147,9 @@
             "roaring"
           ]
         },
-        "next_node": "node_003"
+        "next_node": "node_003",
+        "scene": "pride_rock",
+        "motion": "prowl"
       },
       "node_002_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -160,7 +169,12 @@
           "moo": [
             "moos"
           ]
-        }
+        },
+        "scene": "pride_rock",
+        "motion": "prowl",
+        "correct_intents": [
+          "roar"
+        ]
       },
       "node_003": {
         "prompt_type": "open_ended_conversational",
@@ -185,7 +199,9 @@
             "branch"
           ]
         },
-        "next_node": "node_004"
+        "next_node": "node_004",
+        "scene": "acacia",
+        "motion": "sway"
       },
       "node_003_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -201,7 +217,12 @@
           "leaves": [
             "leaf"
           ]
-        }
+        },
+        "scene": "acacia",
+        "motion": "sway",
+        "correct_intents": [
+          "leaves"
+        ]
       },
       "node_004": {
         "prompt_type": "open_ended_conversational",
@@ -214,7 +235,13 @@
         "fallback_node": "node_004_scaffold",
         "image": "images/animals/zebra.png",
         "emoji": "🦓",
-        "praise_template": "Yes! A zebra with stripes!"
+        "praise_template": "Yes! A zebra with stripes!",
+        "scene": "grassland",
+        "motion": "trot",
+        "correct_intents": [
+          "zebra",
+          "stripes"
+        ]
       },
       "node_004_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -225,7 +252,12 @@
         ],
         "image": "images/animals/zebra.png",
         "emoji": "🦓",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "grassland",
+        "motion": "trot",
+        "correct_intents": [
+          "zebra"
+        ]
       }
     }
   }

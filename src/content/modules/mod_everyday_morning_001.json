@@ -80,7 +80,9 @@
             "waffle"
           ]
         },
-        "next_node": "node_002"
+        "next_node": "node_002",
+        "scene": "kitchen",
+        "motion": "steam"
       },
       "node_001_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -96,7 +98,9 @@
           "pancakes": [
             "pancake"
           ]
-        }
+        },
+        "scene": "kitchen",
+        "motion": "steam"
       },
       "node_002": {
         "prompt_type": "open_ended_conversational",
@@ -115,7 +119,9 @@
             "teethes"
           ]
         },
-        "next_node": "node_003"
+        "next_node": "node_003",
+        "scene": "bathroom",
+        "motion": "scrub"
       },
       "node_002_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -134,7 +140,12 @@
           "shoes": [
             "shoe"
           ]
-        }
+        },
+        "scene": "bathroom",
+        "motion": "scrub",
+        "correct_intents": [
+          "teeth"
+        ]
       },
       "node_003": {
         "prompt_type": "open_ended_conversational",
@@ -161,7 +172,9 @@
             "boot"
           ]
         },
-        "next_node": "node_004"
+        "next_node": "node_004",
+        "scene": "bedroom",
+        "motion": "sway"
       },
       "node_003_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -178,7 +191,12 @@
             "foot",
             "socks"
           ]
-        }
+        },
+        "scene": "bedroom",
+        "motion": "sway",
+        "correct_intents": [
+          "feet"
+        ]
       },
       "node_004": {
         "prompt_type": "open_ended_conversational",
@@ -201,7 +219,9 @@
           "smiling": [
             "smile"
           ]
-        }
+        },
+        "scene": "playroom",
+        "motion": "breathe"
       },
       "node_004_scaffold": {
         "prompt_type": "forced_choice_scaffold",
@@ -212,7 +232,12 @@
         ],
         "image": "images/everyday/happy_face.png",
         "emoji": "😊",
-        "praise_template": "You said {intent}! Nice!"
+        "praise_template": "You said {intent}! Nice!",
+        "scene": "playroom",
+        "motion": "breathe",
+        "correct_intents": [
+          "happy"
+        ]
       }
     }
   }
