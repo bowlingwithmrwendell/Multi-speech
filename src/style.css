@@ -202,6 +202,33 @@ th { color: var(--muted); font-weight: 700; font-size: .78rem; text-transform: u
 .m-fly .body { animation: gait 1.6s ease-in-out infinite; }
 @keyframes path-fly { from { left: -18%; bottom: 8%; } to { left: 116%; bottom: 62%; } }
 
+/* falling rain and snow */
+.scene .fx-fall { animation: fall 1.5s linear infinite; }
+.scene .fx-snow { animation: snow 6s linear infinite; }
+@keyframes fall { from { transform: translateY(0); opacity: .9; } to { transform: translateY(78cqw); opacity: .9; } }
+@keyframes snow { 0% { transform: translate(0, 0); } 50% { transform: translate(3cqw, 40cqw); } 100% { transform: translate(-2cqw, 80cqw); } }
+
+/* more motions */
+.m-swim { animation: path-walk 12s ease-in-out infinite; }
+.m-swim .facing { animation: face-turn 12s ease-in-out infinite; }
+.m-swim .body { animation: swim 1.8s ease-in-out infinite; }
+@keyframes swim { 0%, 100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-6%) rotate(-4deg); } 75% { transform: translateY(6%) rotate(4deg); } }
+.m-hover { animation: paint-path 6s ease-in-out infinite alternate; }
+.m-hover .body { animation: gait 1.2s ease-in-out infinite; }
+.m-launch { animation: launch 6s ease-in infinite; }
+@keyframes launch { 0%, 30% { bottom: calc(var(--y) * 1%); } 100% { bottom: 115%; } }
+.m-launch .body { animation: rumble .2s linear infinite; }
+.m-launch .body::after { content: '🔥'; position: absolute; left: 0; top: 78%; font-size: 45%; }
+.m-launch .body { position: relative; }
+.m-float { animation: paint-path 7s ease-in-out infinite alternate; }
+.m-float .body { animation: gait 3s ease-in-out infinite; }
+.m-flash .body { animation: flash 2.4s steps(1) infinite; }
+@keyframes flash { 0%, 100% { opacity: 1; transform: scale(1); } 10% { opacity: .2; } 20% { opacity: 1; transform: scale(1.12); } 30% { opacity: .3; } 40% { opacity: 1; transform: scale(1); } }
+.m-twist .body { animation: twist 1.4s ease-in-out infinite; }
+@keyframes twist { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-40deg); } }
+.m-sail { animation: path-drive 16s linear infinite; }
+.m-sail .body { animation: swim 2.6s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .scene *, .scene *::after { animation: none !important; }
   .scene .actor { left: 50%; }

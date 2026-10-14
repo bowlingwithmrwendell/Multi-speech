@@ -82,7 +82,7 @@ export interface Companion {
   y?: number; // raise/lower (% of scene height)
 }
 
-export type Domain = 'Animals' | 'Tools' | 'Everyday' | 'Vehicles';
+export type Domain = 'Animals' | 'Tools' | 'Everyday' | 'Vehicles' | 'Food' | 'Learning' | 'Body' | 'Nature';
 
 /** Spec §3.1 content module. */
 export interface ContentModule {
