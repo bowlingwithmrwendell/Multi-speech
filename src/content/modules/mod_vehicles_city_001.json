@@ -142,6 +142,7 @@
         ],
         "fallback_node": "fire_truck_choice",
         "image": "images/vehicles/fire_truck.png",
+        "photo": "images/photos/fire_truck.jpg",
         "emoji": "🚒",
         "praise_template": "Yes! {intent}! Great talking!",
         "scene": "city_street",
@@ -159,6 +160,7 @@
           "fire truck"
         ],
         "image": "images/vehicles/fire_truck.png",
+        "photo": "images/photos/fire_truck.jpg",
         "emoji": "🚒",
         "praise_template": "Yes, {intent}! You got it!",
         "scene": "city_street",
@@ -184,6 +186,7 @@
         ],
         "fallback_node": "airplane_choice",
         "image": "images/vehicles/airplane.png",
+        "photo": "images/photos/airplane.jpg",
         "emoji": "✈️",
         "praise_template": "Yes! {intent}! Great talking!",
         "scene": "city_sky",
@@ -201,6 +204,7 @@
           "up"
         ],
         "image": "images/vehicles/airplane.png",
+        "photo": "images/photos/airplane.jpg",
         "emoji": "✈️",
         "praise_template": "Yes, {intent}! You got it!",
         "scene": "city_sky",
@@ -273,6 +277,7 @@
         ],
         "fallback_node": "race_car_choice",
         "image": "images/vehicles/race_car.png",
+        "photo": "images/photos/race_car.jpg",
         "emoji": "🏎️",
         "praise_template": "Yes! {intent}! Great talking!",
         "scene": "racetrack",
@@ -296,6 +301,7 @@
           "fast"
         ],
         "image": "images/vehicles/race_car.png",
+        "photo": "images/photos/race_car.jpg",
         "emoji": "🏎️",
         "praise_template": "Yes, {intent}! You got it!",
         "scene": "racetrack",
@@ -420,6 +426,7 @@
         ],
         "fallback_node": "train_choice",
         "image": "images/vehicles/train.png",
+        "photo": "images/photos/train.jpg",
         "emoji": "🚂",
         "praise_template": "Yes! {intent}! Great talking!",
         "scene": "railway",
@@ -449,6 +456,7 @@
           "train"
         ],
         "image": "images/vehicles/train.png",
+        "photo": "images/photos/train.jpg",
         "emoji": "🚂",
         "praise_template": "Yes, {intent}! You got it!",
         "scene": "railway",

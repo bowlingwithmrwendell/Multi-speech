@@ -119,6 +119,7 @@
         ],
         "fallback_node": "vaca_choice",
         "image": "images/animals/vaca.png",
+        "photo": "images/photos/cow.jpg",
         "emoji": "🐄",
         "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
         "scene": "barnyard",
@@ -146,6 +147,7 @@
           "mu"
         ],
         "image": "images/animals/vaca.png",
+        "photo": "images/photos/cow.jpg",
         "emoji": "🐄",
         "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
         "scene": "barnyard",
@@ -334,6 +336,7 @@
         ],
         "fallback_node": "oveja_choice",
         "image": "images/animals/oveja.png",
+        "photo": "images/photos/sheep.jpg",
         "emoji": "🐑",
         "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
         "scene": "farmyard",
@@ -362,6 +365,7 @@
           "bee"
         ],
         "image": "images/animals/oveja.png",
+        "photo": "images/photos/sheep.jpg",
         "emoji": "🐑",
         "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
         "scene": "farmyard",
@@ -386,6 +390,7 @@
         ],
         "fallback_node": "pato_choice",
         "image": "images/animals/pato.png",
+        "photo": "images/photos/duck.jpg",
         "emoji": "🦆",
         "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
         "scene": "pond",
@@ -414,6 +419,7 @@
           "nadando"
         ],
         "image": "images/animals/pato.png",
+        "photo": "images/photos/duck.jpg",
         "emoji": "🦆",
         "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
         "scene": "pond",
@@ -438,6 +444,7 @@
         ],
         "fallback_node": "caballo_choice",
         "image": "images/animals/caballo.png",
+        "photo": "images/photos/horse.jpg",
         "emoji": "🐎",
         "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
         "scene": "farmyard",
@@ -460,6 +467,7 @@
           "caballo"
         ],
         "image": "images/animals/caballo.png",
+        "photo": "images/photos/horse.jpg",
         "emoji": "🐎",
         "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
         "scene": "farmyard",
