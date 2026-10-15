@@ -1,0 +1,633 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_savannah_001",
+  "title": "Savannah Animals",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/animals/savannah_cover.png",
+  "cover_emoji": "🦁",
+  "lexical_targets": [
+    {
+      "lemma": "elephant",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "drinking",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "drink"
+      ]
+    },
+    {
+      "lemma": "lion",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "roar",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "giraffe",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "leaves",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Outside Things",
+      "synonyms": [
+        "leaf"
+      ]
+    },
+    {
+      "lemma": "zebra",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "hippo",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "hippopotamus"
+      ]
+    },
+    {
+      "lemma": "monkey",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "rhino",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "rhinoceros"
+      ]
+    },
+    {
+      "lemma": "leopard",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "cheetah"
+      ]
+    },
+    {
+      "lemma": "flamingo",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "pink",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Descriptive Words"
+    },
+    {
+      "lemma": "crocodile",
+      "ipa": "",
+      "difficulty_tier": 3,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "alligator",
+        "croc"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "elephant",
+    "nodes": {
+      "elephant": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look at the big grey animal with the long trunk! What do you think it is doing?",
+        "expected_semantic_intents": [
+          "eating",
+          "walking",
+          "drinking",
+          "playing",
+          "spraying"
+        ],
+        "fallback_node": "elephant_choice",
+        "image": "images/animals/elephant.png",
+        "photo": "images/photos/elephant.jpg",
+        "emoji": "🐘",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "waterhole",
+        "motion": "walk",
+        "intent_synonyms": {
+          "drinking": [
+            "drink",
+            "water",
+            "sip"
+          ],
+          "spraying": [
+            "spray",
+            "splash",
+            "squirt"
+          ],
+          "eating": [
+            "eat",
+            "food",
+            "munch"
+          ],
+          "walking": [
+            "walk",
+            "stomp"
+          ],
+          "playing": [
+            "play"
+          ]
+        },
+        "next_node": "lion"
+      },
+      "elephant_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the elephant drinking water, or is it sleeping?",
+        "expected_semantic_intents": [
+          "drinking",
+          "sleeping"
+        ],
+        "correct_intents": [
+          "drinking"
+        ],
+        "image": "images/animals/elephant.png",
+        "photo": "images/photos/elephant.jpg",
+        "emoji": "🐘",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "waterhole",
+        "motion": "walk",
+        "intent_synonyms": {
+          "drinking": [
+            "drink",
+            "water"
+          ],
+          "sleeping": [
+            "sleep",
+            "nap"
+          ]
+        }
+      },
+      "lion": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has a big fluffy mane. What sound does it make?",
+        "expected_semantic_intents": [
+          "roar",
+          "lion"
+        ],
+        "fallback_node": "lion_choice",
+        "image": "images/animals/lion.png",
+        "photo": "images/photos/lion.jpg",
+        "emoji": "🦁",
+        "praise_template": "Roar! You got it! The lion roars!",
+        "scene": "pride_rock",
+        "motion": "prowl",
+        "intent_synonyms": {
+          "roar": [
+            "rawr",
+            "grr",
+            "growl",
+            "roaring"
+          ]
+        },
+        "next_node": "giraffe"
+      },
+      "lion_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the lion roar, or does it moo?",
+        "expected_semantic_intents": [
+          "roar",
+          "moo"
+        ],
+        "correct_intents": [
+          "roar"
+        ],
+        "image": "images/animals/lion.png",
+        "photo": "images/photos/lion.jpg",
+        "emoji": "🦁",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "pride_rock",
+        "motion": "prowl",
+        "intent_synonyms": {
+          "roar": [
+            "rawr",
+            "roars"
+          ],
+          "moo": [
+            "moos"
+          ]
+        }
+      },
+      "giraffe": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Wow, look how tall she is! What is the giraffe eating?",
+        "expected_semantic_intents": [
+          "leaves",
+          "tree",
+          "food",
+          "grass"
+        ],
+        "fallback_node": "giraffe_choice",
+        "image": "images/animals/giraffe.png",
+        "photo": "images/photos/giraffe.jpg",
+        "emoji": "🦒",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "acacia",
+        "motion": "sway",
+        "intent_synonyms": {
+          "leaves": [
+            "leaf",
+            "leafs"
+          ],
+          "tree": [
+            "trees",
+            "branch"
+          ]
+        },
+        "next_node": "zebra"
+      },
+      "giraffe_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the giraffe eating leaves, or ice cream?",
+        "expected_semantic_intents": [
+          "leaves",
+          "ice cream"
+        ],
+        "correct_intents": [
+          "leaves"
+        ],
+        "image": "images/animals/giraffe.png",
+        "photo": "images/photos/giraffe.jpg",
+        "emoji": "🦒",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "acacia",
+        "motion": "sway",
+        "intent_synonyms": {
+          "leaves": [
+            "leaf"
+          ]
+        }
+      },
+      "zebra": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has black and white stripes. What is it?",
+        "expected_semantic_intents": [
+          "zebra",
+          "stripes",
+          "horse"
+        ],
+        "fallback_node": "zebra_choice",
+        "image": "images/animals/zebra.png",
+        "photo": "images/photos/zebra.jpg",
+        "emoji": "🦓",
+        "praise_template": "Yes! A zebra with stripes!",
+        "scene": "grassland",
+        "motion": "trot",
+        "correct_intents": [
+          "zebra",
+          "stripes"
+        ],
+        "next_node": "hippo"
+      },
+      "zebra_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a zebra, or a fish?",
+        "expected_semantic_intents": [
+          "zebra",
+          "fish"
+        ],
+        "correct_intents": [
+          "zebra"
+        ],
+        "image": "images/animals/zebra.png",
+        "photo": "images/photos/zebra.jpg",
+        "emoji": "🦓",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "grassland",
+        "motion": "trot"
+      },
+      "hippo": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This big animal loves to sit in the river all day. What is it?",
+        "expected_semantic_intents": [
+          "hippo",
+          "hippopotamus",
+          "elephant",
+          "pig"
+        ],
+        "fallback_node": "hippo_choice",
+        "image": "images/animals/hippo.png",
+        "photo": "images/photos/hippo.jpg",
+        "emoji": "🦛",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "river",
+        "motion": "swim",
+        "intent_synonyms": {
+          "hippo": [
+            "hippos",
+            "hip"
+          ]
+        },
+        "correct_intents": [
+          "hippo",
+          "hippopotamus"
+        ],
+        "next_node": "monkey"
+      },
+      "hippo_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a fish, or a hippo?",
+        "expected_semantic_intents": [
+          "hippo",
+          "fish"
+        ],
+        "correct_intents": [
+          "hippo"
+        ],
+        "image": "images/animals/hippo.png",
+        "photo": "images/photos/hippo.jpg",
+        "emoji": "🦛",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "river",
+        "motion": "swim",
+        "intent_synonyms": {
+          "hippo": [
+            "hippos",
+            "hip"
+          ]
+        }
+      },
+      "monkey": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal loves to climb trees and eat bananas. What is it?",
+        "expected_semantic_intents": [
+          "monkey",
+          "chimp",
+          "ape",
+          "dog",
+          "cat"
+        ],
+        "fallback_node": "monkey_choice",
+        "image": "images/animals/monkey.png",
+        "photo": "images/photos/monkey.jpg",
+        "emoji": "🐒",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "acacia",
+        "motion": "run",
+        "intent_synonyms": {
+          "monkey": [
+            "monkeys"
+          ]
+        },
+        "correct_intents": [
+          "monkey",
+          "chimp",
+          "ape"
+        ],
+        "next_node": "rhino"
+      },
+      "monkey_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a monkey, or a cow?",
+        "expected_semantic_intents": [
+          "monkey",
+          "cow"
+        ],
+        "correct_intents": [
+          "monkey"
+        ],
+        "image": "images/animals/monkey.png",
+        "photo": "images/photos/monkey.jpg",
+        "emoji": "🐒",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "acacia",
+        "motion": "run",
+        "intent_synonyms": {
+          "monkey": [
+            "monkeys"
+          ]
+        }
+      },
+      "rhino": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Look at the big horn on its nose! What animal is this?",
+        "expected_semantic_intents": [
+          "rhino",
+          "rhinoceros",
+          "unicorn",
+          "elephant",
+          "hippo"
+        ],
+        "fallback_node": "rhino_choice",
+        "image": "images/animals/rhino.png",
+        "photo": "images/photos/rhino.jpg",
+        "emoji": "🦏",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "grassland",
+        "motion": "walk",
+        "intent_synonyms": {
+          "rhino": [
+            "rhinos",
+            "ryno"
+          ]
+        },
+        "correct_intents": [
+          "rhino",
+          "rhinoceros"
+        ],
+        "next_node": "leopard"
+      },
+      "rhino_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a rhino, or a duck?",
+        "expected_semantic_intents": [
+          "rhino",
+          "duck"
+        ],
+        "correct_intents": [
+          "rhino"
+        ],
+        "image": "images/animals/rhino.png",
+        "photo": "images/photos/rhino.jpg",
+        "emoji": "🦏",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "grassland",
+        "motion": "walk",
+        "intent_synonyms": {
+          "rhino": [
+            "rhinos",
+            "ryno"
+          ]
+        }
+      },
+      "leopard": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This big cat has spots all over. What is it?",
+        "expected_semantic_intents": [
+          "leopard",
+          "cheetah",
+          "jaguar",
+          "spots",
+          "tiger",
+          "zebra",
+          "dog"
+        ],
+        "fallback_node": "leopard_choice",
+        "image": "images/animals/leopard.png",
+        "emoji": "🐆",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "pride_rock",
+        "motion": "prowl",
+        "intent_synonyms": {
+          "spots": [
+            "spot",
+            "spotty",
+            "dots"
+          ]
+        },
+        "correct_intents": [
+          "leopard",
+          "cheetah",
+          "jaguar",
+          "spots"
+        ],
+        "next_node": "flamingo"
+      },
+      "leopard_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does it have spots, or stripes?",
+        "expected_semantic_intents": [
+          "spots",
+          "stripes"
+        ],
+        "correct_intents": [
+          "spots"
+        ],
+        "image": "images/animals/leopard.png",
+        "emoji": "🐆",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "pride_rock",
+        "motion": "prowl",
+        "intent_synonyms": {
+          "spots": [
+            "spot",
+            "spotty",
+            "dots"
+          ]
+        }
+      },
+      "flamingo": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This bird stands on one leg. What color is it?",
+        "expected_semantic_intents": [
+          "pink",
+          "red",
+          "blue",
+          "yellow",
+          "green",
+          "orange",
+          "purple",
+          "black",
+          "white",
+          "brown"
+        ],
+        "fallback_node": "flamingo_choice",
+        "image": "images/animals/flamingo.png",
+        "emoji": "🦩",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "savannah_lake",
+        "motion": "walk",
+        "correct_intents": [
+          "pink"
+        ],
+        "next_node": "crocodile"
+      },
+      "flamingo_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the bird blue, or pink?",
+        "expected_semantic_intents": [
+          "pink",
+          "blue"
+        ],
+        "correct_intents": [
+          "pink"
+        ],
+        "image": "images/animals/flamingo.png",
+        "emoji": "🦩",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "savannah_lake",
+        "motion": "walk"
+      },
+      "crocodile": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has lots of sharp teeth and swims in the river. What is it?",
+        "expected_semantic_intents": [
+          "crocodile",
+          "alligator",
+          "fish",
+          "snake",
+          "dinosaur"
+        ],
+        "fallback_node": "crocodile_choice",
+        "image": "images/animals/crocodile.png",
+        "emoji": "🐊",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "river",
+        "motion": "swim",
+        "intent_synonyms": {
+          "crocodile": [
+            "croc",
+            "crocodiles"
+          ],
+          "alligator": [
+            "gator",
+            "alligators"
+          ]
+        },
+        "correct_intents": [
+          "crocodile",
+          "alligator"
+        ]
+      },
+      "crocodile_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a crocodile, or a kitten?",
+        "expected_semantic_intents": [
+          "crocodile",
+          "kitten"
+        ],
+        "correct_intents": [
+          "crocodile"
+        ],
+        "image": "images/animals/crocodile.png",
+        "emoji": "🐊",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "river",
+        "motion": "swim",
+        "intent_synonyms": {
+          "crocodile": [
+            "croc",
+            "crocodiles"
+          ]
+        }
+      }
+    }
+  }
+}

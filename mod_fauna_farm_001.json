@@ -1,0 +1,678 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_farm_001",
+  "title": "Farm Animals",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "en",
+  "cover_image": "images/farm/farm_cover.png",
+  "cover_emoji": "🐄",
+  "lexical_targets": [
+    {
+      "lemma": "cow",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "moo",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "pig",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "sheep",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "baa",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "horse",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "pony"
+      ]
+    },
+    {
+      "lemma": "chicken",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "hen"
+      ]
+    },
+    {
+      "lemma": "duck",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "swimming",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "swim"
+      ]
+    },
+    {
+      "lemma": "goat",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "dog",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "doggy",
+        "puppy"
+      ]
+    },
+    {
+      "lemma": "woof",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "cat",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "kitty",
+        "kitten"
+      ]
+    },
+    {
+      "lemma": "meow",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "bunny",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "rabbit"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "cow",
+    "nodes": {
+      "cow": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What sound does the cow make?",
+        "expected_semantic_intents": [
+          "moo",
+          "woof",
+          "oink",
+          "baa",
+          "quack",
+          "neigh",
+          "meow",
+          "cluck"
+        ],
+        "fallback_node": "cow_choice",
+        "image": "images/farm/cow.png",
+        "photo": "images/photos/cow.jpg",
+        "emoji": "🐄",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "moo": [
+            "mooo",
+            "moos",
+            "mu"
+          ]
+        },
+        "correct_intents": [
+          "moo"
+        ],
+        "next_node": "pig"
+      },
+      "cow_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the cow say moo, or quack?",
+        "expected_semantic_intents": [
+          "moo",
+          "quack"
+        ],
+        "correct_intents": [
+          "moo"
+        ],
+        "image": "images/farm/cow.png",
+        "photo": "images/photos/cow.jpg",
+        "emoji": "🐄",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "moo": [
+            "mooo",
+            "moos",
+            "mu"
+          ]
+        }
+      },
+      "pig": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This pink animal loves to roll in the mud. What is it?",
+        "expected_semantic_intents": [
+          "pig",
+          "piggy",
+          "hog",
+          "dog",
+          "cat",
+          "cow"
+        ],
+        "fallback_node": "pig_choice",
+        "image": "images/farm/pig.png",
+        "emoji": "🐖",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "pig": [
+            "pigs",
+            "piggie",
+            "piglet"
+          ]
+        },
+        "correct_intents": [
+          "pig",
+          "piggy",
+          "hog"
+        ],
+        "next_node": "sheep"
+      },
+      "pig_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a horse, or a pig?",
+        "expected_semantic_intents": [
+          "pig",
+          "horse"
+        ],
+        "correct_intents": [
+          "pig"
+        ],
+        "image": "images/farm/pig.png",
+        "emoji": "🐖",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "pig": [
+            "pigs",
+            "piggie",
+            "piglet"
+          ]
+        }
+      },
+      "sheep": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What sound does the sheep make?",
+        "expected_semantic_intents": [
+          "baa",
+          "moo",
+          "woof",
+          "oink",
+          "quack",
+          "neigh",
+          "meow",
+          "cluck"
+        ],
+        "fallback_node": "sheep_choice",
+        "image": "images/farm/sheep.png",
+        "photo": "images/photos/sheep.jpg",
+        "emoji": "🐑",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "baa": [
+            "ba",
+            "baaa",
+            "bah",
+            "maa"
+          ]
+        },
+        "correct_intents": [
+          "baa"
+        ],
+        "next_node": "horse"
+      },
+      "sheep_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the sheep say baa, or woof?",
+        "expected_semantic_intents": [
+          "baa",
+          "woof"
+        ],
+        "correct_intents": [
+          "baa"
+        ],
+        "image": "images/farm/sheep.png",
+        "photo": "images/photos/sheep.jpg",
+        "emoji": "🐑",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "baa": [
+            "ba",
+            "baaa",
+            "bah",
+            "maa"
+          ]
+        }
+      },
+      "horse": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "You can ride on this animal. It says neigh! What is it?",
+        "expected_semantic_intents": [
+          "horse",
+          "pony",
+          "cow",
+          "dog",
+          "donkey"
+        ],
+        "fallback_node": "horse_choice",
+        "image": "images/farm/horse.png",
+        "photo": "images/photos/horse.jpg",
+        "emoji": "🐎",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "trot",
+        "intent_synonyms": {
+          "horse": [
+            "horsey",
+            "horses"
+          ],
+          "pony": [
+            "ponies"
+          ]
+        },
+        "correct_intents": [
+          "horse",
+          "pony"
+        ],
+        "next_node": "chicken"
+      },
+      "horse_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a pig, or a horse?",
+        "expected_semantic_intents": [
+          "horse",
+          "pig"
+        ],
+        "correct_intents": [
+          "horse"
+        ],
+        "image": "images/farm/horse.png",
+        "photo": "images/photos/horse.jpg",
+        "emoji": "🐎",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "trot",
+        "intent_synonyms": {
+          "horse": [
+            "horsey",
+            "horses"
+          ]
+        }
+      },
+      "chicken": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This bird lays eggs for breakfast. What is it?",
+        "expected_semantic_intents": [
+          "chicken",
+          "hen",
+          "chick",
+          "bird",
+          "rooster",
+          "duck",
+          "cow"
+        ],
+        "fallback_node": "chicken_choice",
+        "image": "images/farm/chicken.png",
+        "emoji": "🐔",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "chicken": [
+            "chickens"
+          ]
+        },
+        "correct_intents": [
+          "chicken",
+          "hen",
+          "chick",
+          "bird",
+          "rooster"
+        ],
+        "next_node": "duck"
+      },
+      "chicken_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a chicken, or a cow?",
+        "expected_semantic_intents": [
+          "chicken",
+          "cow"
+        ],
+        "correct_intents": [
+          "chicken"
+        ],
+        "image": "images/farm/chicken.png",
+        "emoji": "🐔",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "chicken": [
+            "chickens"
+          ]
+        }
+      },
+      "duck": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Quack quack! What is the duck doing in the water?",
+        "expected_semantic_intents": [
+          "swimming",
+          "floating",
+          "paddling",
+          "playing",
+          "bathing"
+        ],
+        "fallback_node": "duck_choice",
+        "image": "images/farm/duck.png",
+        "photo": "images/photos/duck.jpg",
+        "emoji": "🦆",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "pond",
+        "motion": "swim",
+        "intent_synonyms": {
+          "swimming": [
+            "swim",
+            "swims"
+          ],
+          "floating": [
+            "float"
+          ],
+          "playing": [
+            "play"
+          ]
+        },
+        "next_node": "goat"
+      },
+      "duck_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is the duck swimming, or driving?",
+        "expected_semantic_intents": [
+          "swimming",
+          "driving"
+        ],
+        "correct_intents": [
+          "swimming"
+        ],
+        "image": "images/farm/duck.png",
+        "photo": "images/photos/duck.jpg",
+        "emoji": "🦆",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "pond",
+        "motion": "swim",
+        "intent_synonyms": {
+          "swimming": [
+            "swim",
+            "swims"
+          ],
+          "driving": [
+            "drive"
+          ]
+        }
+      },
+      "goat": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has a little beard and says maa. What is it?",
+        "expected_semantic_intents": [
+          "goat",
+          "sheep",
+          "cow",
+          "dog"
+        ],
+        "fallback_node": "goat_choice",
+        "image": "images/farm/goat.png",
+        "photo": "images/photos/goat.jpg",
+        "emoji": "🐐",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "goat": [
+            "goats",
+            "billy goat"
+          ]
+        },
+        "correct_intents": [
+          "goat"
+        ],
+        "next_node": "dog"
+      },
+      "goat_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a fish, or a goat?",
+        "expected_semantic_intents": [
+          "goat",
+          "fish"
+        ],
+        "correct_intents": [
+          "goat"
+        ],
+        "image": "images/farm/goat.png",
+        "photo": "images/photos/goat.jpg",
+        "emoji": "🐐",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "goat": [
+            "goats",
+            "billy goat"
+          ]
+        }
+      },
+      "dog": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What sound does the dog make?",
+        "expected_semantic_intents": [
+          "woof",
+          "moo",
+          "oink",
+          "baa",
+          "quack",
+          "neigh",
+          "meow",
+          "cluck"
+        ],
+        "fallback_node": "dog_choice",
+        "image": "images/farm/dog.png",
+        "emoji": "🐕",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "woof": [
+            "bark",
+            "arf",
+            "ruff",
+            "bow wow",
+            "barking",
+            "woof woof"
+          ]
+        },
+        "correct_intents": [
+          "woof"
+        ],
+        "next_node": "cat"
+      },
+      "dog_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the dog say woof, or moo?",
+        "expected_semantic_intents": [
+          "woof",
+          "moo"
+        ],
+        "correct_intents": [
+          "woof"
+        ],
+        "image": "images/farm/dog.png",
+        "emoji": "🐕",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "woof": [
+            "bark",
+            "arf",
+            "ruff",
+            "bow wow",
+            "barking",
+            "woof woof"
+          ]
+        }
+      },
+      "cat": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "What sound does the kitty make?",
+        "expected_semantic_intents": [
+          "meow",
+          "moo",
+          "woof",
+          "oink",
+          "baa",
+          "quack",
+          "neigh",
+          "cluck"
+        ],
+        "fallback_node": "cat_choice",
+        "image": "images/farm/cat.png",
+        "emoji": "🐈",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "barnyard",
+        "motion": "walk",
+        "intent_synonyms": {
+          "meow": [
+            "mew",
+            "miaow",
+            "purr",
+            "meow meow"
+          ]
+        },
+        "correct_intents": [
+          "meow"
+        ],
+        "next_node": "rabbit"
+      },
+      "cat_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Does the kitty say oink, or meow?",
+        "expected_semantic_intents": [
+          "meow",
+          "oink"
+        ],
+        "correct_intents": [
+          "meow"
+        ],
+        "image": "images/farm/cat.png",
+        "emoji": "🐈",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "barnyard",
+        "motion": "walk",
+        "intent_synonyms": {
+          "meow": [
+            "mew",
+            "miaow",
+            "purr",
+            "meow meow"
+          ]
+        }
+      },
+      "rabbit": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "This animal has long ears and hops. What is it?",
+        "expected_semantic_intents": [
+          "bunny",
+          "rabbit",
+          "dog",
+          "cat",
+          "mouse"
+        ],
+        "fallback_node": "rabbit_choice",
+        "image": "images/farm/rabbit.png",
+        "emoji": "🐇",
+        "praise_template": "Yes! {intent}! Great talking!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "bunny": [
+            "bunnies",
+            "bunny rabbit"
+          ],
+          "rabbit": [
+            "rabbits"
+          ]
+        },
+        "correct_intents": [
+          "bunny",
+          "rabbit"
+        ]
+      },
+      "rabbit_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "Is it a bunny, or a bear?",
+        "expected_semantic_intents": [
+          "bunny",
+          "bear"
+        ],
+        "correct_intents": [
+          "bunny"
+        ],
+        "image": "images/farm/rabbit.png",
+        "emoji": "🐇",
+        "praise_template": "Yes, {intent}! You got it!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "bunny": [
+            "bunnies",
+            "bunny rabbit"
+          ]
+        }
+      }
+    }
+  }
+}

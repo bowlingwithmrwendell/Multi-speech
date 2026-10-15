@@ -1,0 +1,534 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "module_id": "mod_fauna_granja_es_001",
+  "title": "Animales de la Granja",
+  "domain": "Animals",
+  "target_age_group": "3-5",
+  "language": "es",
+  "cover_image": "images/animals/granja_cover.png",
+  "cover_emoji": "🐄",
+  "lexical_targets": [
+    {
+      "lemma": "vaca",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "mu",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "perro",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "corriendo",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "correr"
+      ]
+    },
+    {
+      "lemma": "gato",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "miau",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "cerdo",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "cerdito",
+        "puerco"
+      ]
+    },
+    {
+      "lemma": "oveja",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "bee",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Sounds"
+    },
+    {
+      "lemma": "pato",
+      "ipa": "",
+      "difficulty_tier": 1,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "nadando",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Action Words",
+      "synonyms": [
+        "nadar"
+      ]
+    },
+    {
+      "lemma": "caballo",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals"
+    },
+    {
+      "lemma": "pollito",
+      "ipa": "",
+      "difficulty_tier": 2,
+      "cdi_category": "Animals",
+      "synonyms": [
+        "pollo"
+      ]
+    }
+  ],
+  "prompt_tree": {
+    "root_id": "vaca",
+    "nodes": {
+      "vaca": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "¡Mira esta vaca! ¿Qué sonido hace la vaca?",
+        "expected_semantic_intents": [
+          "mu",
+          "vaca",
+          "guau",
+          "miau",
+          "oink",
+          "bee",
+          "cuac",
+          "pío",
+          "kikirikí"
+        ],
+        "fallback_node": "vaca_choice",
+        "image": "images/animals/vaca.png",
+        "photo": "images/photos/cow.jpg",
+        "emoji": "🐄",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "mu": [
+            "muu",
+            "muuu"
+          ]
+        },
+        "correct_intents": [
+          "mu",
+          "vaca"
+        ],
+        "next_node": "perro"
+      },
+      "vaca_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿La vaca dice mu, o dice guau?",
+        "expected_semantic_intents": [
+          "mu",
+          "guau"
+        ],
+        "correct_intents": [
+          "mu"
+        ],
+        "image": "images/animals/vaca.png",
+        "photo": "images/photos/cow.jpg",
+        "emoji": "🐄",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "barnyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "mu": [
+            "muu",
+            "muuu"
+          ],
+          "guau": [
+            "guau guau"
+          ]
+        }
+      },
+      "perro": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Este es un perro. ¿Qué está haciendo el perro?",
+        "expected_semantic_intents": [
+          "corriendo",
+          "jugando",
+          "comiendo",
+          "ladrando",
+          "durmiendo"
+        ],
+        "fallback_node": "perro_choice",
+        "image": "images/animals/perro.png",
+        "emoji": "🐕",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "corriendo": [
+            "corre",
+            "correr"
+          ],
+          "jugando": [
+            "juega",
+            "jugar"
+          ],
+          "ladrando": [
+            "ladra",
+            "guau"
+          ]
+        },
+        "next_node": "gato"
+      },
+      "perro_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿El perro está corriendo, o está volando?",
+        "expected_semantic_intents": [
+          "corriendo",
+          "volando"
+        ],
+        "correct_intents": [
+          "corriendo"
+        ],
+        "image": "images/animals/perro.png",
+        "emoji": "🐕",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "farmyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "corriendo": [
+            "corre",
+            "correr"
+          ]
+        }
+      },
+      "gato": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "¿Qué sonido hace el gato?",
+        "expected_semantic_intents": [
+          "miau",
+          "mu",
+          "guau",
+          "oink",
+          "bee",
+          "cuac",
+          "pío",
+          "kikirikí"
+        ],
+        "fallback_node": "gato_choice",
+        "image": "images/animals/gato.png",
+        "emoji": "🐈",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "barnyard",
+        "motion": "walk",
+        "intent_synonyms": {
+          "miau": [
+            "miao",
+            "miau miau"
+          ]
+        },
+        "correct_intents": [
+          "miau"
+        ],
+        "next_node": "cerdo"
+      },
+      "gato_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿El gato dice mu, o dice miau?",
+        "expected_semantic_intents": [
+          "miau",
+          "mu"
+        ],
+        "correct_intents": [
+          "miau"
+        ],
+        "image": "images/animals/gato.png",
+        "emoji": "🐈",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "barnyard",
+        "motion": "walk",
+        "intent_synonyms": {
+          "miau": [
+            "miao",
+            "miau miau"
+          ]
+        }
+      },
+      "cerdo": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Este animal rosado juega en el lodo. ¿Qué animal es?",
+        "expected_semantic_intents": [
+          "cerdo",
+          "cerdito",
+          "puerco",
+          "chancho",
+          "cochino",
+          "marrano",
+          "perro",
+          "gato",
+          "vaca"
+        ],
+        "fallback_node": "cerdo_choice",
+        "image": "images/animals/cerdo.png",
+        "emoji": "🐖",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "correct_intents": [
+          "cerdo",
+          "cerdito",
+          "puerco",
+          "chancho",
+          "cochino",
+          "marrano"
+        ],
+        "next_node": "oveja"
+      },
+      "cerdo_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿Es un pez, o un cerdo?",
+        "expected_semantic_intents": [
+          "cerdo",
+          "pez"
+        ],
+        "correct_intents": [
+          "cerdo"
+        ],
+        "image": "images/animals/cerdo.png",
+        "emoji": "🐖",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "cerdo": [
+            "cerdito",
+            "puerco",
+            "chancho"
+          ]
+        }
+      },
+      "oveja": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "¿Qué sonido hace la oveja?",
+        "expected_semantic_intents": [
+          "bee",
+          "mu",
+          "guau",
+          "miau",
+          "oink",
+          "cuac",
+          "pío",
+          "kikirikí"
+        ],
+        "fallback_node": "oveja_choice",
+        "image": "images/animals/oveja.png",
+        "photo": "images/photos/sheep.jpg",
+        "emoji": "🐑",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "bee": [
+            "beee",
+            "be",
+            "baa",
+            "mee"
+          ]
+        },
+        "correct_intents": [
+          "bee"
+        ],
+        "next_node": "pato"
+      },
+      "oveja_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿La oveja dice bee, o dice guau?",
+        "expected_semantic_intents": [
+          "bee",
+          "guau"
+        ],
+        "correct_intents": [
+          "bee"
+        ],
+        "image": "images/animals/oveja.png",
+        "photo": "images/photos/sheep.jpg",
+        "emoji": "🐑",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "farmyard",
+        "motion": "graze",
+        "intent_synonyms": {
+          "bee": [
+            "beee",
+            "be",
+            "baa",
+            "mee"
+          ]
+        }
+      },
+      "pato": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "¡Cuac cuac! ¿Qué hace el pato en el agua?",
+        "expected_semantic_intents": [
+          "nadando",
+          "nada",
+          "flotando",
+          "jugando"
+        ],
+        "fallback_node": "pato_choice",
+        "image": "images/animals/pato.png",
+        "photo": "images/photos/duck.jpg",
+        "emoji": "🦆",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "pond",
+        "motion": "swim",
+        "intent_synonyms": {
+          "nadando": [
+            "nadar"
+          ],
+          "flotando": [
+            "flota"
+          ],
+          "jugando": [
+            "juega"
+          ]
+        },
+        "next_node": "caballo"
+      },
+      "pato_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿El pato está nadando, o está manejando?",
+        "expected_semantic_intents": [
+          "nadando",
+          "manejando"
+        ],
+        "correct_intents": [
+          "nadando"
+        ],
+        "image": "images/animals/pato.png",
+        "photo": "images/photos/duck.jpg",
+        "emoji": "🦆",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "pond",
+        "motion": "swim",
+        "intent_synonyms": {
+          "nadando": [
+            "nada",
+            "nadar"
+          ]
+        }
+      },
+      "caballo": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Puedes montar en este animal. ¿Qué animal es?",
+        "expected_semantic_intents": [
+          "caballo",
+          "caballito",
+          "poni",
+          "vaca",
+          "perro",
+          "burro"
+        ],
+        "fallback_node": "caballo_choice",
+        "image": "images/animals/caballo.png",
+        "photo": "images/photos/horse.jpg",
+        "emoji": "🐎",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "farmyard",
+        "motion": "trot",
+        "correct_intents": [
+          "caballo",
+          "caballito",
+          "poni"
+        ],
+        "next_node": "pollito"
+      },
+      "caballo_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿Es una vaca, o un caballo?",
+        "expected_semantic_intents": [
+          "caballo",
+          "vaca"
+        ],
+        "correct_intents": [
+          "caballo"
+        ],
+        "image": "images/animals/caballo.png",
+        "photo": "images/photos/horse.jpg",
+        "emoji": "🐎",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "farmyard",
+        "motion": "trot",
+        "intent_synonyms": {
+          "caballo": [
+            "caballito",
+            "poni"
+          ]
+        }
+      },
+      "pollito": {
+        "prompt_type": "open_ended_conversational",
+        "tts_template": "Este pajarito amarillo dice pío pío. ¿Qué es?",
+        "expected_semantic_intents": [
+          "pollito",
+          "pollo",
+          "pollita",
+          "gallina",
+          "pajarito",
+          "pájaro",
+          "pato",
+          "perro"
+        ],
+        "fallback_node": "pollito_choice",
+        "image": "images/animals/pollito.png",
+        "emoji": "🐥",
+        "praise_template": "¡Sí! ¡{intent}! ¡Muy bien!",
+        "scene": "barnyard",
+        "motion": "run",
+        "correct_intents": [
+          "pollito",
+          "pollo",
+          "pollita",
+          "gallina",
+          "pajarito",
+          "pájaro"
+        ]
+      },
+      "pollito_choice": {
+        "prompt_type": "forced_choice_scaffold",
+        "tts_template": "¿Es un pollito, o un perro?",
+        "expected_semantic_intents": [
+          "pollito",
+          "perro"
+        ],
+        "correct_intents": [
+          "pollito"
+        ],
+        "image": "images/animals/pollito.png",
+        "emoji": "🐥",
+        "praise_template": "¡Sí, {intent}! ¡Lo lograste!",
+        "scene": "barnyard",
+        "motion": "run",
+        "intent_synonyms": {
+          "pollito": [
+            "pollo",
+            "pollita"
+          ]
+        }
+      }
+    }
+  }
+}
