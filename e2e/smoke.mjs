@@ -50,23 +50,27 @@ async function run(name, initScript, answer) {
 // Tap mode: no SpeechRecognition available.
 await run('tap', () => { delete window.webkitSpeechRecognition; delete window.SpeechRecognition; }, async (page) => {
   await page.click('text=▶ Start');
-  // first answer wrong (open-ended → scaffold), then correct choices
-  const script = ['banana', 'drinking', 'roar', 'leaves', 'zebra'];
-  for (const a of script) {
-    await page.waitForSelector('.typebox input');
-    await page.waitForFunction(() => document.querySelector('.status')?.textContent?.includes('Tap or type'));
-    await page.fill('.typebox input', a);
+  // Pictures come in a random mix, so read the right answer from the picture's label.
+  // The first turn is answered wrong on purpose (open question -> either/or question).
+  let first = true;
+  while (!(await page.$('.done'))) {
+    const ready = await page.waitForFunction(() => document.querySelector('.done') || document.querySelector('.status')?.textContent?.includes('Tap or type'), null, { timeout: 20000 });
+    if (await page.$('.done')) break;
+    const answer = first ? 'banana' : await page.$eval('.scene .actor .e', (e) => e.getAttribute('aria-label'));
+    first = false;
+    await page.fill('.typebox input', answer);
     await page.click('.typebox button');
+    await page.waitForTimeout(150);
   }
 });
 
 // Voice mode: fake recognizer that "hears" scripted answers.
 await run('voice', () => {
-  const answers = ['', 'the elephant is drinking water', 'rawr', 'leafs', 'a zebra'];
+  // First turn silent; after that "say" the picture's right answer.
   let i = 0;
   class FakeRec {
     start() {
-      const text = answers[i++] ?? '';
+      const text = i++ === 0 ? '' : 'it is ' + (document.querySelector('.scene .actor .e')?.getAttribute('aria-label') ?? '');
       setTimeout(() => {
         if (!text) return; // silence → wait-time timeout
         this.onspeechstart?.();
