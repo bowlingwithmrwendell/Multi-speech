@@ -126,6 +126,13 @@ th { color: var(--muted); font-weight: 700; font-size: .78rem; text-transform: u
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
 /* ---------- Animated habitat scenes (src/ui/scene.ts) ---------- */
+.scene-wrap { width: 100%; height: 100%; }
+.photo-scene { cursor: pointer; }
+.photo-scene .photo { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 60%; animation: ken-burns 18s ease-in-out infinite alternate; }
+.photo-scene.boing .photo { animation: ken-burns 18s ease-in-out infinite alternate, photo-boing .5s ease-out; }
+@keyframes photo-boing { 40% { scale: 1.05; } 100% { scale: 1; } }
+@keyframes ken-burns { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.12) translate(-2%, -1%); } }
+@media (prefers-reduced-motion: reduce) { .photo-scene .photo { animation: none; } }
 .scene { position: relative; width: 100%; height: 100%; overflow: hidden; container-type: inline-size; }
 .scene .prop { position: absolute; translate: -50% 0; font-size: calc(var(--s) * 1cqw); line-height: 1; user-select: none; pointer-events: none; }
 .scene .prop.flip { scale: -1 1; }

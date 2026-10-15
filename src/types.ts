@@ -63,6 +63,12 @@ export interface PromptNode {
    * recognised wrong answer (e.g. "fish" in "Is it a zebra, or a fish?"). Omit = all are right.
    */
   correct_intents?: string[];
+  /**
+   * Full photo (background included) shown instead of the drawn scene, with a slow zoom.
+   * Ignored when the prompt has companions, since those compare two pictures side by side.
+   * If the photo fails to load, the drawn scene is used.
+   */
+  photo?: string;
   /** Habitat / setting drawn behind the picture (see src/ui/scene.ts). */
   scene?: string;
   /** How the picture moves in the scene (see src/ui/scene.ts). */
