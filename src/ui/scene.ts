@@ -525,8 +525,34 @@ const DEFAULT_SCENE: Scene = {
 export const SCENE_NAMES = Object.keys(SCENES);
 export const MOTIONS = ['walk', 'prowl', 'trot', 'graze', 'run', 'sway', 'hammer', 'snip', 'paint', 'dig', 'steam', 'scrub', 'breathe', 'drive', 'drive_slow', 'race', 'fly', 'swim', 'hover', 'launch', 'float', 'flash', 'twist', 'sail'];
 
-/** Build the animated scene for a prompt node. */
+/**
+ * Build the picture for a prompt node: the full photo when there is one (and the prompt
+ * doesn't compare two pictures), otherwise the animated drawn scene. The drawn scene shows
+ * first and is swapped for the photo once it has loaded, so a missing photo is harmless.
+ */
 export function renderScene(node: PromptNode, alt: string): HTMLElement {
+  const drawn = renderDrawnScene(node, alt);
+  if (!node.photo || node.companions?.length) return drawn;
+  const wrap = h('div', { class: 'scene-wrap' }, drawn);
+  const img = new Image();
+  img.alt = alt;
+  img.className = 'photo';
+  img.onload = () => {
+    const photo = h('div', { class: 'scene photo-scene' }, img);
+    // Tap the photo and it gives a little bounce, like the drawn pictures.
+    photo.addEventListener('click', () => {
+      photo.classList.remove('boing');
+      void photo.offsetWidth;
+      photo.classList.add('boing');
+    });
+    wrap.replaceChildren(photo);
+  };
+  img.src = node.photo;
+  return wrap;
+}
+
+/** Build the animated drawn scene for a prompt node. */
+function renderDrawnScene(node: PromptNode, alt: string): HTMLElement {
   const sc = (node.scene && SCENES[node.scene]) || DEFAULT_SCENE;
   const motion = node.motion && MOTIONS.includes(node.motion) ? node.motion : 'idle';
 
