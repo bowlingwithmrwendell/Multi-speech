@@ -8,6 +8,7 @@ import { h, fmtTier } from './dom';
 import { renderScene } from './scene';
 import { pickRound } from '../engine/rounds';
 import type { App } from './app';
+import { micMustBeExclusive } from '../audio/meter';
 
 type Mode = 'voice' | 'tap';
 
@@ -47,6 +48,8 @@ export class PlayScreen {
       cdi: app.cdi,
       onProfile: (p) => app.saveProfile(p),
       onAttempt: (r) => app.logAttempt(r),
+      onHeard: () => this.pulseMic(),
+      onAsrError: (err) => this.handleAsrError(err),
     }, pickRound(module, app.loadAttempts(profile.profile_id)));
     this.totalStars = this.session.dialog.itemIds.length;
     this.render();
@@ -119,6 +122,8 @@ export class PlayScreen {
       this.setStatus('Getting the microphone ready…');
       const ok = await this.app.meter.init();
       if (ok) await this.app.meter.calibrate();
+      // Tablets/phones: release our mic stream so the speech recognizer gets the mic alone.
+      if (ok && micMustBeExclusive()) this.app.meter.dispose();
       this.app.meter.onLevel = (db) => {
         const lvl = Math.min(1.35, Math.max(1, 1 + (db + 50) / 80));
         this.micBtn.style.setProperty('--lvl', String(lvl));
@@ -270,6 +275,27 @@ export class PlayScreen {
       );
     }
     this.parentStats.replaceChildren(...rows.flatMap(([k, v]) => [h('dt', {}, k), h('dd', {}, v)]));
+  }
+
+  private pulseTimer: number | undefined;
+  /** Bump the mic animation when the recognizer hears the child (used when no level meter). */
+  private pulseMic(): void {
+    this.micBtn.style.setProperty('--lvl', '1.3');
+    clearTimeout(this.pulseTimer);
+    this.pulseTimer = window.setTimeout(() => this.micBtn.style.setProperty('--lvl', '1'), 250);
+  }
+
+  private handleAsrError(err: string): void {
+    const messages: Record<string, string> = {
+      'not-allowed': 'The microphone is blocked. Allow it in the browser settings, then reload. Switching to tap answers for now.',
+      'service-not-allowed': 'This browser won’t allow voice answers. Switching to tap answers.',
+      'audio-capture': 'Another app may be using the microphone. Close it and try again.',
+      network: 'Voice answers need an internet connection. Check the Wi-Fi and try again.',
+      'language-not-supported': 'This browser can’t listen in this language. Switching to tap answers.',
+    };
+    console.warn('[MultiPlay] speech recognition error:', err);
+    this.setStatus('⚠️ ' + (messages[err] ?? `Voice problem (${err}). Try again.`));
+    if (err === 'not-allowed' || err === 'service-not-allowed' || err === 'language-not-supported') this.mode = 'tap';
   }
 
   private setStatus(t: string): void {
