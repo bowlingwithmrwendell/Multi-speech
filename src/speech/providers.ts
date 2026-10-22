@@ -9,13 +9,15 @@ export interface RecognitionResult {
   /** ms since listen() was called; null if unknown */
   speechStartMs: number | null;
   speechEndMs: number | null;
+  /** Browser error that stopped listening (e.g. "not-allowed", "network", "audio-capture"). */
+  error?: string;
 }
 
 export interface ASRProvider {
   readonly name: string;
   readonly available: boolean;
   /** Listen for one utterance. Resolves with an empty transcript on timeout/silence. */
-  listen(opts: { locale: string; noSpeechTimeoutMs: number; maxUtteranceMs: number; signal?: AbortSignal }): Promise<RecognitionResult>;
+  listen(opts: { locale: string; noSpeechTimeoutMs: number; maxUtteranceMs: number; signal?: AbortSignal; onHeard?: () => void }): Promise<RecognitionResult>;
 }
 
 export interface TTSProvider {
@@ -42,7 +44,7 @@ export class BrowserASR implements ASRProvider {
     return typeof window !== 'undefined' && recognitionCtor() !== null;
   }
 
-  listen({ locale, noSpeechTimeoutMs, maxUtteranceMs, signal }: Parameters<ASRProvider['listen']>[0]): Promise<RecognitionResult> {
+  listen({ locale, noSpeechTimeoutMs, maxUtteranceMs, signal, onHeard }: Parameters<ASRProvider['listen']>[0]): Promise<RecognitionResult> {
     const Ctor = recognitionCtor();
     if (!Ctor) return Promise.resolve({ transcript: '', confidence: null, speechStartMs: null, speechEndMs: null });
     return new Promise((resolve) => {
@@ -58,6 +60,7 @@ export class BrowserASR implements ASRProvider {
       let interim = '';
       let confidence: number | null = null;
       let settled = false;
+      let error: string | undefined;
 
       const finish = () => {
         if (settled) return;
@@ -75,6 +78,7 @@ export class BrowserASR implements ASRProvider {
           confidence,
           speechStartMs: speechStart,
           speechEndMs: speechEnd ?? (speechStart != null ? performance.now() - t0 : null),
+          error,
         });
       };
 
@@ -94,6 +98,7 @@ export class BrowserASR implements ASRProvider {
 
       rec.onspeechstart = () => {
         if (speechStart == null) speechStart = performance.now() - t0;
+        onHeard?.();
       };
       rec.onspeechend = () => {
         speechEnd = performance.now() - t0;
@@ -108,11 +113,15 @@ export class BrowserASR implements ASRProvider {
             confidence = typeof r[0].confidence === 'number' ? r[0].confidence : null;
           } else interim += r[0].transcript;
         }
+        onHeard?.();
         armPause();
       };
       rec.onerror = (e: any) => {
         // "no-speech"/"aborted" are normal on phones; onend decides. Anything else ends the turn.
-        if (e?.error && e.error !== 'no-speech' && e.error !== 'aborted') finish();
+        if (e?.error && e.error !== 'no-speech' && e.error !== 'aborted') {
+          error = e.error;
+          finish();
+        }
       };
       rec.onend = () => {
         if (settled) return;
@@ -129,12 +138,17 @@ export class BrowserASR implements ASRProvider {
             finalText += ' ' + interim; // keep partial words across the restart
             interim = '';
           }
-          try {
-            rec.start();
-            return;
-          } catch {
-            /* fall through */
-          }
+          // Restarting inside onend often throws on Android ("already started"),
+          // which used to end the turn. Give the recognizer a moment to reset first.
+          setTimeout(() => {
+            if (settled) return;
+            try {
+              rec.start();
+            } catch {
+              finish();
+            }
+          }, 200);
+          return;
         }
         finish();
       };
