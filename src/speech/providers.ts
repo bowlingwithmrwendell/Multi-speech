@@ -1,4 +1,4 @@
-import { END_OF_TURN_PAUSE_MS } from '../engine/vad';
+import { END_OF_TURN_PAUSE_MS, NARRATOR_RATE } from '../engine/vad';
 // Speech & Language Services (spec §1.1, §4). Provider interfaces let the MVP's
 // browser speech be swapped for production services (Conformer/XLSR ASR, neural TTS)
 // without touching the engines or UI.
@@ -79,8 +79,9 @@ export class BrowserASR implements ASRProvider {
       };
 
       // Pediatric wait-time (spec §5): give up if the child hasn't started speaking.
+      const heardWords = () => !!(finalText.trim() || interim.trim());
       const noSpeechTimer = setTimeout(() => {
-        if (speechStart == null && !interim) finish();
+        if (!heardWords()) finish();
       }, noSpeechTimeoutMs);
       const maxTimer = setTimeout(finish, maxUtteranceMs);
       // After the child starts talking, end the turn only after a real pause.
@@ -115,9 +116,19 @@ export class BrowserASR implements ASRProvider {
       };
       rec.onend = () => {
         if (settled) return;
-        // Android Chrome can stop listening early. If the child hasn't spoken yet and their
-        // wait time isn't over, start listening again instead of giving up.
-        if (speechStart == null && !interim && !finalText && performance.now() - t0 < noSpeechTimeoutMs - 250) {
+        // Android Chrome stops listening after ~1 s of quiet even with continuous = true.
+        // Keep listening until OUR timers decide the turn is over:
+        //  - no words yet and the wait window isn't up → keep waiting for the child;
+        //  - words heard → the end-of-turn pause timer ends the turn, so a short
+        //    mid-answer pause doesn't cut the child off.
+        const elapsed = performance.now() - t0;
+        const waiting = !heardWords() && elapsed < noSpeechTimeoutMs - 250;
+        const midAnswer = heardWords() && elapsed < maxUtteranceMs - 250;
+        if (waiting || midAnswer) {
+          if (midAnswer && interim) {
+            finalText += ' ' + interim; // keep partial words across the restart
+            interim = '';
+          }
           try {
             rec.start();
             return;
@@ -153,7 +164,7 @@ export class BrowserTTS implements TTSProvider {
     );
   }
 
-  speak(text: string, { locale, rate = 0.9, pitch = 1.1 }: { locale: string; rate?: number; pitch?: number }): Promise<void> {
+  speak(text: string, { locale, rate = NARRATOR_RATE, pitch = 1.1 }: { locale: string; rate?: number; pitch?: number }): Promise<void> {
     if (!this.available || !text) return Promise.resolve();
     return new Promise((resolve) => {
       const u = new SpeechSynthesisUtterance(text);
@@ -163,7 +174,8 @@ export class BrowserTTS implements TTSProvider {
       const v = this.pickVoice(locale);
       if (v) u.voice = v;
       // Safety timeout: some browsers never fire onend.
-      const guard = setTimeout(resolve, 1500 + text.length * 90);
+      // Scale with speed so a slower narrator isn't cut off and the mic doesn't open mid-sentence.
+      const guard = setTimeout(resolve, (2000 + text.length * 90) / Math.min(rate, 1));
       u.onend = u.onerror = () => {
         clearTimeout(guard);
         resolve();
