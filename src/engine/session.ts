@@ -25,6 +25,10 @@ export interface SessionDeps {
   cdi: (lemma: string) => string;
   onProfile: (p: ChildProfile) => void;
   onAttempt: (r: AttemptRecord) => void;
+  /** Called whenever the recognizer hears speech (drives the mic animation on tablets). */
+  onHeard?: () => void;
+  /** Called when the browser's recognizer reports an error that stopped listening. */
+  onAsrError?: (error: string) => void;
 }
 
 export interface TurnOutcome {
@@ -91,9 +95,11 @@ export class ConversationSession {
       noSpeechTimeoutMs: this.waitWindowMs,
       maxUtteranceMs: 15000,
       signal: this.abort.signal,
+      onHeard: this.deps.onHeard,
     });
     const report = meter?.stop() ?? null;
     if (this.discardListen) return null;
+    if (res.error) this.deps.onAsrError?.(res.error);
     const latency = report?.speechStartMs ?? res.speechStartMs;
     const start = report?.speechStartMs ?? res.speechStartMs;
     const end = report?.speechEndMs ?? res.speechEndMs;
