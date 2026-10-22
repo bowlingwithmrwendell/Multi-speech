@@ -6,7 +6,7 @@ import { DialogStateManager, type DialogTurnResult } from './dialog';
 import { attemptScore } from './adaptive';
 import { evaluateFluency } from './fluency';
 import { findLexicalHits } from './intent';
-import { vadWaitTimeMs } from './vad';
+import { MIC_OPEN_DELAY_MS, vadWaitTimeMs } from './vad';
 import { applyAttempt } from '../profile/profiles';
 import type { ASRProvider, TTSProvider } from '../speech/providers';
 import type { MeterReport } from '../audio/meter';
@@ -82,6 +82,8 @@ export class ConversationSession {
     if (!this.dialog.node) return null;
     this.abort = new AbortController();
     this.discardListen = false;
+    await new Promise((r) => setTimeout(r, MIC_OPEN_DELAY_MS));
+    if (this.discardListen) return null;
     const meter = this.deps.meter?.ready ? this.deps.meter : null;
     meter?.start();
     const res = await this.deps.asr.listen({

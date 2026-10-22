@@ -4,8 +4,14 @@
 
 export const VAD_MIN_MS = 4000;
 export const VAD_MAX_MS = 8000;
-/** Once the child has started talking, how long a pause we allow before the turn ends. */
-export const END_OF_TURN_PAUSE_MS = 2000;
+/** Once the child has started talking, how long a pause we allow before the turn ends.
+ *  Raised from 2 s to 3.5 s: kids often pause mid-answer ("a... cow"). */
+export const END_OF_TURN_PAUSE_MS = 3500;
+/** Short beat after the narrator finishes before the mic opens, so the tail of the
+ *  narrator's voice isn't heard as the child's answer. */
+export const MIC_OPEN_DELAY_MS = 400;
+/** Narrator speaking speed (1 = browser normal). Slowed from 0.9 for young listeners. */
+export const NARRATOR_RATE = 0.75;
 
 /**
  * Younger children and less fluent speakers get more time.
