@@ -14,6 +14,19 @@ export interface MeterReport {
 
 const FRAME_MS = 30;
 
+/**
+ * Phones and tablets can't reliably share the microphone: while our level meter holds
+ * an open mic stream, Chrome's speech recognizer often gets silence, so the child's
+ * answer isn't heard even though the mic indicator moves. On these devices we only use
+ * the meter to ask for permission, then hand the mic to the recognizer alone.
+ */
+export function micMustBeExclusive(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  const iPadOS = /Macintosh/.test(ua) && (navigator.maxTouchPoints ?? 0) > 1;
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(ua) || iPadOS;
+}
+
 export class MicMeter {
   private ctx: AudioContext | null = null;
   private stream: MediaStream | null = null;
