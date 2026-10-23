@@ -70,6 +70,19 @@ function profilePanel(app: App, p: ChildProfile): HTMLElement {
     stat('Speech rate', p.baseline_mora_rate ? `${p.baseline_mora_rate.toFixed(1)}` : '—', 'syllables per second (baseline)'),
     stat('Response time', s.avgLatencyMs != null ? `${(s.avgLatencyMs / 1000).toFixed(1)} s` : '—', `wait window ${(vadWaitTimeMs(p.chronological_age, p.fluency_score_index) / 1000).toFixed(1)} s`),
     stat('Voice loudness', s.avgDbfs != null ? `${s.avgDbfs.toFixed(0)} dBFS` : '—', 'average while speaking'),
+    h(
+      'div',
+      { class: 'card wide' },
+      h('h3', {}, '⭐ How stars work'),
+      h('p', {}, 'Each picture in a round is worth one star. Your child earns the star by answering correctly, either:'),
+      h(
+        'ul',
+        {},
+        h('li', {}, h('b', {}, 'On their own'), ' — naming it from the open question (“What is this animal?”), or'),
+        h('li', {}, h('b', {}, 'With help'), ' — picking it from two choices (“Is it a cow or a duck?”).'),
+      ),
+      h('p', { class: 'meta' }, 'New players start at Level 1, where every picture begins with the two choices. From Level 2 up, pictures start with the open question, and the two choices come only if your child needs help. The end-of-round screen shows how many were on their own and how many were with help.'),
+    ),
     h('div', { class: 'card wide' }, h('h3', {}, 'Progress over time'), s.scoreHistory.length > 1 ? sparkline(s.scoreHistory) : h('p', { class: 'meta' }, 'Play a few rounds to see the progress line.')),
     h(
       'div',
